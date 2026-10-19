@@ -45,6 +45,16 @@ node tools/check-data.mjs
 
 It reports missing fields, badly formatted dates, unknown time zones, and dates whose year doesn't match the cycle.
 
+## Rebuild the grant and state pages
+
+Every grant has its own page (`grants/<id>/`) and every state has one (`states/<state>/`), so people can find the site on Google. They're generated from `data/grants.js`. After any data change, rebuild them:
+
+```bash
+node tools/build-pages.mjs
+```
+
+This also rewrites `sitemap.xml`. Never edit files in `grants/` or `states/` by hand; they're replaced on every build.
+
 ## Publish
 
 ```bash
@@ -61,3 +71,4 @@ GitHub Pages updates the public site a minute or two after the push.
 - `private/research-inbox.md`: links and leads to look into later.
 - `private/update-log.md`: what each scheduled check found and changed.
 - `private/preview/`: the private preview build (`node tools/build-preview.mjs`), which also shows programs pending review.
+- `private/brand/`: full-size logo originals. The site uses the smaller copies in `assets/`.

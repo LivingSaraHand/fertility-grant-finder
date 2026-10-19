@@ -32,8 +32,9 @@
 window.FGF_DATA = {
   "meta": {
     "site_name": "Fertility Grant Finder",
+    "site_url": "https://livingsarahand.github.io/fertility-grant-finder/",
     "research_compiled": "2026-10-18",
-    "data_updated": "2026-10-18",
+    "data_updated": "2026-10-19",
     "display_timezone": "America/Chicago",
     "display_timezone_label": "Central Time",
     "suggestion_form_url": null,
@@ -162,6 +163,38 @@ window.FGF_DATA = {
       "research_notes": [
         "Grants are usually awarded twice a year, but the foundation says this may be more or less often depending on funds raised.",
         "A third-party directory lists this grant as \"up to $5,000\". The official page says $250 to $10,000."
+      ],
+      "requirements": {
+        "married": true,
+        "us_citizen": false,
+        "us_status": true,
+        "diagnosis": true,
+        "no_children": null,
+        "children_max": null,
+        "employment": null,
+        "health_insurance": null,
+        "attend_event": null,
+        "age_min": null,
+        "age_max": null,
+        "income_max": null,
+        "other": [
+          "One grant per couple."
+        ],
+        "checked_on": "2026-10-18"
+      },
+      "links": [
+        {
+          "label": "Website",
+          "url": "https://www.hopeforfertility.org/"
+        },
+        {
+          "label": "Grant details",
+          "url": "https://www.hopeforfertility.org/grant/"
+        },
+        {
+          "label": "Grant FAQ",
+          "url": "https://www.hopeforfertility.org/grant-faq/"
+        }
       ]
     },
     {
@@ -278,6 +311,41 @@ window.FGF_DATA = {
       "research_notes": [
         "Awards grants twice yearly.",
         "The official pages checked did not state an award range. A third-party directory lists $2,000 to $16,000 in money and medications."
+      ],
+      "requirements": {
+        "married": false,
+        "us_citizen": false,
+        "us_status": true,
+        "diagnosis": null,
+        "no_children": null,
+        "children_max": null,
+        "employment": true,
+        "health_insurance": true,
+        "attend_event": null,
+        "age_min": null,
+        "age_max": null,
+        "income_max": null,
+        "other": [
+          "Must need medical help to conceive.",
+          "Not already receiving help from other charities.",
+          "Adequate housing.",
+          "Two applications total."
+        ],
+        "checked_on": "2026-10-18"
+      },
+      "links": [
+        {
+          "label": "Website",
+          "url": "https://babyquestfoundation.org/"
+        },
+        {
+          "label": "How to apply and eligibility",
+          "url": "https://babyquestfoundation.org/applying-for-a-grant-2/"
+        },
+        {
+          "label": "Surrogacy grants",
+          "url": "https://babyquestfoundation.org/surrogacy/"
+        }
       ]
     },
     {
@@ -392,6 +460,36 @@ window.FGF_DATA = {
       "verification_status": "verified",
       "research_notes": [
         "The GIFTaway program began in 2020, according to the ministry's 2024 announcement."
+      ],
+      "requirements": {
+        "married": null,
+        "us_citizen": null,
+        "us_status": null,
+        "diagnosis": null,
+        "no_children": null,
+        "children_max": null,
+        "employment": null,
+        "health_insurance": null,
+        "attend_event": null,
+        "age_min": null,
+        "age_max": null,
+        "income_max": null,
+        "other": [],
+        "checked_on": "2026-10-18"
+      },
+      "links": [
+        {
+          "label": "Website",
+          "url": "https://waitingforbabybird.com/"
+        },
+        {
+          "label": "Announcements",
+          "url": "https://waitingforbabybird.com/category/ministry-updates-events/"
+        },
+        {
+          "label": "Events",
+          "url": "https://waitingforbabybird.com/events/"
+        }
       ]
     },
     {
@@ -491,7 +589,40 @@ window.FGF_DATA = {
       ],
       "last_verified_at": "2026-10-18",
       "verification_status": "verified",
-      "research_notes": []
+      "research_notes": [],
+      "requirements": {
+        "married": null,
+        "us_citizen": false,
+        "us_status": true,
+        "diagnosis": true,
+        "no_children": null,
+        "children_max": null,
+        "employment": null,
+        "health_insurance": null,
+        "attend_event": true,
+        "age_min": null,
+        "age_max": null,
+        "income_max": null,
+        "other": [
+          "Recipients are expected to attend the foundation's gala in Baltimore and share a family photo and video.",
+          "International adoption isn't covered."
+        ],
+        "checked_on": "2026-10-18"
+      },
+      "links": [
+        {
+          "label": "Website",
+          "url": "https://cadefoundation.org/"
+        },
+        {
+          "label": "Grant details",
+          "url": "https://cadefoundation.org/familygrant"
+        },
+        {
+          "label": "Application portal",
+          "url": "https://tininaqcadefoundation.submittable.com/submit"
+        }
+      ]
     },
     {
       "id": "gift-of-parenthood",
@@ -807,6 +938,43 @@ window.FGF_DATA = {
       "research_notes": [
         "The FAQ also says recipients are announced \"on or around the 1st of every quarter\", which conflicts with its own results-by dates. It directs applicants to their account dashboard for the official date.",
         "The timeline page appears to show each date one day earlier than the FAQ. This may be a display issue on their site, but it has not been confirmed."
+      ],
+      "requirements": {
+        "married": null,
+        "us_citizen": null,
+        "us_status": null,
+        "diagnosis": null,
+        "no_children": null,
+        "children_max": null,
+        "employment": true,
+        "health_insurance": false,
+        "attend_event": null,
+        "age_min": 18,
+        "age_max": null,
+        "income_max": null,
+        "other": [
+          "Documentation of your infertility journey and financial need.",
+          "Generally not for people already receiving significant help from other charities."
+        ],
+        "checked_on": "2026-10-18"
+      },
+      "links": [
+        {
+          "label": "Website",
+          "url": "https://giftofparenthood.org/"
+        },
+        {
+          "label": "Grant program",
+          "url": "https://grant.giftofparenthood.org/"
+        },
+        {
+          "label": "Grant timeline",
+          "url": "https://grant.giftofparenthood.org/timeline"
+        },
+        {
+          "label": "Grant FAQ",
+          "url": "https://grant.giftofparenthood.org/faqs"
+        }
       ]
     },
     {
@@ -937,6 +1105,35 @@ window.FGF_DATA = {
       "research_notes": [
         "The grant page doesn't list specific covered treatments. Earlier research described the focus as IVF.",
         "A third-party directory describes eligibility as North or South Carolina residents. The official page lists the partnering-clinic requirement instead."
+      ],
+      "requirements": {
+        "married": null,
+        "us_citizen": null,
+        "us_status": true,
+        "diagnosis": true,
+        "no_children": null,
+        "children_max": null,
+        "employment": null,
+        "health_insurance": null,
+        "attend_event": null,
+        "age_min": 18,
+        "age_max": null,
+        "income_max": null,
+        "other": [
+          "The page says \"legal permanent U.S. Citizens\"; check with the fund whether permanent residents qualify.",
+          "Diagnosis must come from a partnering clinic."
+        ],
+        "checked_on": "2026-10-18"
+      },
+      "links": [
+        {
+          "label": "Website",
+          "url": "https://bundleofjoyfund.org/"
+        },
+        {
+          "label": "Grant details",
+          "url": "https://bundleofjoyfund.org/grants/"
+        }
       ]
     },
     {
@@ -1060,7 +1257,10 @@ window.FGF_DATA = {
           "date_confidence": "not_announced",
           "open_verified_on": null,
           "status_note": "Offered periodically for people who can't attend an event. No window was listed on October 18, 2026.",
-          "source_url": "https://footstepsforfertility.org/grants/"
+          "source_url": "https://footstepsforfertility.org/grants/",
+          "requirements_override": {
+            "attend_event": false
+          }
         }
       ],
       "source_urls": [
@@ -1072,6 +1272,38 @@ window.FGF_DATA = {
       "verification_status": "verified",
       "research_notes": [
         "Different organization from Footprints of Angels."
+      ],
+      "requirements": {
+        "married": null,
+        "us_citizen": null,
+        "us_status": null,
+        "diagnosis": true,
+        "no_children": null,
+        "children_max": null,
+        "employment": null,
+        "health_insurance": null,
+        "attend_event": true,
+        "age_min": null,
+        "age_max": null,
+        "income_max": null,
+        "other": [
+          "Event grants require attending the event if selected. The National Application is for people who can't attend."
+        ],
+        "checked_on": "2026-10-18"
+      },
+      "links": [
+        {
+          "label": "Website",
+          "url": "https://footstepsforfertility.org/"
+        },
+        {
+          "label": "Grants and fees",
+          "url": "https://footstepsforfertility.org/grants/"
+        },
+        {
+          "label": "Events",
+          "url": "https://footstepsforfertility.org/services/"
+        }
       ]
     },
     {
@@ -1176,6 +1408,42 @@ window.FGF_DATA = {
       "verification_status": "verified",
       "research_notes": [
         "Separate IVF/FET and embryo adoption terms and conditions documents are linked from the grant process page. Check them for treatment start and expiration rules."
+      ],
+      "requirements": {
+        "married": null,
+        "us_citizen": true,
+        "us_status": true,
+        "diagnosis": true,
+        "no_children": null,
+        "children_max": null,
+        "employment": null,
+        "health_insurance": null,
+        "attend_event": null,
+        "age_min": null,
+        "age_max": null,
+        "income_max": null,
+        "other": [
+          "The application asks for proof of income and a letter from your insurer."
+        ],
+        "checked_on": "2026-10-18"
+      },
+      "links": [
+        {
+          "label": "Website",
+          "url": "https://parentalhope.org/"
+        },
+        {
+          "label": "Grant details",
+          "url": "https://parentalhope.org/parental-hope-family-grant-2/"
+        },
+        {
+          "label": "Grant process",
+          "url": "https://parentalhope.org/parental-hope-family-grant-2/grant-process/"
+        },
+        {
+          "label": "Grant FAQ",
+          "url": "https://parentalhope.org/parental-hope-family-grant-2/faqs/"
+        }
       ]
     },
     {
@@ -1301,6 +1569,39 @@ window.FGF_DATA = {
         "JUF Path to Parenthood is offered in April and December. It was marked closed on October 18, 2026.",
         "Named 2026 grants include the Jen \"Bibbs\" Bibbiano Memorial Grant, the Lillian C. Millman Grant, and the Willow Grant (closed).",
         "The Kevin J. Lederer Memorial Grant is a donated IVF cycle for an existing Fertility Centers of Illinois patient."
+      ],
+      "requirements": {
+        "married": null,
+        "us_citizen": null,
+        "us_status": null,
+        "diagnosis": null,
+        "no_children": null,
+        "children_max": 1,
+        "employment": null,
+        "health_insurance": null,
+        "attend_event": null,
+        "age_min": null,
+        "age_max": null,
+        "income_max": null,
+        "other": [
+          "For IUI, IVF, or a gestational carrier with your own eggs: 41 or younger by January 1 of the following year, plus BMI and hormone limits.",
+          "Illinois treatment providers (some grants also allow Wisconsin or Indiana residents)."
+        ],
+        "checked_on": "2026-10-18"
+      },
+      "links": [
+        {
+          "label": "Website",
+          "url": "https://coalitionforfamilybuilding.org/"
+        },
+        {
+          "label": "Grants",
+          "url": "https://coalitionforfamilybuilding.org/grants/"
+        },
+        {
+          "label": "Grant interest form",
+          "url": "https://coalitionforfamilybuilding.org/interest-form/"
+        }
       ]
     },
     {
@@ -1392,6 +1693,37 @@ window.FGF_DATA = {
       "verification_status": "verified",
       "research_notes": [
         "Coverage wording varies across the page: one section lists IVF only, another adds egg or embryo donation and surrogacy."
+      ],
+      "requirements": {
+        "married": null,
+        "us_citizen": null,
+        "us_status": true,
+        "diagnosis": "some",
+        "no_children": true,
+        "children_max": null,
+        "employment": null,
+        "health_insurance": null,
+        "attend_event": null,
+        "age_min": 25,
+        "age_max": 44,
+        "income_max": 200000,
+        "other": [
+          "Citizenship wording differs on the page (U.S. citizens for 4+ years vs. permanent legal residents). Confirm with the foundation.",
+          "Income limit: under $125,000 single, $200,000 partnered.",
+          "Diagnosis not required for single applicants and same-sex couples.",
+          "Clinical criteria apply (AMH, FSH, BMI, non-smoking)."
+        ],
+        "checked_on": "2026-10-18"
+      },
+      "links": [
+        {
+          "label": "Website",
+          "url": "https://www.nesteggfoundation.org/"
+        },
+        {
+          "label": "Eligibility and how to apply",
+          "url": "https://www.nesteggfoundation.org/apply/"
+        }
       ]
     },
     {
@@ -1452,6 +1784,34 @@ window.FGF_DATA = {
       "verification_status": "partially_verified",
       "research_notes": [
         "The page footer reads © 2019, so some details may be out of date."
+      ],
+      "requirements": {
+        "married": null,
+        "us_citizen": null,
+        "us_status": null,
+        "diagnosis": null,
+        "no_children": null,
+        "children_max": null,
+        "employment": null,
+        "health_insurance": null,
+        "attend_event": null,
+        "age_min": null,
+        "age_max": null,
+        "income_max": null,
+        "other": [
+          "Full qualifications are in the application."
+        ],
+        "checked_on": "2026-10-18"
+      },
+      "links": [
+        {
+          "label": "Website",
+          "url": "https://www.raisingeverlastinghope.org/"
+        },
+        {
+          "label": "Grant program",
+          "url": "https://www.raisingeverlastinghope.org/grant-program"
+        }
       ]
     },
     {
@@ -1543,6 +1903,41 @@ window.FGF_DATA = {
       "verification_status": "verified",
       "research_notes": [
         "The official application address redirects to journeytoparenthooddotorg.wpcomstaging.com. The 2026 dates were read there."
+      ],
+      "requirements": {
+        "married": null,
+        "us_citizen": true,
+        "us_status": true,
+        "diagnosis": null,
+        "no_children": false,
+        "children_max": null,
+        "employment": null,
+        "health_insurance": null,
+        "attend_event": null,
+        "age_min": null,
+        "age_max": null,
+        "income_max": null,
+        "other": [
+          "You or your partner must be a U.S. citizen living in the U.S.",
+          "Treatment by a reproductive endocrinologist in the U.S.",
+          "Must show significant financial obstacles; no set income limit.",
+          "Families with children may apply; family size is considered."
+        ],
+        "checked_on": "2026-10-18"
+      },
+      "links": [
+        {
+          "label": "Website",
+          "url": "https://journeytoparenthood.org/"
+        },
+        {
+          "label": "Application",
+          "url": "https://journeytoparenthood.org/application-html/"
+        },
+        {
+          "label": "FAQ",
+          "url": "https://journeytoparenthood.org/faq/"
+        }
       ]
     },
     {
@@ -1606,6 +2001,30 @@ window.FGF_DATA = {
       "research_notes": [
         "Different organization from Footsteps for Fertility Foundation.",
         "Recipients listed for 2020 and 2021 only."
+      ],
+      "requirements": {
+        "married": null,
+        "us_citizen": null,
+        "us_status": null,
+        "diagnosis": null,
+        "no_children": null,
+        "children_max": null,
+        "employment": null,
+        "health_insurance": null,
+        "attend_event": null,
+        "age_min": null,
+        "age_max": null,
+        "income_max": null,
+        "other": [
+          "For women affected by infertility and recurrent miscarriage. Contact the organization for the application."
+        ],
+        "checked_on": "2026-10-18"
+      },
+      "links": [
+        {
+          "label": "Website",
+          "url": "https://www.footprintsofangels.org/"
+        }
       ]
     },
     {
@@ -1661,6 +2080,28 @@ window.FGF_DATA = {
       "verification_status": "unverified",
       "research_notes": [
         "Website could not be reached on October 18, 2026 (the address did not resolve). Shown as needing verification, not as open or closed."
+      ],
+      "requirements": {
+        "married": null,
+        "us_citizen": null,
+        "us_status": null,
+        "diagnosis": null,
+        "no_children": null,
+        "children_max": null,
+        "employment": null,
+        "health_insurance": null,
+        "attend_event": null,
+        "age_min": null,
+        "age_max": null,
+        "income_max": null,
+        "other": [],
+        "checked_on": "2026-10-18"
+      },
+      "links": [
+        {
+          "label": "LinkedIn profile (website not loading)",
+          "url": "https://www.linkedin.com/company/the-international-fertility-foundation"
+        }
       ]
     },
     {
@@ -1754,6 +2195,36 @@ window.FGF_DATA = {
       "verification_status": "verified",
       "research_notes": [
         "Amounts are in British pounds (GBP). Keep separate from U.S. programs."
+      ],
+      "requirements": {
+        "married": null,
+        "us_citizen": null,
+        "us_status": null,
+        "diagnosis": null,
+        "no_children": null,
+        "children_max": null,
+        "employment": true,
+        "health_insurance": null,
+        "attend_event": null,
+        "age_min": null,
+        "age_max": 42,
+        "income_max": null,
+        "other": [
+          "British citizens living full time in the UK.",
+          "Couples must live together.",
+          "No criminal record."
+        ],
+        "checked_on": "2026-10-18"
+      },
+      "links": [
+        {
+          "label": "Website",
+          "url": "https://www.fertilityfoundation.org/"
+        },
+        {
+          "label": "IVF grants",
+          "url": "https://fertilityfoundation.org/ivf-grants/"
+        }
       ]
     },
     {
@@ -1815,7 +2286,35 @@ window.FGF_DATA = {
       ],
       "last_verified_at": "2026-10-18",
       "verification_status": "verified",
-      "research_notes": []
+      "research_notes": [],
+      "requirements": {
+        "married": null,
+        "us_citizen": false,
+        "us_status": true,
+        "diagnosis": null,
+        "no_children": null,
+        "children_max": null,
+        "employment": null,
+        "health_insurance": null,
+        "attend_event": null,
+        "age_min": null,
+        "age_max": null,
+        "income_max": null,
+        "other": [
+          "The 2026 Leighton Grant is open to all U.S. residents."
+        ],
+        "checked_on": "2026-10-18"
+      },
+      "links": [
+        {
+          "label": "Website",
+          "url": "https://www.starfishinfertilityfoundation.org/"
+        },
+        {
+          "label": "Available grants",
+          "url": "https://www.starfishinfertilityfoundation.org/available-grants"
+        }
+      ]
     },
     {
       "id": "conceive-fertility-foundation",
@@ -1878,6 +2377,825 @@ window.FGF_DATA = {
       "verification_status": "verified",
       "research_notes": [
         "The foundation is the nonprofit arm of Caden Lane, a baby products brand. The program also ran in spring 2026."
+      ],
+      "requirements": {
+        "married": null,
+        "us_citizen": null,
+        "us_status": null,
+        "diagnosis": true,
+        "no_children": null,
+        "children_max": null,
+        "employment": null,
+        "health_insurance": null,
+        "attend_event": null,
+        "age_min": 25,
+        "age_max": 42,
+        "income_max": 150000,
+        "other": [
+          "Income limit: $100,000 for individuals, $150,000 for married couples (2024 Form 1040).",
+          "Diagnosis from an OB/GYN or fertility specialist."
+        ],
+        "checked_on": "2026-10-18"
+      },
+      "links": [
+        {
+          "label": "Grant page",
+          "url": "https://cadenlane.com/pages/conceive-fertility-foundation-applications"
+        },
+        {
+          "label": "Apply and FAQ",
+          "url": "https://yourivfgrant.com/"
+        }
+      ]
+    },
+    {
+      "id": "stork-foundation",
+      "name": "The Stork Foundation for Infertility",
+      "program_name": "Fertility Grant",
+      "official_url": "https://storkfoundation.org/",
+      "application_url": "https://storkfoundation.org/",
+      "program_type": "Grant",
+      "geography": {
+        "type": "us_national",
+        "states": [],
+        "text": "Both partners must be legal U.S. residents."
+      },
+      "clinic_required": null,
+      "clinic_restrictions": null,
+      "treatments_covered": [
+        "IVF",
+        "IUI",
+        "Medications"
+      ],
+      "award_min": null,
+      "award_max": 15000,
+      "currency": "USD",
+      "award_text": "Up to $15,000 (lifetime maximum per individual or couple). Recipients pay costs above that.",
+      "application_fee": 0,
+      "fee_text": "No application fee.",
+      "eligibility_notes": [
+        "Over 18. Household income $150,000 or less.",
+        "Both partners must be legal U.S. residents.",
+        "Formal infertility diagnosis, except same-sex couples, single applicants, or people recently diagnosed with cancer.",
+        "Open regardless of gender, marital status, or sexual orientation."
+      ],
+      "coverage_notes": [
+        "Treatment must begin within 6 months of the grant, and funds must be used within 1 year of starting treatment."
+      ],
+      "cycles": [
+        {
+          "id": "stork-2026",
+          "cycle_label": "2026 grant",
+          "cycle_year": 2026,
+          "kind": "dated",
+          "application_opens_at": {
+            "date": "2026-08-01",
+            "confidence": "needs_confirmation",
+            "note": "From the foundation's July 2026 press release, not the official site."
+          },
+          "start_application_deadline_at": null,
+          "submission_deadline_at": {
+            "date": "2026-09-30",
+            "time": "23:59",
+            "tz": "America/New_York",
+            "tz_label": "EST (as written)",
+            "confidence": "needs_confirmation",
+            "note": "The official homepage says \"close on September 30th\" without a year. The press release says September 30, 2026 at 11:59 p.m."
+          },
+          "deadline_basis": "submitted",
+          "notification_date": null,
+          "notification_window_text": "FAQ: applications reviewed in October; applicants get an email update by mid-November.",
+          "funds_available_date": null,
+          "funds_available_text": null,
+          "treatment_start_rule": "Begin treatment within 6 months of receiving the grant.",
+          "expiration_rule": "Use funds within 1 year of the treatment start date.",
+          "date_confidence": "needs_confirmation",
+          "open_verified_on": null,
+          "status_note": null,
+          "source_url": "https://storkfoundation.org/"
+        },
+        {
+          "id": "stork-2027",
+          "cycle_label": "2027 grant",
+          "cycle_year": 2027,
+          "kind": "awaiting",
+          "application_opens_at": null,
+          "start_application_deadline_at": null,
+          "submission_deadline_at": null,
+          "deadline_basis": "unknown",
+          "notification_date": null,
+          "notification_window_text": null,
+          "funds_available_date": null,
+          "funds_available_text": null,
+          "treatment_start_rule": null,
+          "expiration_rule": null,
+          "date_confidence": "not_announced",
+          "open_verified_on": null,
+          "status_note": null,
+          "source_url": "https://storkfoundation.org/"
+        }
+      ],
+      "source_urls": [
+        "https://storkfoundation.org/",
+        "https://storkfoundation.org/faq"
+      ],
+      "last_verified_at": "2026-10-18",
+      "verification_status": "verified",
+      "research_notes": [
+        "The official FAQ confirms the award, fee, and eligibility. The 2026 window dates come from the foundation's press release."
+      ],
+      "requirements": {
+        "married": false,
+        "us_citizen": null,
+        "us_status": true,
+        "diagnosis": "some",
+        "no_children": null,
+        "children_max": null,
+        "employment": null,
+        "health_insurance": null,
+        "attend_event": null,
+        "age_min": 18,
+        "age_max": null,
+        "income_max": 150000,
+        "other": [
+          "Both partners must be legal U.S. residents.",
+          "Diagnosis not required for same-sex couples, single applicants, or people recently diagnosed with cancer.",
+          "If you have coverage, insurance is billed first; majority coverage makes you ineligible."
+        ],
+        "checked_on": "2026-10-18"
+      },
+      "links": [
+        {
+          "label": "Website",
+          "url": "https://storkfoundation.org/"
+        },
+        {
+          "label": "FAQ",
+          "url": "https://storkfoundation.org/faq"
+        }
+      ]
+    },
+    {
+      "id": "fertility-foundation-texas",
+      "name": "The Fertility Foundation of Texas",
+      "program_name": "Fertility Grant",
+      "official_url": "https://www.fertilityfoundationoftexas.org/",
+      "application_url": "https://www.fertilityfoundationoftexas.org/apply-for-a-grant/",
+      "program_type": "Grant",
+      "geography": {
+        "type": "us_regional",
+        "states": [
+          "TX"
+        ],
+        "text": "Residents of 21 listed Central Texas counties, including Travis, Bexar, Williamson, Hays, Bell, and McLennan."
+      },
+      "clinic_required": true,
+      "clinic_restrictions": "Treatment at a SART member clinic, under a board-certified reproductive endocrinologist.",
+      "treatments_covered": [
+        "General fertility treatment"
+      ],
+      "award_min": null,
+      "award_max": 10000,
+      "currency": "USD",
+      "award_text": "One-time grants up to $10,000, twice a year.",
+      "application_fee": null,
+      "fee_text": null,
+      "eligibility_notes": [
+        "Household income between $40,000 and $150,000.",
+        "Uninsured for fertility treatment, or coverage exhausted.",
+        "Finalists are interviewed in person in Austin."
+      ],
+      "coverage_notes": [
+        "Funds can't be used for physician fees."
+      ],
+      "cycles": [
+        {
+          "id": "fertility-foundation-texas-next",
+          "cycle_label": "Next grant cycle",
+          "cycle_year": null,
+          "kind": "awaiting",
+          "application_opens_at": null,
+          "start_application_deadline_at": null,
+          "submission_deadline_at": null,
+          "deadline_basis": "unknown",
+          "notification_date": null,
+          "notification_window_text": null,
+          "funds_available_date": null,
+          "funds_available_text": null,
+          "treatment_start_rule": null,
+          "expiration_rule": null,
+          "recurring_text": "Published deadlines: July 31 (summer grants) and December 31 (winter grants). No year given.",
+          "recurring_months": [
+            7,
+            12
+          ],
+          "date_confidence": "recurring",
+          "open_verified_on": null,
+          "status_note": null,
+          "source_url": "https://www.fertilityfoundationoftexas.org/apply-for-a-grant/"
+        }
+      ],
+      "source_urls": [
+        "https://www.fertilityfoundationoftexas.org/apply-for-a-grant/"
+      ],
+      "last_verified_at": "2026-10-18",
+      "verification_status": "verified",
+      "research_notes": [],
+      "requirements": {
+        "married": null,
+        "us_citizen": null,
+        "us_status": null,
+        "diagnosis": true,
+        "no_children": null,
+        "children_max": null,
+        "employment": null,
+        "health_insurance": null,
+        "attend_event": null,
+        "age_min": null,
+        "age_max": null,
+        "income_max": 150000,
+        "other": [
+          "Household income between $40,000 and $150,000.",
+          "Uninsured for fertility treatment, or coverage exhausted.",
+          "Central Texas residents (21 listed counties)."
+        ],
+        "checked_on": "2026-10-18"
+      },
+      "links": [
+        {
+          "label": "Website",
+          "url": "https://www.fertilityfoundationoftexas.org/"
+        },
+        {
+          "label": "Apply for a grant",
+          "url": "https://www.fertilityfoundationoftexas.org/apply-for-a-grant/"
+        }
+      ]
+    },
+    {
+      "id": "hopeful-mama",
+      "name": "Hopeful Mama Foundation",
+      "program_name": "Hopeful Mama Grant",
+      "official_url": "https://hopefulmamafoundation.org/grant/",
+      "application_url": "https://hopefulmamafoundation.org/grant/",
+      "program_type": "Grant",
+      "geography": {
+        "type": "us_national",
+        "states": [],
+        "text": "U.S. citizens or permanent residents treated at a U.S. accredited clinic."
+      },
+      "clinic_required": false,
+      "clinic_restrictions": null,
+      "treatments_covered": [
+        "General fertility treatment",
+        "Donor eggs/sperm",
+        "Medications"
+      ],
+      "award_min": 500,
+      "award_max": 30000,
+      "currency": "USD",
+      "award_text": "$500 to $30,000 for the 2026 cycle. Paid to the clinic and/or pharmacy.",
+      "application_fee": 0,
+      "fee_text": "No application fee.",
+      "eligibility_notes": [
+        "Documented female factor infertility diagnosis.",
+        "Demonstrated financial need and basic medical insurance for mother and baby.",
+        "Recipients wait one full cycle before reapplying."
+      ],
+      "coverage_notes": [
+        "Male factor infertility and storage fees aren't covered.",
+        "Funds must be used within 12 months. No reimbursement for past treatment."
+      ],
+      "cycles": [
+        {
+          "id": "hopeful-mama-2027",
+          "cycle_label": "2027 grant",
+          "cycle_year": 2027,
+          "kind": "awaiting",
+          "application_opens_at": null,
+          "start_application_deadline_at": null,
+          "submission_deadline_at": null,
+          "deadline_basis": "unknown",
+          "notification_date": null,
+          "notification_window_text": null,
+          "funds_available_date": null,
+          "funds_available_text": null,
+          "treatment_start_rule": null,
+          "expiration_rule": "Funds must be used within 12 months.",
+          "recurring_text": "Published pattern: opens every year April 1 and closes May 9. Recipients notified on or before June 30. Not confirmed for 2027.",
+          "recurring_months": [
+            4,
+            5
+          ],
+          "date_confidence": "recurring",
+          "open_verified_on": null,
+          "status_note": "The application was closed on October 18, 2026.",
+          "source_url": "https://hopefulmamafoundation.org/grant/"
+        }
+      ],
+      "source_urls": [
+        "https://hopefulmamafoundation.org/grant/"
+      ],
+      "last_verified_at": "2026-10-18",
+      "verification_status": "verified",
+      "research_notes": [],
+      "requirements": {
+        "married": null,
+        "us_citizen": null,
+        "us_status": true,
+        "diagnosis": true,
+        "no_children": null,
+        "children_max": null,
+        "employment": null,
+        "health_insurance": true,
+        "attend_event": null,
+        "age_min": null,
+        "age_max": null,
+        "income_max": null,
+        "other": [
+          "Female factor infertility diagnosis.",
+          "Demonstrated financial need."
+        ],
+        "checked_on": "2026-10-18"
+      },
+      "links": [
+        {
+          "label": "Website",
+          "url": "https://hopefulmamafoundation.org/"
+        },
+        {
+          "label": "Grant details",
+          "url": "https://hopefulmamafoundation.org/grant/"
+        }
+      ]
+    },
+    {
+      "id": "jewish-fertility-foundation",
+      "name": "Jewish Fertility Foundation",
+      "program_name": "JFF Grants",
+      "official_url": "https://jewishfertilityfoundation.org/grants/",
+      "application_url": "https://jewishfertilityfoundation.org/grants/",
+      "program_type": "Grant",
+      "geography": {
+        "type": "us_regional",
+        "states": [
+          "GA",
+          "AL",
+          "OH",
+          "CO",
+          "MI",
+          "DC",
+          "MD",
+          "VA",
+          "PA",
+          "FL",
+          "TX",
+          "NV"
+        ],
+        "text": "Must live in a JFF community: Atlanta, Birmingham, Cincinnati, Cleveland, Denver, Detroit, Greater DC, Houston, Nevada, Pittsburgh, or South Florida. The site also lists a National program."
+      },
+      "clinic_required": true,
+      "clinic_restrictions": "Treatment at a JFF partner clinic.",
+      "treatments_covered": [
+        "IVF",
+        "IUI",
+        "FET",
+        "Surrogacy"
+      ],
+      "award_min": 1000,
+      "award_max": 10000,
+      "currency": "USD",
+      "award_text": "IVF $1,000 to $10,000. IUI $1,000. Frozen embryo transfer $2,500. Surrogacy (medical portion) up to $10,000.",
+      "application_fee": null,
+      "fee_text": "No application fee stated.",
+      "eligibility_notes": [
+        "At least one Jewish parent intending to raise the child Jewish.",
+        "Non-smoker and non-drug user. May already have up to one child.",
+        "Up to 1 IUI grant and 2 IVF grants per person or couple."
+      ],
+      "coverage_notes": [
+        "Apply before starting or paying for treatment. Not retroactive.",
+        "Use within six months. Paid directly to the clinic.",
+        "Egg freezing is not covered."
+      ],
+      "cycles": [
+        {
+          "id": "jff-rolling",
+          "cycle_label": "Rolling applications",
+          "cycle_year": null,
+          "kind": "rolling",
+          "application_opens_at": null,
+          "start_application_deadline_at": null,
+          "submission_deadline_at": null,
+          "deadline_basis": "unknown",
+          "notification_date": null,
+          "notification_window_text": "Decisions generally within 6 to 8 weeks after the application is received.",
+          "funds_available_date": null,
+          "funds_available_text": null,
+          "treatment_start_rule": null,
+          "expiration_rule": "Use within six months.",
+          "date_confidence": "confirmed",
+          "open_verified_on": "2026-10-18",
+          "status_note": "No application window or annual deadline is listed.",
+          "source_url": "https://jewishfertilityfoundation.org/grants/"
+        },
+        {
+          "id": "jff-2027-surrogacy",
+          "cycle_label": "2027 Surrogacy Grant",
+          "cycle_year": 2027,
+          "kind": "awaiting",
+          "application_opens_at": null,
+          "start_application_deadline_at": null,
+          "submission_deadline_at": null,
+          "deadline_basis": "unknown",
+          "notification_date": null,
+          "notification_window_text": null,
+          "funds_available_date": null,
+          "funds_available_text": null,
+          "treatment_start_rule": null,
+          "expiration_rule": null,
+          "date_confidence": "not_announced",
+          "open_verified_on": null,
+          "status_note": "\"Stay tuned for the 2027 Surrogacy Grant Application & Eligibility Requirements, coming soon.\"",
+          "source_url": "https://jewishfertilityfoundation.org/grants/"
+        }
+      ],
+      "source_urls": [
+        "https://jewishfertilityfoundation.org/grants/"
+      ],
+      "last_verified_at": "2026-10-18",
+      "verification_status": "verified",
+      "research_notes": [],
+      "requirements": {
+        "married": null,
+        "us_citizen": null,
+        "us_status": null,
+        "diagnosis": null,
+        "no_children": null,
+        "children_max": 1,
+        "employment": null,
+        "health_insurance": null,
+        "attend_event": null,
+        "age_min": null,
+        "age_max": null,
+        "income_max": null,
+        "other": [
+          "At least one Jewish parent intending to raise the child Jewish.",
+          "Must live in a JFF community.",
+          "Non-smoker and non-drug user."
+        ],
+        "checked_on": "2026-10-18"
+      },
+      "links": [
+        {
+          "label": "Website",
+          "url": "https://jewishfertilityfoundation.org/"
+        },
+        {
+          "label": "Grants",
+          "url": "https://jewishfertilityfoundation.org/grants/"
+        }
+      ]
+    },
+    {
+      "id": "giving-grace",
+      "name": "The Giving Grace Foundation",
+      "program_name": "Giving Grace Grant",
+      "official_url": "https://www.givinggracemn.org",
+      "application_url": "https://www.givinggracemn.org/how-to-apply",
+      "program_type": "Grant",
+      "geography": {
+        "type": "us_regional",
+        "states": [
+          "MN"
+        ],
+        "text": "Permanent Minnesota residents under the care of an accredited U.S. fertility facility."
+      },
+      "clinic_required": false,
+      "clinic_restrictions": null,
+      "treatments_covered": [
+        "IVF"
+      ],
+      "award_min": 500,
+      "award_max": 1500,
+      "currency": "USD",
+      "award_text": "$500 to $1,500, paid directly to the clinic within six months of the award.",
+      "application_fee": null,
+      "fee_text": null,
+      "eligibility_notes": [
+        "Infertility evaluation done and treatment plan in place.",
+        "At least one partner employed. Basic health insurance for mother and baby.",
+        "Must be in active treatment. IUI is not covered."
+      ],
+      "coverage_notes": [
+        "Grant is forfeited if not used within six months of the award, unless an exception is granted."
+      ],
+      "cycles": [
+        {
+          "id": "giving-grace-next",
+          "cycle_label": "Next annual cycle",
+          "cycle_year": null,
+          "kind": "awaiting",
+          "application_opens_at": null,
+          "start_application_deadline_at": null,
+          "submission_deadline_at": null,
+          "deadline_basis": "receipt",
+          "notification_date": null,
+          "notification_window_text": null,
+          "funds_available_date": null,
+          "funds_available_text": null,
+          "treatment_start_rule": null,
+          "expiration_rule": null,
+          "recurring_text": "Published pattern: applications and release forms must be received by December 31. Applicants notified about 4 to 8 weeks later; grants awarded in February. No year given.",
+          "recurring_months": [
+            12
+          ],
+          "date_confidence": "recurring",
+          "open_verified_on": null,
+          "status_note": null,
+          "source_url": "https://www.givinggracemn.org/how-to-apply"
+        }
+      ],
+      "source_urls": [
+        "https://www.givinggracemn.org/how-to-apply"
+      ],
+      "last_verified_at": "2026-10-18",
+      "verification_status": "verified",
+      "research_notes": [],
+      "requirements": {
+        "married": null,
+        "us_citizen": null,
+        "us_status": null,
+        "diagnosis": true,
+        "no_children": null,
+        "children_max": null,
+        "employment": true,
+        "health_insurance": true,
+        "attend_event": null,
+        "age_min": null,
+        "age_max": null,
+        "income_max": null,
+        "other": [
+          "Permanent Minnesota residents in active treatment."
+        ],
+        "checked_on": "2026-10-18"
+      },
+      "links": [
+        {
+          "label": "Website",
+          "url": "https://www.givinggracemn.org/"
+        },
+        {
+          "label": "How to apply",
+          "url": "https://www.givinggracemn.org/how-to-apply"
+        }
+      ]
+    },
+    {
+      "id": "aneden-gives",
+      "name": "ANEDEN Gives",
+      "program_name": "Houston / Seattle Grant",
+      "official_url": "https://www.anedengives.com/",
+      "application_url": "https://www.anedengives.com/grant-process/",
+      "program_type": "Grant",
+      "geography": {
+        "type": "us_regional",
+        "states": [
+          "TX",
+          "WA"
+        ],
+        "text": "Patients of Aspire HFI (Houston, Texas) or Pacific NW Fertility (Seattle, Washington). A separate grant serves Lagos, Nigeria."
+      },
+      "clinic_required": true,
+      "clinic_restrictions": "Aspire HFI (Houston) or Pacific NW Fertility (Seattle).",
+      "treatments_covered": [
+        "General fertility treatment"
+      ],
+      "award_min": 5000,
+      "award_max": 7500,
+      "currency": "USD",
+      "award_text": "$5,000 to $7,500 per grant.",
+      "application_fee": null,
+      "fee_text": null,
+      "eligibility_notes": [
+        "No fertility insurance coverage (exhausted coverage is OK).",
+        "Income limits apply. Legally allowed to live and/or work in the U.S. At least 21 years old.",
+        "Background check for pre-selected applicants."
+      ],
+      "coverage_notes": [],
+      "cycles": [
+        {
+          "id": "aneden-2026",
+          "cycle_label": "2026 Houston and Seattle grant",
+          "cycle_year": 2026,
+          "kind": "dated",
+          "application_opens_at": {
+            "date": "2026-05-01"
+          },
+          "start_application_deadline_at": null,
+          "submission_deadline_at": {
+            "date": "2026-05-31"
+          },
+          "deadline_basis": "unknown",
+          "notification_date": {
+            "date": "2026-08-16",
+            "note": "Pre-selection and notification August 10 to 16, 2026."
+          },
+          "notification_window_text": "Review June 1 to August 9, 2026.",
+          "funds_available_date": null,
+          "funds_available_text": null,
+          "treatment_start_rule": null,
+          "expiration_rule": null,
+          "date_confidence": "confirmed",
+          "open_verified_on": null,
+          "status_note": "The official page says the 2026 process is complete.",
+          "source_url": "https://www.anedengives.com/grant-process/"
+        },
+        {
+          "id": "aneden-2027",
+          "cycle_label": "2027 Houston and Seattle grant",
+          "cycle_year": 2027,
+          "kind": "awaiting",
+          "application_opens_at": null,
+          "start_application_deadline_at": null,
+          "submission_deadline_at": null,
+          "deadline_basis": "unknown",
+          "notification_date": null,
+          "notification_window_text": null,
+          "funds_available_date": null,
+          "funds_available_text": null,
+          "treatment_start_rule": null,
+          "expiration_rule": null,
+          "date_confidence": "not_announced",
+          "open_verified_on": null,
+          "status_note": null,
+          "source_url": "https://www.anedengives.com/grant-process/"
+        }
+      ],
+      "source_urls": [
+        "https://www.anedengives.com/grant-process/"
+      ],
+      "last_verified_at": "2026-10-18",
+      "verification_status": "verified",
+      "research_notes": [],
+      "requirements": {
+        "married": null,
+        "us_citizen": null,
+        "us_status": true,
+        "diagnosis": null,
+        "no_children": null,
+        "children_max": null,
+        "employment": null,
+        "health_insurance": null,
+        "attend_event": null,
+        "age_min": 21,
+        "age_max": null,
+        "income_max": null,
+        "other": [
+          "Must be legally allowed to live and/or work in the U.S.",
+          "No fertility insurance coverage (exhausted coverage is OK).",
+          "Income limits apply."
+        ],
+        "checked_on": "2026-10-18"
+      },
+      "links": [
+        {
+          "label": "Website",
+          "url": "https://www.anedengives.com/"
+        },
+        {
+          "label": "Houston and Seattle grant",
+          "url": "https://www.anedengives.com/grant-process/"
+        },
+        {
+          "label": "Lagos grant",
+          "url": "https://www.anedengives.com/lagos-grant/"
+        }
+      ]
+    },
+    {
+      "id": "bivf-foundation",
+      "name": "The BIVF Foundation",
+      "program_name": "IVF Cycle, Oncofertility, and Financial Assistance Grants",
+      "official_url": "https://www.bivffoundation.org/grants",
+      "application_url": "https://www.bivffoundation.org/grants",
+      "program_type": "Grant and donated IVF cycle",
+      "geography": {
+        "type": "us_regional",
+        "states": [
+          "ME",
+          "MA",
+          "NH",
+          "RI"
+        ],
+        "text": "Residents of Maine, Massachusetts, New Hampshire, or Rhode Island, treated at a SART center in those states."
+      },
+      "clinic_required": true,
+      "clinic_restrictions": "SART-qualified or SART-accredited center in ME, MA, NH, or RI.",
+      "treatments_covered": [
+        "IVF",
+        "IUI",
+        "Medications",
+        "Egg freezing",
+        "Adoption"
+      ],
+      "award_min": null,
+      "award_max": 10000,
+      "currency": "USD",
+      "award_text": "Financial assistance up to $10,000. Also a donated IVF cycle and an oncofertility egg freezing cycle.",
+      "application_fee": 25,
+      "fee_text": "$25, non-refundable.",
+      "eligibility_notes": [
+        "Limited or no IVF insurance coverage. Two or fewer children.",
+        "Household income under $200,000.",
+        "Age, BMI, FSH, and AMH limits apply for some treatments."
+      ],
+      "coverage_notes": [
+        "Paid to the clinic. Use within 12 months. Future treatment only."
+      ],
+      "cycles": [
+        {
+          "id": "bivf-2025",
+          "cycle_label": "2025 grants",
+          "cycle_year": 2025,
+          "kind": "dated",
+          "application_opens_at": {
+            "date": "2025-01-13"
+          },
+          "start_application_deadline_at": null,
+          "submission_deadline_at": {
+            "date": "2025-03-10"
+          },
+          "deadline_basis": "unknown",
+          "notification_date": null,
+          "notification_window_text": "Recipients announced shortly after the application period.",
+          "funds_available_date": null,
+          "funds_available_text": null,
+          "treatment_start_rule": null,
+          "expiration_rule": "12 months to use funds.",
+          "date_confidence": "historical",
+          "open_verified_on": null,
+          "status_note": null,
+          "source_url": "https://www.bivffoundation.org/grants"
+        },
+        {
+          "id": "bivf-next",
+          "cycle_label": "Next annual cycle",
+          "cycle_year": null,
+          "kind": "awaiting",
+          "application_opens_at": null,
+          "start_application_deadline_at": null,
+          "submission_deadline_at": null,
+          "deadline_basis": "unknown",
+          "notification_date": null,
+          "notification_window_text": null,
+          "funds_available_date": null,
+          "funds_available_text": null,
+          "treatment_start_rule": null,
+          "expiration_rule": null,
+          "date_confidence": "not_announced",
+          "open_verified_on": null,
+          "status_note": "All three grants were marked \"Now Closed\" on October 18, 2026, and the page still linked to the 2025 application. No 2026 or 2027 dates were found.",
+          "source_url": "https://www.bivffoundation.org/grants"
+        }
+      ],
+      "source_urls": [
+        "https://www.bivffoundation.org/grants"
+      ],
+      "last_verified_at": "2026-10-18",
+      "verification_status": "verified",
+      "research_notes": [
+        "Connected to Boston IVF.",
+        "The grants page lists questions@bivffoundation.org for questions. As of October 19, 2026, all three grants were still marked \"Now Closed\" with no 2026 or 2027 dates."
+      ],
+      "requirements": {
+        "married": null,
+        "us_citizen": null,
+        "us_status": null,
+        "diagnosis": true,
+        "no_children": null,
+        "children_max": 2,
+        "employment": null,
+        "health_insurance": null,
+        "attend_event": null,
+        "age_min": null,
+        "age_max": null,
+        "income_max": 200000,
+        "other": [
+          "Limited or no IVF insurance coverage.",
+          "Age, BMI, and hormone limits apply for some treatments."
+        ],
+        "checked_on": "2026-10-18"
+      },
+      "links": [
+        {
+          "label": "Website",
+          "url": "https://www.bivffoundation.org/"
+        },
+        {
+          "label": "Grants",
+          "url": "https://www.bivffoundation.org/grants"
+        }
       ]
     }
   ],

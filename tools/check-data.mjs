@@ -50,6 +50,14 @@ function checkOrgs(list, label) {
     ids.add(o.id);
     if (o.last_verified_at && !isISO(o.last_verified_at)) errors.push(`${w}: bad last_verified_at`);
     if (o.award_min === 0 || o.award_max === 0) warnings.push(`${w}: award of 0. Use null if unknown.`);
+    if (!Array.isArray(o.links) || !o.links.length) warnings.push(`${w}: no "links" for the details view`);
+    (o.links || []).forEach((l, i) => { if (!l.label || !/^https:\/\//.test(l.url || "")) errors.push(`${w}.links[${i}]: needs a label and an https:// url`); });
+    if (!o.requirements) warnings.push(`${w}: no "requirements" summary`);
+    else {
+      const TRI = ["married", "us_citizen", "us_status", "diagnosis", "no_children", "employment", "health_insurance", "attend_event"];
+      TRI.forEach((k) => { const v = o.requirements[k]; if (!(v === true || v === false || v === null || v === "some")) errors.push(`${w}.requirements.${k}: use true, false, "some", or null`); });
+      ["children_max", "age_min", "age_max", "income_max"].forEach((k) => { const v = o.requirements[k]; if (!(v === null || Number.isFinite(v))) errors.push(`${w}.requirements.${k}: use a number or null`); });
+    }
     (o.cycles || []).forEach((c) => {
       const cw = `${w} / ${c.id || "(no id)"}`;
       CYCLE_REQUIRED.forEach((k) => { if (!(k in c)) errors.push(`${cw}: missing "${k}"`); });

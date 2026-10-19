@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://livingsarahand.github.io/fertility-grant-finder/sitemap.xml

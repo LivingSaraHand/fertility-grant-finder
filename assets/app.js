@@ -7,37 +7,9 @@
   const CANDIDATES = PREVIEW && Array.isArray(window.FGF_CANDIDATES) ? window.FGF_CANDIDATES : [];
 
   // ---------- Constants ----------
-  const MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  const DOW = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  const STATE_NAMES = {
-    AL: "Alabama", AK: "Alaska", AZ: "Arizona", AR: "Arkansas", CA: "California", CO: "Colorado", CT: "Connecticut", DE: "Delaware", DC: "District of Columbia",
-    FL: "Florida", GA: "Georgia", HI: "Hawaii", ID: "Idaho", IL: "Illinois", IN: "Indiana", IA: "Iowa", KS: "Kansas", KY: "Kentucky", LA: "Louisiana", ME: "Maine",
-    MD: "Maryland", MA: "Massachusetts", MI: "Michigan", MN: "Minnesota", MS: "Mississippi", MO: "Missouri", MT: "Montana", NE: "Nebraska", NV: "Nevada",
-    NH: "New Hampshire", NJ: "New Jersey", NM: "New Mexico", NY: "New York", NC: "North Carolina", ND: "North Dakota", OH: "Ohio", OK: "Oklahoma", OR: "Oregon",
-    PA: "Pennsylvania", RI: "Rhode Island", SC: "South Carolina", SD: "South Dakota", TN: "Tennessee", TX: "Texas", UT: "Utah", VT: "Vermont", VA: "Virginia",
-    WA: "Washington", WV: "West Virginia", WI: "Wisconsin", WY: "Wyoming"
-  };
-  const CONF_LABEL = {
-    confirmed: "Confirmed",
-    month_only: "Month only",
-    needs_confirmation: "Needs confirmation",
-    recurring: "Recurring pattern",
-    historical: "Historical",
-    not_announced: "Not announced"
-  };
-  const CONF_HELP = {
-    confirmed: "An exact date, with the year, published by the organization.",
-    month_only: "The organization announced the month and year, but not the day.",
-    needs_confirmation: "Official pages disagree or leave something out. Both versions are shown.",
-    recurring: "A schedule the organization has used before. Not a confirmed date for this year.",
-    historical: "Past information kept for reference.",
-    not_announced: "Nothing has been published yet."
-  };
-  const STATUS_LABEL = {
-    open: "Open now", upcoming: "Upcoming", rolling: "Rolling", tba: "Dates to be announced",
-    check: "Check source", paused: "Paused", pending: "Closed, decisions pending", closed: "Closed"
-  };
+  const CORE = window.FGF_CORE;
+  const { MONTHS, MON, DOW, STATE_NAMES, CONF_LABEL, CONF_HELP, STATUS_LABEL, GROUP_OF, pad, esc, lastDayOfMonth, weekday, fmtDate, fmtMonth, fmtTime, fmtMoney,
+    dateConf, allDates, dEarliest, dLatest, awardText, feeText, geoShort, clinicKind, clinicShort, verifiedText } = CORE;
   const BASIS_LABEL = { submitted: "submitted online", receipt: "received by", postmark: "postmarked by", unknown: "basis not stated" };
   const EVENT_TYPES = [
     { key: "application_opens_at", label: "Applications open", short: "Opens", color: "var(--ev-open)" },
@@ -71,46 +43,12 @@
   // ---------- Small helpers ----------
   const $ = (sel, root) => (root || document).querySelector(sel);
   const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
-  const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
-  const pad = (n) => String(n).padStart(2, "0");
 
-  function todayISO() {
-    if (typeof window.FGF_TODAY === "string") return window.FGF_TODAY;
-    const d = new Date();
-    return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate());
-  }
-  const TODAY = todayISO();
+  const TODAY = CORE.todayISO();
+  const cycleStatus = (c) => CORE.cycleStatus(c, TODAY);
+  const reqShort = CORE.reqShort;
   const THIS_MONTH = TODAY.slice(0, 7);
 
-  function lastDayOfMonth(ym) {
-    const [y, m] = ym.split("-").map(Number);
-    return ym + "-" + pad(new Date(Date.UTC(y, m, 0)).getUTCDate());
-  }
-  function weekday(iso) {
-    const [y, m, d] = iso.split("-").map(Number);
-    return DOW[new Date(Date.UTC(y, m - 1, d)).getUTCDay()];
-  }
-  function fmtDate(iso, opts) {
-    if (!iso) return "";
-    const [y, m, d] = iso.split("-").map(Number);
-    const base = MON[m - 1] + " " + d + ", " + y;
-    return opts && opts.weekday ? weekday(iso) + ", " + base : base;
-  }
-  function fmtMonth(ym) {
-    const [y, m] = ym.split("-").map(Number);
-    return MONTHS[m - 1] + " " + y;
-  }
-  function fmtTime(t) {
-    const [h, mi] = t.split(":").map(Number);
-    const ap = h < 12 ? "a.m." : "p.m.";
-    const h12 = h % 12 === 0 ? 12 : h % 12;
-    return h12 + ":" + pad(mi) + " " + ap;
-  }
-  function fmtMoney(n, cur) {
-    if (n == null) return null;
-    const sym = cur === "GBP" ? "£" : "$";
-    return sym + Number(n).toLocaleString("en-US");
-  }
 
   // Timezone conversion for optional Central Time display
   function tzOffset(ts, tz) {
@@ -160,66 +98,7 @@
   ORGS.forEach((org) => (org.cycles || []).forEach((c) => CYCLES.push({ ...c, org })));
   const CYCLE_BY_ID = Object.fromEntries(CYCLES.map((c) => [c.id, c]));
 
-  function dateConf(d, cycle) {
-    if (!d) return "not_announced";
-    if (d.confidence) return d.confidence;
-    if (d.alternatives && d.alternatives.length) return "needs_confirmation";
-    if (d.month && !d.date) return cycle.date_confidence === "historical" ? "historical" : (cycle.date_confidence === "needs_confirmation" ? "needs_confirmation" : "month_only");
-    return cycle.date_confidence || "confirmed";
-  }
-  function allDates(d) {
-    if (!d) return [];
-    const list = [];
-    if (d.date) list.push(d.date);
-    (d.alternatives || []).forEach((a) => a.date && list.push(a.date));
-    return list;
-  }
-  function dEarliest(d) {
-    if (!d) return null;
-    if (d.month && !d.date) return d.month + "-01";
-    const l = allDates(d).sort();
-    return l[0] || null;
-  }
-  function dLatest(d) {
-    if (!d) return null;
-    if (d.month && !d.date) return lastDayOfMonth(d.month);
-    const l = allDates(d).sort();
-    return l[l.length - 1] || null;
-  }
 
-  function cycleStatus(c) {
-    if (c.kind === "rolling") return "rolling";
-    if (c.kind === "paused") return "paused";
-    if (c.kind === "awaiting") return "tba";
-    if (c.kind === "event") {
-      const e = dLatest(c.event_date);
-      if (!e) return "tba";
-      return e < TODAY ? "closed" : "upcoming";
-    }
-    const sub = c.submission_deadline_at;
-    const op = c.application_opens_at;
-    const closedOrPending = () => {
-      const n = dLatest(c.notification_date);
-      return n && n >= TODAY ? "pending" : "closed";
-    };
-    if (sub && dLatest(sub) < TODAY) return closedOrPending();
-    if (!sub && (c.closed_verified_on || c.date_confidence === "historical")) return closedOrPending();
-    if (op) {
-      const early = dEarliest(op);
-      const late = dLatest(op);
-      if (early > TODAY) return "upcoming";
-      if (late >= TODAY && early !== late && !c.open_verified_on) return "upcoming"; // opening month or conflicting days include today
-      if (c.open_verified_on) return "open";
-      // The opening has passed. With a future deadline, or a confirmed exact opening date, the cycle is open.
-      if (sub || (op.date && !op.alternatives && dateConf(op, c) === "confirmed")) return "open";
-      // An opening month (or uncertain date) has passed and no deadline is listed yet
-      return "check";
-    }
-    if (c.open_verified_on) return "open";
-    if (sub) return "upcoming";
-    return "tba";
-  }
-  const GROUP_OF = { open: "open", upcoming: "upcoming", rolling: "rolling", tba: "tba", check: "tba", paused: "tba", pending: "archive", closed: "archive" };
 
   function cycleEvents(c) {
     const evs = [];
@@ -252,10 +131,55 @@
     if (org.application_fee == null) return "unknown";
     return "has";
   }
-  function clinicKind(org) {
-    if (org.clinic_required === true) return "yes";
-    if (org.clinic_required === false) return "no";
-    return "unknown";
+
+  // ---------- Published requirements ----------
+  const REQ_ROWS = [
+    ["married", "Legally married"],
+    ["us_citizen", "U.S. citizenship"],
+    ["us_status", "U.S. citizen or permanent/legal resident"],
+    ["diagnosis", "Infertility diagnosis"],
+    ["no_children", "No children already"],
+    ["employment", "Someone in the household employed"],
+    ["health_insurance", "Health insurance"],
+    ["attend_event", "Attend an event in person"]
+  ];
+  function reqOf(c) {
+    const base = c.org.requirements || {};
+    return c.requirements_override ? { ...base, ...c.requirements_override } : base;
+  }
+  function reqValueText(v) {
+    if (v === true) return "Required";
+    if (v === false) return "Not required";
+    if (v === "some") return "Required for some applicants";
+    return null;
+  }
+  const REQ_INPUTS = () => $$("[data-req]");
+  function readMe() {
+    const me = { flags: new Set(REQ_INPUTS().filter((b) => b.checked).map((b) => b.dataset.req)) };
+    const kids = $("#rq-kids").value; me.kids = kids === "" ? null : Number(kids);
+    const age = parseInt($("#rq-age").value, 10); me.age = Number.isFinite(age) ? age : null;
+    const inc = parseInt($("#rq-income").value, 10); me.income = Number.isFinite(inc) ? inc : null;
+    me.active = me.flags.size > 0 || me.kids != null || me.age != null || me.income != null;
+    return me;
+  }
+  // Reasons a grant's published rules don't fit the visitor's answers. Unpublished rules never exclude.
+  function reqConflicts(c, me) {
+    if (!me || !me.active) return [];
+    const r = reqOf(c);
+    const out = [];
+    if (me.flags.has("married") && r.married === true) out.push("requires marriage");
+    if (me.flags.has("us_citizen") && r.us_citizen === true) out.push("requires U.S. citizenship");
+    if (me.flags.has("us_status") && (r.us_status === true || r.us_citizen === true)) out.push("requires U.S. citizenship or residency");
+    if (me.flags.has("diagnosis") && r.diagnosis === true) out.push("requires a diagnosis");
+    if (me.flags.has("employment") && r.employment === true) out.push("requires employment");
+    if (me.flags.has("health_insurance") && r.health_insurance === true) out.push("requires health insurance");
+    if (me.flags.has("attend_event") && r.attend_event === true) out.push("requires attending in person");
+    if (me.kids != null && me.kids >= 1 && r.no_children === true) out.push("for people without children");
+    if (me.kids != null && r.children_max != null && me.kids > r.children_max) out.push(`allows up to ${r.children_max} children`);
+    if (me.age != null && r.age_min != null && me.age < r.age_min) out.push(`minimum age ${r.age_min}`);
+    if (me.age != null && r.age_max != null && me.age > r.age_max) out.push(`maximum age ${r.age_max}`);
+    if (me.income != null && r.income_max != null && me.income > r.income_max) out.push(`income limit ${fmtMoney(r.income_max, "USD")}`);
+    return out;
   }
 
   function haystack(c) {
@@ -271,6 +195,7 @@
     });
     (c.recurring_months || []).forEach((m) => parts.push(MONTHS[m - 1]));
     if (o.pending) parts.push("pending review");
+    parts.push(reqShort(reqOf(c)).join(" "), ((o.requirements && o.requirements.other) || []).join(" "));
     return parts.filter(Boolean).join(" ").toLowerCase();
   }
   CYCLES.forEach((c) => { c._hay = haystack(c); });
@@ -288,9 +213,8 @@
     const ys = Array.from(years).sort();
     F.year.innerHTML = '<option value="">Any year</option>' + ys.map((y) => `<option value="${y}">${y}</option>`).join("") + '<option value="none">Year not announced</option>';
     F.month.innerHTML = '<option value="">Any month</option>' + MONTHS.map((m, i) => `<option value="${i + 1}">${m}</option>`).join("");
-    const states = new Set();
-    ORGS.forEach((o) => (o.geography && o.geography.states || []).forEach((s) => states.add(s)));
-    F.state.innerHTML = '<option value="">Any state</option>' + Array.from(states).sort((a, b) => (STATE_NAMES[a] || a).localeCompare(STATE_NAMES[b] || b)).map((s) => `<option value="${s}">${esc(STATE_NAMES[s] || s)}</option>`).join("");
+    const states = Object.keys(STATE_NAMES).sort((a, b) => STATE_NAMES[a].localeCompare(STATE_NAMES[b]));
+    F.state.innerHTML = '<option value="">Any state</option>' + states.map((s) => `<option value="${s}">${esc(STATE_NAMES[s])}</option>`).join("");
     const treats = new Set();
     ORGS.forEach((o) => (o.treatments_covered || []).forEach((t) => treats.add(t)));
     F.treat.innerHTML = '<option value="">Any treatment</option>' + Array.from(treats).sort().map((t) => `<option value="${esc(t)}">${esc(t)}</option>`).join("");
@@ -334,11 +258,12 @@
       if (opts.conf === "awaiting" && !(c.kind === "awaiting" || c.kind === "paused" || cycleStatus(c) === "check")) return false;
     }
     if (opts.geo && (o.geography && o.geography.type || "unknown") !== opts.geo) return false;
-    if (opts.state && !(o.geography && (o.geography.states || []).includes(opts.state))) return false;
+    if (opts.state && !(o.geography && ((o.geography.states || []).includes(opts.state) || o.geography.type === "us_national"))) return false;
     if (opts.clinic && clinicKind(o) !== opts.clinic) return false;
     if (opts.treat && !(o.treatments_covered || []).includes(opts.treat)) return false;
     if (opts.fee && feeKind(o) !== opts.fee) return false;
     if (opts.fav && !isFav(o.id)) return false;
+    if (!opts.ignoreReq && reqConflicts(c, opts.me).length) return false;
     return true;
   }
 
@@ -347,7 +272,8 @@
       q: F.q.value.trim(),
       statuses: new Set(STATUS_BOXES.filter((b) => b.checked).map((b) => b.value)),
       year: F.year.value, month: F.month.value, conf: F.conf.value, geo: F.geo.value, state: F.state.value,
-      clinic: F.clinic.value, treat: F.treat.value, fee: F.fee.value, fav: F.fav.checked
+      clinic: F.clinic.value, treat: F.treat.value, fee: F.fee.value, fav: F.fav.checked,
+      me: readMe()
     };
   }
 
@@ -449,30 +375,6 @@
     return `<dl class="ledger">${ledgerHTML(c, full).map(([k, v]) => `<dt>${esc(k)}</dt><dd>${v}</dd>`).join("")}</dl>`;
   }
 
-  function awardText(o) {
-    if (o.award_min != null && o.award_max != null && o.award_min !== o.award_max) return fmtMoney(o.award_min, o.currency) + " to " + fmtMoney(o.award_max, o.currency);
-    if (o.award_max != null) return (o.award_min === o.award_max ? "" : "Up to ") + fmtMoney(o.award_max, o.currency);
-    return "Not announced";
-  }
-  function feeText(o) {
-    if (o.application_fee === 0) return "No fee";
-    if (o.application_fee == null) return "Not announced";
-    return fmtMoney(o.application_fee, o.fee_currency || o.currency);
-  }
-  function geoShort(o) {
-    const g = o.geography || {};
-    if (g.type === "us_national") return "U.S. nationwide";
-    if (g.type === "international") return g.country === "UK" ? "United Kingdom only" : "Outside the U.S.";
-    if (g.type === "us_regional") return (g.states || []).map((s) => STATE_NAMES[s] || s).join(", ") || "Certain areas";
-    return "Not stated";
-  }
-  function clinicShort(o) {
-    const k = clinicKind(o);
-    return k === "yes" ? "Partner clinic required" : k === "no" ? "Any eligible clinic" : "Not stated";
-  }
-  function verifiedText(o) {
-    return o.last_verified_at ? "Checked " + fmtDate(o.last_verified_at) : "Not yet verified";
-  }
 
   function trackLabel(cycleId) {
     const t = store.tracking[cycleId];
@@ -481,13 +383,43 @@
     return s ? s[1] : "";
   }
 
+  function moreLink(o) {
+    const links = o.links || [];
+    return links.find((l) => l.label !== "Website") || links[0] || { url: o.official_url };
+  }
+
+  function cardLedger(c) {
+    const rows = [];
+    const longText = (t) => `<span class="clamp">${esc(t)}</span>`;
+    if (c.kind === "rolling") {
+      rows.push(["Applications", `<span class="dv">Accepted year-round</span>`]);
+      if (c.notification_window_text) rows.push(["Decisions", longText(c.notification_window_text)]);
+    } else if (c.kind === "awaiting" || c.kind === "paused") {
+      rows.push(["Next dates", `<span class="dv na">Not announced yet</span>${chip(c.date_confidence === "recurring" ? "recurring" : (c.kind === "paused" ? "needs_confirmation" : "not_announced"))}`]);
+      if (c.recurring_text) rows.push(["Past pattern", longText(c.recurring_text)]);
+    } else if (c.kind === "event") {
+      rows.push(["Event", dateValueHTML(c.event_date, c, { weekday: true })]);
+    } else {
+      const st = cycleStatus(c);
+      if (st !== "open" || c.application_opens_at) rows.push(["Opens", dateValueHTML(c.application_opens_at, c, { naText: c.open_verified_on ? "Open now" : "Not announced" })]);
+      if (c.start_application_deadline_at && dLatest(c.start_application_deadline_at) >= TODAY) rows.push(["Start by", dateValueHTML(c.start_application_deadline_at, c, {})]);
+      rows.push(["Deadline", dateValueHTML(c.submission_deadline_at, c, { weekday: true }), true]);
+      if (c.notification_date) rows.push(["Decisions", dateValueHTML(c.notification_date, c, {})]);
+      else rows.push(["Decisions", c.notification_window_text ? longText(c.notification_window_text) : `<span class="dv na">Not announced</span>`]);
+    }
+    return `<dl class="ledger">${rows.map(([k, v, key]) => `<dt${key ? ' class="key"' : ""}>${esc(k)}</dt><dd${key ? ' class="key"' : ""}>${v}</dd>`).join("")}</dl>`;
+  }
+
   function card(c) {
     const o = c.org;
     const st = cycleStatus(c);
     const tl = trackLabel(c.id);
-    const note = c.status_note ? `<p class="note">${esc(c.status_note)}</p>` : "";
-    const statusExtra = st === "pending" && c.notification_date ? `<p class="note">Decisions expected by ${esc(fmtDate(dLatest(c.notification_date)))}.</p>` : (st === "check" ? `<p class="note">The announced opening has passed and no deadline is listed yet. Check the official source.</p>` : "");
+    const statusExtra = st === "pending" && c.notification_date ? `<p class="note">Closed. Decisions expected by ${esc(fmtDate(dLatest(c.notification_date)))}.</p>` : (st === "check" ? `<p class="note">The announced opening has passed and no deadline is listed yet. Check the official source.</p>` : "");
     const review = o.pending ? `<p class="note-box"><strong>Pending your review.</strong> ${esc(o.review && o.review.why || "")} Not shown on the public site.</p>` : "";
+    const fee = o.application_fee === 0 ? "No fee" : (o.application_fee == null ? "Fee not announced" : feeText(o) + " fee");
+    const award = awardText(o) === "Not announced" ? "Award not announced" : awardText(o);
+    const tags = [award, fee, geoShort(o) === "Not stated" ? "Location not stated" : geoShort(o)];
+    if (clinicKind(o) === "yes") tags.push("Partner clinic required");
     return `<article class="card${o.pending ? " is-pending" : ""}" data-cycle="${esc(c.id)}">
       <div class="card-top">${pill(st)}${o.pending ? '<span class="pill review">Pending review</span>' : ""}<span class="cycle-tag">${esc(c.cycle_label)}</span></div>
       <div class="card-title">
@@ -495,24 +427,17 @@
         <p class="card-sub">${esc(o.program_name)}</p>
       </div>
       ${review}
-      ${ledger(c, false)}
-      ${statusExtra}${note}
-      <div class="facts">
-        <div><span>Award</span><span>${esc(awardText(o))}</span></div>
-        <div><span>Application fee</span><span>${esc(feeText(o))}</span></div>
-        <div><span>Where</span><span>${esc(geoShort(o))}</span></div>
-        <div><span>Clinic</span><span>${esc(clinicShort(o))}</span></div>
-      </div>
+      ${cardLedger(c)}
+      ${statusExtra}
+      <div class="card-meta">${tags.map((t) => `<span class="meta-tag">${esc(t)}</span>`).join("")}</div>
+      <p class="req-line">${reqShort(reqOf(c)).length ? `<strong>Requires:</strong> ${esc(reqShort(reqOf(c)).join(", "))}` : "Requirements not fully published. Check their website."}</p>
       <div class="card-foot">
-        <div class="src">
-          <a href="${esc(c.source_url || o.official_url)}" target="_blank" rel="noopener">Official source</a>
-          <span class="muted">${esc(verifiedText(o))}</span>
-        </div>
         <div class="card-actions">
-          ${tl ? `<span class="track-state">${esc(tl)}</span>` : ""}
           <button type="button" class="btn fav-btn" data-fav="${esc(o.id)}" aria-pressed="${isFav(o.id)}">${isFav(o.id) ? "★ Saved" : "☆ Save"}</button>
-          <button type="button" class="btn" data-open="${esc(o.id)}" data-cycle-focus="${esc(c.id)}">Details</button>
+          <button type="button" class="btn" data-track-open="${esc(c.id)}">${tl ? "Tracking: " + esc(tl) : "Track"}</button>
+          <button type="button" class="btn btn-primary btn-more" data-open="${esc(o.id)}" data-cycle-focus="${esc(c.id)}">Details</button>
         </div>
+        <p class="src-line"><a href="${esc(moreLink(o).url)}" target="_blank" rel="noopener">More on their website</a> · <a href="${esc(c.source_url || o.official_url)}" target="_blank" rel="noopener">Source for these dates</a> · ${esc(verifiedText(o))}</p>
       </div>
     </article>`;
   }
@@ -545,10 +470,10 @@
 
   const GROUPS = [
     { key: "open", title: "Open now", help: "Accepting applications today, based on dates or notices from the organization." },
-    { key: "upcoming", title: "Upcoming", help: "Announced cycles that haven't opened yet, or that have a future deadline or event." },
+    { key: "upcoming", title: "Upcoming", help: "Announced application rounds that haven't opened yet, or that have a future deadline or event." },
     { key: "rolling", title: "Rolling, year-round", help: "Applications accepted at any time, usually depending on available funding." },
-    { key: "tba", title: "Dates to be announced", help: "Programs waiting to announce their next cycle. Past patterns are shown for reference only." },
-    { key: "archive", title: "Archive: past cycles", help: "Closed cycles, kept with their original dates." }
+    { key: "tba", title: "Dates to be announced", help: "Programs that haven't announced their next round yet. Past patterns are shown for reference only." },
+    { key: "archive", title: "Past rounds", help: "Closed application rounds, kept with their original dates." }
   ];
 
   let layout = store.prefs.layout === "table" ? "table" : "cards";
@@ -556,17 +481,26 @@
   function renderFind() {
     const opts = currentOpts();
     const list = sortCycles(CYCLES.filter((c) => matches(c, opts)), F.sort.value);
+    const hiddenByReq = opts.me.active ? CYCLES.filter((c) => matches(c, { ...opts, ignoreReq: true }) && reqConflicts(c, opts.me).length) : [];
+    const hiddenOrgs = new Set(hiddenByReq.map((c) => c.org.id)).size;
+    $("#req-status").textContent = opts.me.active ? (hiddenByReq.length ? `Hiding ${hiddenOrgs} ${hiddenOrgs === 1 ? "grant that lists" : "grants that list"} a requirement you don't meet` : "No grants hidden by your answers") : "";
     const orgCount = new Set(list.map((c) => c.org.id)).size;
-    $("#result-count").innerHTML = `<strong>${list.length}</strong> ${list.length === 1 ? "cycle" : "cycles"} from <strong>${orgCount}</strong> ${orgCount === 1 ? "organization" : "organizations"}`;
-    const moreActive = [F.conf, F.geo, F.state, F.clinic, F.treat, F.fee].filter((s) => s.value).length;
+    $("#result-count").innerHTML = `<strong>${list.length}</strong> ${list.length === 1 ? "application round" : "application rounds"} from <strong>${orgCount}</strong> ${orgCount === 1 ? "organization" : "organizations"}`;
+    const moreActive = [F.conf, F.geo, F.clinic, F.fee].filter((s) => s.value).length;
     $("#more-count").textContent = moreActive ? `(${moreActive} on)` : "";
+    const statusDefault = STATUS_BOXES.every((b) => b.checked === (b.value !== "archive"));
+    const allActive = [F.year, F.month, F.conf, F.geo, F.state, F.clinic, F.treat, F.fee].filter((s) => s.value).length + (F.fav.checked ? 1 : 0) + (statusDefault ? 0 : 1);
+    $("#filters-on").textContent = allActive ? `(${allActive} on)` : "";
+    syncQuick();
     const out = $("#results");
     if (!list.length) {
-      out.innerHTML = `<p class="empty">No grants match these filters. Try removing a filter, or turn on "Past cycles (archive)".</p>`;
+      out.innerHTML = `<p class="empty">No grants match these filters. Try removing a filter, clearing your answers in "Check requirements", or tap "Past rounds".</p>`;
       return;
     }
-    if (layout === "table") { out.innerHTML = tableHTML(list); return; }
-    out.innerHTML = GROUPS.map((g) => {
+    const stateNote = F.state.value ? `<p class="state-note"><span>Showing grants for <strong>${esc(STATE_NAMES[F.state.value])}</strong> residents: local grants plus grants open anywhere in the U.S.</span> <a href="states/${CORE.slug(STATE_NAMES[F.state.value])}/">${esc(STATE_NAMES[F.state.value])} grants page</a> <button type="button" class="btn-link" data-state-clear>Show all states</button></p>` : "";
+    const reqNote = stateNote + (hiddenByReq.length ? `<p class="hidden-note">${hiddenOrgs} ${hiddenOrgs === 1 ? "grant is" : "grants are"} hidden because ${hiddenOrgs === 1 ? "its" : "their"} published rules don't fit your answers: ${esc([...new Set(hiddenByReq.map((c) => c.org.name))].join(", "))}. <button type="button" class="btn-link" data-req-clear>Show all grants again</button></p>` : "");
+    if (layout === "table") { out.innerHTML = reqNote + tableHTML(list); return; }
+    out.innerHTML = reqNote + GROUPS.map((g) => {
       const items = list.filter((c) => GROUP_OF[cycleStatus(c)] === g.key);
       if (!items.length) return "";
       return `<section class="group" aria-label="${esc(g.title)}">
@@ -576,9 +510,58 @@
     }).join("");
   }
 
+  // ---------- Shortcuts ----------
+  const QUICK = {
+    default: { statuses: ["open", "upcoming", "rolling", "tba"] },
+    open: { statuses: ["open", "rolling"] },
+    upcoming: { statuses: ["upcoming"] },
+    national: { statuses: ["open", "upcoming", "rolling", "tba"], geo: "us_national" },
+    saved: { statuses: ["open", "upcoming", "rolling", "tba", "archive"], fav: true },
+    archive: { statuses: ["archive"] }
+  };
+  function applyQuick(key) {
+    const q = QUICK[key];
+    if (!q) return;
+    [F.year, F.month, F.conf, F.geo, F.state, F.clinic, F.treat, F.fee].forEach((sel) => { sel.value = ""; });
+    STATUS_BOXES.forEach((b) => { b.checked = q.statuses.includes(b.value); });
+    F.geo.value = q.geo || "";
+    F.fav.checked = !!q.fav;
+    renderFind();
+  }
+  function syncQuick() {
+    const statuses = STATUS_BOXES.filter((b) => b.checked).map((b) => b.value).sort().join(",");
+    const others = [F.year, F.month, F.conf, F.state, F.clinic, F.treat, F.fee].some((sel) => sel.value);
+    let active = null;
+    if (!others) {
+      Object.entries(QUICK).forEach(([k, q]) => {
+        if (active) return;
+        if (q.statuses.slice().sort().join(",") === statuses && (q.geo || "") === F.geo.value && !!q.fav === F.fav.checked) active = k;
+      });
+    }
+    $$(".quick button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.quick === active)));
+  }
+
+  // ---------- Logos (shown only if the image files exist) ----------
+  function loadLogos() {
+    const big = new Image();
+    big.onload = () => { $("#brand-logo").src = big.src; $("#logo-badge").hidden = false; };
+    big.src = "assets/logo.png";
+    const small = new Image();
+    small.onload = () => { const f = $("#foot-logo"); f.src = small.src; f.hidden = false; };
+    small.src = "assets/logo-road.png";
+  }
+
+  // ---------- How it works panel ----------
+  function setHowto(hidden) {
+    $("#howto").hidden = hidden;
+    $("#howto-show-wrap").hidden = !hidden;
+    store.prefs.howtoHidden = hidden;
+    save();
+  }
+
   // ---------- Detail dialog ----------
   const detail = $("#detail");
-  function openDetail(orgId, focusCycleId) {
+  function openDetail(orgId, focusCycleId, openTracker) {
     const o = ORG_BY_ID[orgId];
     if (!o) return;
     const cycles = CYCLES.filter((c) => c.org.id === orgId);
@@ -590,7 +573,7 @@
         <h4>${esc(c.cycle_label)} ${pill(cycleStatus(c))}</h4>
         ${ledger(c, true)}
         ${c.status_note ? `<p class="note">${esc(c.status_note)}</p>` : ""}
-        <p class="note"><a href="${esc(c.source_url || o.official_url)}" target="_blank" rel="noopener">Source for this cycle</a></p>
+        <p class="note"><a href="${esc(c.source_url || o.official_url)}" target="_blank" rel="noopener">Source for this round</a></p>
         ${trackerForm(c)}
       </div>`;
     $("#detail-body").innerHTML = `
@@ -619,23 +602,50 @@
         <div><span>Clinic</span><span>${esc(o.clinic_restrictions || clinicShort(o))}</span></div>
         <div><span>Treatments mentioned</span><span>${esc((o.treatments_covered || []).join(", ") || "Not yet verified")}</span></div>
       </div>
+      <section class="detail-section"><h3>More details on their website</h3>
+        <div class="link-list">${(o.links || [{ label: "Official website", url: o.official_url }]).map((l) => `<a class="btn" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join("")}</div>
+        <p class="ask-line">Have a question about eligibility, dates, or fees? Ask ${esc(o.name)} directly: <a href="${esc(CORE.questionLink(o).url)}" target="_blank" rel="noopener">${esc(CORE.questionLink(o).label === "Website" ? "visit their website" : CORE.questionLink(o).label)}</a>.</p>
+        <p class="note">Links checked ${esc(fmtDate((o.requirements && o.requirements.checked_on) || o.last_verified_at || DATA.meta.data_updated))}.</p>
+      </section>
+      <section class="detail-section"><h3>Requirements at a glance</h3>
+        <p class="note">From the organization's published rules. "Not stated" means we couldn't find it, not that there's no rule. Only the organization can decide whether you qualify.</p>
+        ${reqTable(o)}
+      </section>
       <section class="detail-section"><h3>Review eligibility</h3>
-        <p class="note">Published requirements, summarized. Only the organization can decide whether you qualify.</p>
         ${list(o.eligibility_notes)}
       </section>
       <section class="detail-section"><h3>What's covered and not covered</h3>${list(o.coverage_notes)}</section>
-      <section class="detail-section"><h3>Current and upcoming cycles</h3>
-        ${current.length ? current.map((c) => cycleBlock(c, false)).join("") : '<p class="muted">No current or upcoming cycle has been announced.</p>'}
+      <section class="detail-section"><h3>Current and upcoming rounds</h3>
+        ${current.length ? current.map((c) => cycleBlock(c, false)).join("") : '<p class="muted">No current or upcoming round has been announced.</p>'}
       </section>
-      ${past.length ? `<section class="detail-section"><h3>Archive: past cycles</h3>${past.map((c) => cycleBlock(c, true)).join("")}</section>` : ""}
+      ${past.length ? `<section class="detail-section"><h3>Past rounds</h3>${past.map((c) => cycleBlock(c, true)).join("")}</section>` : ""}
       ${(o.research_notes || []).length ? `<section class="detail-section"><h3>Research notes</h3>${list(o.research_notes)}</section>` : ""}
       <section class="detail-section"><h3>Sources</h3><ul>${(o.source_urls || []).map((u) => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(u)}</a></li>`).join("")}</ul></section>
     `;
     if (!detail.open) detail.showModal();
     const target = focusCycleId && document.getElementById("cb-" + focusCycleId);
+    if (openTracker && target) {
+      const d = $("details.tracker-form", target);
+      if (d) { d.open = true; d.scrollIntoView({ block: "start" }); const sel = $("select", d); if (sel) sel.focus(); return; }
+    }
     if (target && focusCycleId !== cycles[0].id) target.scrollIntoView({ block: "start" });
     else $(".dialog-inner", detail).scrollTop = 0;
     if (location.hash !== "#grant-" + orgId) history.replaceState(null, "", "#grant-" + orgId);
+  }
+
+  function reqTable(o) {
+    const r = o.requirements || {};
+    const rows = REQ_ROWS.map(([k, label]) => {
+      let v = reqValueText(r[k]);
+      if (k === "us_citizen" && r.us_citizen === false && r.us_status === true) v = "Not required (residents can apply)";
+      if (k === "no_children" && r.children_max != null && r.no_children !== true) v = `Up to ${r.children_max} ${r.children_max === 1 ? "child" : "children"} allowed`;
+      return [label, v];
+    });
+    const age = r.age_min != null || r.age_max != null ? (r.age_min != null && r.age_max != null ? `${r.age_min} to ${r.age_max}` : (r.age_min != null ? `${r.age_min} or older` : `${r.age_max} or younger`)) : null;
+    rows.push(["Age", age]);
+    rows.push(["Household income", r.income_max != null ? `Up to ${fmtMoney(r.income_max, "USD")}` : null]);
+    const other = (r.other || []).length ? `<ul>${r.other.map((x) => `<li>${esc(x)}</li>`).join("")}</ul>` : "";
+    return `<dl class="req-table">${rows.map(([k, v]) => `<dt>${esc(k)}</dt><dd${v ? "" : ' class="ns"'}>${esc(v || "Not stated")}</dd>`).join("")}</dl>${other}`;
   }
 
   function trackerForm(c) {
@@ -792,7 +802,7 @@
     if (tracked.length) {
       html += `<h3>Applications</h3><div class="table-wrap"><table><thead><tr><th>Grant</th><th>Cycle</th><th>My status</th><th>Deadline</th><th>Submitted</th><th>Expected decision</th><th>Decision</th><th>Award</th><th>Notes</th></tr></thead><tbody>` +
         tracked.sort((a, b) => (a.c ? a.c.org.name : a.cid).localeCompare(b.c ? b.c.org.name : b.cid)).map(({ cid, t, c }) => {
-          if (!c) return `<tr><td colspan="9">A tracked cycle (${esc(cid)}) is no longer listed. Your notes: ${esc(t.notes || "none")}</td></tr>`;
+          if (!c) return `<tr><td colspan="9">A tracked application round (${esc(cid)}) is no longer listed. Your notes: ${esc(t.notes || "none")}</td></tr>`;
           const s = TRACK_STATUSES.find((x) => x[0] === t.status);
           return `<tr>
             <td class="t-org"><button type="button" data-open="${esc(c.org.id)}" data-cycle-focus="${esc(c.id)}">${esc(c.org.name)}</button></td>
@@ -925,7 +935,9 @@
       <p>${esc(r.description)}</p>${r.note ? `<p class="note">${esc(r.note)}</p>` : ""}</article>`).join("");
     if (PREVIEW) {
       $("#preview-banner").hidden = false;
-      $("#preview-banner").innerHTML = `<p class="preview-note"><strong>Private preview.</strong> Includes ${CANDIDATES.length} programs pending your review, marked "Pending review". They don't appear on the public site until you approve them. Downloads may not work in this preview; use "Copy text" instead.</p>`;
+      $("#preview-banner").innerHTML = CANDIDATES.length
+        ? `<p class="preview-note"><strong>Private preview.</strong> Includes ${CANDIDATES.length} ${CANDIDATES.length === 1 ? "program" : "programs"} pending your review, marked "Pending review". They don't appear on the public site until you approve them. Downloads may not work in this preview; use "Copy text" instead.</p>`
+        : `<p class="preview-note"><strong>Private preview.</strong> No programs are waiting for your review. Downloads may not work in this preview; use "Copy text" instead.</p>`;
     }
     $("#pref-central").checked = !!store.prefs.central;
   }
@@ -942,6 +954,10 @@
   }
   function route() {
     const h = location.hash.replace(/^#/, "");
+    if (h.startsWith("state-")) {
+      const code = h.slice(6).toUpperCase();
+      if (STATE_NAMES[code]) { F.state.value = code; showView("find"); return; }
+    }
     if (h.startsWith("grant-")) {
       const id = h.slice(6);
       if (ORG_BY_ID[id]) { showView("find"); openDetail(id); return; }
@@ -962,6 +978,12 @@
     const t = ev.target;
     const openBtn = t.closest("[data-open]");
     if (openBtn) { openDetail(openBtn.getAttribute("data-open"), openBtn.getAttribute("data-cycle-focus")); return; }
+    const trackBtn = t.closest("[data-track-open]");
+    if (trackBtn) { const c = CYCLE_BY_ID[trackBtn.getAttribute("data-track-open")]; if (c) openDetail(c.org.id, c.id, true); return; }
+    if (t.closest("[data-req-clear]")) { clearReq(); return; }
+    if (t.closest("[data-state-clear]")) { F.state.value = ""; if (location.hash.startsWith("#state-")) history.replaceState(null, "", "#find"); renderFind(); return; }
+    const quickBtn = t.closest("[data-quick]");
+    if (quickBtn) { applyQuick(quickBtn.dataset.quick); return; }
     const fav = t.closest("[data-fav]");
     if (fav) {
       const id = fav.getAttribute("data-fav");
@@ -1003,6 +1025,15 @@
 
   [F.q].forEach((el) => el.addEventListener("input", renderFind));
   [F.year, F.month, F.conf, F.geo, F.state, F.clinic, F.treat, F.fee, F.fav, F.sort].concat(STATUS_BOXES).forEach((el) => el.addEventListener("change", renderFind));
+  const reqPanel = $("#req-check");
+  reqPanel.addEventListener("change", renderFind);
+  reqPanel.addEventListener("input", (ev) => { if (ev.target.type === "number") renderFind(); });
+  function clearReq() {
+    REQ_INPUTS().forEach((b) => { b.checked = false; });
+    $("#rq-kids").value = ""; $("#rq-age").value = ""; $("#rq-income").value = "";
+    renderFind();
+  }
+  $("#rq-clear").addEventListener("click", clearReq);
   $("#reset-filters").addEventListener("click", () => {
     F.q.value = "";
     [F.year, F.month, F.conf, F.geo, F.state, F.clinic, F.treat, F.fee].forEach((s) => { s.value = ""; });
@@ -1010,6 +1041,20 @@
     STATUS_BOXES.forEach((b) => { b.checked = b.value !== "archive"; });
     renderFind();
   });
+  const filtersPanel = $("#filters");
+  function setFiltersOpen(open) {
+    filtersPanel.classList.toggle("is-open", open);
+    $("#filters-toggle").setAttribute("aria-expanded", String(open));
+  }
+  $("#filters-toggle").addEventListener("click", () => {
+    const open = !filtersPanel.classList.contains("is-open");
+    setFiltersOpen(open);
+    if (open) filtersPanel.scrollIntoView({ block: "start" });
+  });
+  $("#filters-done").addEventListener("click", () => { setFiltersOpen(false); $("#results").scrollIntoView({ block: "start" }); });
+  $("#howto-hide").addEventListener("click", () => setHowto(true));
+  $("#howto-show").addEventListener("click", () => setHowto(false));
+
   function setLayout(l) {
     layout = l;
     store.prefs.layout = l; save();
@@ -1021,7 +1066,7 @@
   $("#view-table").addEventListener("click", () => setLayout("table"));
   $("#export-csv").addEventListener("click", () => {
     const list = sortCycles(CYCLES.filter((c) => matches(c, currentOpts()) && !c.org.pending), F.sort.value);
-    offerFile("fertility-grants.csv", "text/csv", grantsCSV(list), `${list.length} grant cycles matching your current filters. Unknown values are left blank; check each official source before relying on a date.`);
+    offerFile("fertility-grants.csv", "text/csv", grantsCSV(list), `${list.length} application rounds matching your current filters. Unknown values are left blank; check each official source before relying on a date.`);
   });
   $("#export-ics").addEventListener("click", () => {
     const r = buildICS();
@@ -1051,6 +1096,8 @@
 
   // ---------- Boot ----------
   fillSelects();
+  loadLogos();
+  if (store.prefs.howtoHidden) { $("#howto").hidden = true; $("#howto-show-wrap").hidden = false; }
   renderTypes();
   renderStatic();
   $("#view-cards").setAttribute("aria-pressed", layout === "cards");

@@ -1,7 +1,7 @@
 // Builds the private preview (public site + programs pending review) into private/preview/.
 // Run from the project folder:  node tools/build-preview.mjs
 // The preview is what gets published as the private claude.ai artifact.
-import { readFileSync, writeFileSync, mkdirSync, copyFileSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync, mkdirSync, copyFileSync, existsSync, readdirSync, cpSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -28,8 +28,9 @@ html = html.replace(
   '<script>window.FGF_PREVIEW = true;</script>\n<script src="data/grants.js"></script>' + (candidates ? '\n<script src="data/candidates.js"></script>' : "")
 );
 writeFileSync(path.join(out, "index.html"), html);
-copyFileSync(path.join(root, "assets/app.js"), path.join(out, "assets/app.js"));
-copyFileSync(path.join(root, "assets/styles.css"), path.join(out, "assets/styles.css"));
+for (const f of readdirSync(path.join(root, "assets"))) copyFileSync(path.join(root, "assets", f), path.join(out, "assets", f));
 copyFileSync(path.join(root, "data/grants.js"), path.join(out, "data/grants.js"));
 if (candidates) copyFileSync(path.join(root, "private/candidates.js"), path.join(out, "data/candidates.js"));
+// Grant and state pages, so their links work in the preview too.
+for (const dir of ["grants", "states"]) if (existsSync(path.join(root, dir))) cpSync(path.join(root, dir), path.join(out, dir), { recursive: true });
 console.log("Preview built in private/preview/");

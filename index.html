@@ -9,23 +9,33 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap">
-<link rel="stylesheet" href="assets/styles.css">
+<link rel="canonical" href="https://livingsarahand.github.io/fertility-grant-finder/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Fertility Grant Finder">
+<meta property="og:title" content="Fertility Grant Finder">
+<meta property="og:description" content="Free directory of fertility grants for IVF, IUI, donor conception, surrogacy, and adoption, with every deadline labeled by how certain it is.">
+<meta property="og:url" content="https://livingsarahand.github.io/fertility-grant-finder/">
+<meta property="og:image" content="https://livingsarahand.github.io/fertility-grant-finder/assets/logo.png">
+<link rel="icon" href="assets/logo-road.png" type="image/png">
+<link rel="stylesheet" href="assets/styles.css?v=6">
 </head>
 <body>
 <a class="skip" href="#main">Skip to grants</a>
 
 <header class="site-head">
   <div class="wrap head-inner">
-    <div class="brand">
+    <span class="logo-badge" id="logo-badge" hidden><img id="brand-logo" alt="The Long Way There logo" width="96" height="96"></span>
+    <div class="head-text">
+      <p class="eyebrow">A free resource from <span id="eyebrow-show">The Long Way There</span> podcast</p>
       <h1 class="brand-name">Fertility Grant Finder</h1>
-      <p class="brand-line">Fertility grants in one place, with each deadline, decision date, and funding rule labeled by how certain it is.</p>
+      <p class="brand-line">Find grants that help pay for IVF, IUI, donor conception, surrogacy, and adoption, with every deadline in one place.</p>
     </div>
-    <p class="head-note">Not a complete list of every grant. Applying never guarantees an award. Always confirm details with the organization.</p>
   </div>
   <nav class="tabs wrap" aria-label="Sections">
     <a href="#find" data-tab="find">Find grants</a>
     <a href="#calendar" data-tab="calendar">Calendar</a>
     <a href="#tracker" data-tab="tracker">My tracker <span class="tab-count" id="tracker-count" hidden></span></a>
+    <a href="states/">Grants by state</a>
     <a href="#resources" data-tab="resources">Resources</a>
     <a href="#about" data-tab="about">About</a>
   </nav>
@@ -38,11 +48,95 @@
   <!-- FIND -->
   <section id="view-find" class="view" aria-labelledby="find-title">
     <h2 id="find-title" class="visually-hidden">Find grants</h2>
+
+    <section class="howto" id="howto" aria-labelledby="howto-title">
+      <div class="howto-head">
+        <h2 id="howto-title">How it works</h2>
+        <button type="button" class="btn-link" id="howto-hide">Hide this</button>
+      </div>
+      <ol class="steps">
+        <li>
+          <span class="step-num" aria-hidden="true">1</span>
+          <div><h3>Search</h3><p>Type your state, a treatment like IVF, or a grant name. Or tap a shortcut like <strong>Open now</strong>.</p></div>
+        </li>
+        <li>
+          <span class="step-num" aria-hidden="true">2</span>
+          <div><h3>Check the dates</h3><p>Every date has a label. <span class="chip c-confirmed">Confirmed</span> means the organization published it. <span class="chip c-needs_confirmation">Needs confirmation</span> or <span class="chip c-not_announced">Not announced</span> means check back.</p></div>
+        </li>
+        <li>
+          <span class="step-num" aria-hidden="true">3</span>
+          <div><h3>Save and track</h3><p>Tap <strong>☆ Save</strong> to keep a grant, and <strong>Track</strong> to note where you are, from preparing to submitted. It stays private on your device.</p></div>
+        </li>
+      </ol>
+      <p class="howto-note">This isn't a complete list of every grant, and applying never guarantees an award. Always confirm details with the organization before you apply.</p>
+    </section>
+    <p class="howto-show-wrap" id="howto-show-wrap" hidden><button type="button" class="btn-link" id="howto-show">How this site works</button></p>
+
+    <div class="searchbar">
+      <label for="q" class="visually-hidden">Search grants</label>
+      <input id="q" type="search" placeholder="Search: state, IVF, grant name…" autocomplete="off">
+    </div>
+    <div class="quick" role="group" aria-label="Shortcuts">
+      <button type="button" data-quick="default" aria-pressed="true">Current and upcoming</button>
+      <button type="button" data-quick="open" aria-pressed="false">Open now</button>
+      <button type="button" data-quick="upcoming" aria-pressed="false">Opening soon</button>
+      <button type="button" data-quick="national" aria-pressed="false">Anywhere in the U.S.</button>
+      <button type="button" data-quick="saved" aria-pressed="false">My saved grants</button>
+      <button type="button" data-quick="archive" aria-pressed="false">Past rounds</button>
+    </div>
+
+    <details class="req-check" id="req-check">
+      <summary>
+        <span class="req-title">Not sure you qualify? <strong>Check requirements</strong></span>
+        <span class="req-status" id="req-status"></span>
+      </summary>
+      <div class="req-body">
+        <p class="req-intro">Tell us about your situation, and we'll hide grants whose <strong>published</strong> rules you don't meet. This doesn't decide whether you qualify: some grants don't publish every rule, so they stay visible. Nothing you enter here is saved or sent anywhere.</p>
+        <div class="req-grid">
+          <fieldset class="field">
+            <legend>Check any that apply to you</legend>
+            <label class="check"><input type="checkbox" id="rq-married" data-req="married"> I'm not married</label>
+            <label class="check"><input type="checkbox" id="rq-citizen" data-req="us_citizen"> I'm a permanent resident, not a U.S. citizen</label>
+            <label class="check"><input type="checkbox" id="rq-status" data-req="us_status"> I'm not a U.S. citizen or permanent resident</label>
+            <label class="check"><input type="checkbox" id="rq-diagnosis" data-req="diagnosis"> I don't have an infertility diagnosis yet</label>
+            <label class="check"><input type="checkbox" id="rq-employment" data-req="employment"> No one in my household is employed</label>
+            <label class="check"><input type="checkbox" id="rq-insurance" data-req="health_insurance"> I don't have health insurance</label>
+            <label class="check"><input type="checkbox" id="rq-event" data-req="attend_event"> I can't attend an in-person event</label>
+          </fieldset>
+          <div class="req-numbers">
+            <div class="field">
+              <label for="rq-kids">Children I already have</label>
+              <select id="rq-kids"><option value="">Prefer not to say</option><option value="0">None</option><option value="1">1</option><option value="2">2</option><option value="3">3 or more</option></select>
+            </div>
+            <div class="field">
+              <label for="rq-age">My age</label>
+              <input id="rq-age" type="number" inputmode="numeric" min="16" max="70" placeholder="Optional">
+            </div>
+            <div class="field">
+              <label for="rq-income">Household income per year ($)</label>
+              <input id="rq-income" type="number" inputmode="numeric" min="0" step="1000" placeholder="Optional">
+            </div>
+            <button type="button" class="btn-link" id="rq-clear">Clear my answers</button>
+          </div>
+        </div>
+      </div>
+    </details>
+
     <div class="find-layout">
-      <aside class="filters" aria-label="Search and filters">
+      <aside class="filters" id="filters" aria-label="Filters">
+        <div class="filters-head">
+          <h3>Filters</h3>
+          <button type="button" class="btn-link" id="reset-filters">Reset</button>
+        </div>
+
         <div class="field">
-          <label for="q">Search</label>
-          <input id="q" type="search" placeholder="Name, state, treatment, month…" autocomplete="off">
+          <label for="f-state">State</label>
+          <select id="f-state"></select>
+          <p class="hint">Shows grants for that state plus grants open anywhere in the U.S.</p>
+        </div>
+        <div class="field">
+          <label for="f-treat">Treatment</label>
+          <select id="f-treat"></select>
         </div>
 
         <fieldset class="field">
@@ -51,7 +145,7 @@
           <label class="check"><input type="checkbox" id="st-upcoming" value="upcoming" checked> Upcoming</label>
           <label class="check"><input type="checkbox" id="st-rolling" value="rolling" checked> Rolling, year-round</label>
           <label class="check"><input type="checkbox" id="st-tba" value="tba" checked> Dates to be announced</label>
-          <label class="check"><input type="checkbox" id="st-archive" value="archive"> Past cycles (archive)</label>
+          <label class="check"><input type="checkbox" id="st-archive" value="archive"> Past rounds</label>
         </fieldset>
 
         <div class="field-row">
@@ -87,10 +181,6 @@
             </select>
           </div>
           <div class="field">
-            <label for="f-state">State</label>
-            <select id="f-state"></select>
-          </div>
-          <div class="field">
             <label for="f-clinic">Clinic rule</label>
             <select id="f-clinic">
               <option value="">Any</option>
@@ -98,10 +188,6 @@
               <option value="yes">Partner clinic required</option>
               <option value="unknown">Not stated</option>
             </select>
-          </div>
-          <div class="field">
-            <label for="f-treat">Treatment</label>
-            <select id="f-treat"></select>
           </div>
           <div class="field">
             <label for="f-fee">Application fee</label>
@@ -115,13 +201,14 @@
         </details>
 
         <label class="check"><input type="checkbox" id="f-fav"> Saved grants only</label>
-        <button type="button" class="btn-link" id="reset-filters">Reset filters</button>
+        <button type="button" class="btn btn-primary filters-done" id="filters-done">Show results</button>
       </aside>
 
       <div class="results">
         <div class="results-bar">
           <p class="count" id="result-count" aria-live="polite"></p>
           <div class="results-tools">
+            <button type="button" class="btn filters-toggle" id="filters-toggle" aria-controls="filters" aria-expanded="false">Filters <span id="filters-on"></span></button>
             <label for="sort" class="inline-label">Sort</label>
             <select id="sort">
               <option value="deadline">Next deadline</option>
@@ -132,10 +219,10 @@
               <button type="button" id="view-cards" aria-pressed="true">Cards</button>
               <button type="button" id="view-table" aria-pressed="false">Table</button>
             </div>
-            <button type="button" class="btn" id="export-csv">Download CSV</button>
           </div>
         </div>
         <div id="results"></div>
+        <p class="results-foot"><button type="button" class="btn-link" id="export-csv">Download this list (CSV)</button></p>
       </div>
     </div>
   </section>
@@ -223,8 +310,9 @@
 
 <footer class="site-foot">
   <div class="wrap foot-inner">
-    <p class="credit" id="credit"></p>
-    <p class="foot-small">Independent directory. Not affiliated with any program listed. Not medical, legal, or financial advice. <span id="foot-updated"></span></p>
+    <div class="foot-brand"><img id="foot-logo" alt="" width="40" height="40" hidden><p class="credit" id="credit"></p></div>
+    <p class="foot-small">Independent directory, not affiliated with any program listed, and not a complete list of every grant. Applying never guarantees an award. Always confirm details with the organization. Not medical, legal, or financial advice. <span id="foot-updated"></span></p>
+    <p class="foot-small"><a href="states/">Grants by state</a> · <a href="grants/">All grants</a> · <a href="#about">About</a></p>
     <p class="foot-small" id="foot-suggest" hidden><a id="foot-suggest-link" href="#" target="_blank" rel="noopener">Suggest a grant or correction</a></p>
   </div>
 </footer>
@@ -247,6 +335,7 @@
 </dialog>
 
 <script src="data/grants.js"></script>
-<script src="assets/app.js"></script>
+<script src="assets/core.js?v=6"></script>
+<script src="assets/app.js?v=6"></script>
 </body>
 </html>
