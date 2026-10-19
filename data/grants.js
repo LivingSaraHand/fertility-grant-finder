@@ -42,13 +42,21 @@ window.FGF_DATA = {
       "line": "A free resource from The Long Way There podcast.",
       "about": "Made by the hosts of The Long Way There. Independent and not affiliated with any grant program listed.",
       "links": [
-        { "label": "Spotify", "url": "https://open.spotify.com/show/033jG9beFxNf3xFsLHt7aJ" },
-        { "label": "Apple Podcasts", "url": "https://podcasts.apple.com/us/podcast/the-long-way-there/id6797527430" },
-        { "label": "YouTube", "url": "https://www.youtube.com/@FAITHFERTILITYUS" }
+        {
+          "label": "Spotify",
+          "url": "https://open.spotify.com/show/033jG9beFxNf3xFsLHt7aJ"
+        },
+        {
+          "label": "Apple Podcasts",
+          "url": "https://podcasts.apple.com/us/podcast/the-long-way-there/id6797527430"
+        },
+        {
+          "label": "YouTube",
+          "url": "https://www.youtube.com/@FAITHFERTILITYUS"
+        }
       ]
     }
   },
-
   "organizations": [
     {
       "id": "hope-for-fertility",
@@ -57,10 +65,17 @@ window.FGF_DATA = {
       "official_url": "https://www.hopeforfertility.org/grant/",
       "application_url": "https://www.hopeforfertility.org/grant/",
       "program_type": "Grant",
-      "geography": { "type": "us_national", "states": [], "text": "United States. Applicants must work with a U.S.-based clinic or adoption agency." },
+      "geography": {
+        "type": "us_national",
+        "states": [],
+        "text": "United States. Applicants must work with a U.S.-based clinic or adoption agency."
+      },
       "clinic_required": false,
       "clinic_restrictions": "Any U.S.-based fertility clinic or adoption agency.",
-      "treatments_covered": ["General fertility treatment", "Adoption"],
+      "treatments_covered": [
+        "General fertility treatment",
+        "Adoption"
+      ],
       "award_min": 250,
       "award_max": 10000,
       "currency": "USD",
@@ -84,11 +99,22 @@ window.FGF_DATA = {
           "cycle_label": "Fall 2026",
           "cycle_year": 2026,
           "kind": "dated",
-          "application_opens_at": { "date": "2026-07-01" },
+          "application_opens_at": {
+            "date": "2026-07-01"
+          },
           "start_application_deadline_at": null,
-          "submission_deadline_at": { "date": "2026-09-30", "time": "22:00", "tz": null, "tz_label": "MST (as written on the site banner)", "note": "The banner says 10:00 p.m. MST. The page body uses MT for the spring deadline." },
+          "submission_deadline_at": {
+            "date": "2026-09-30",
+            "time": "22:00",
+            "tz": null,
+            "tz_label": "MST (as written on the site banner)",
+            "note": "The banner says 10:00 p.m. MST. The page body uses MT for the spring deadline."
+          },
           "deadline_basis": "submitted",
-          "notification_date": { "date": "2026-11-11", "note": "Listed as \"Grant Recipients Announced\"." },
+          "notification_date": {
+            "date": "2026-11-11",
+            "note": "Listed as \"Grant Recipients Announced\"."
+          },
           "notification_window_text": null,
           "funds_available_date": null,
           "funds_available_text": null,
@@ -104,9 +130,16 @@ window.FGF_DATA = {
           "cycle_label": "Spring 2027",
           "cycle_year": 2027,
           "kind": "dated",
-          "application_opens_at": { "date": "2027-01-01" },
+          "application_opens_at": {
+            "date": "2027-01-01"
+          },
           "start_application_deadline_at": null,
-          "submission_deadline_at": { "date": "2027-03-31", "time": "22:00", "tz": "America/Denver", "tz_label": "MT" },
+          "submission_deadline_at": {
+            "date": "2027-03-31",
+            "time": "22:00",
+            "tz": "America/Denver",
+            "tz_label": "MT"
+          },
           "deadline_basis": "submitted",
           "notification_date": null,
           "notification_window_text": null,
@@ -120,7 +153,10 @@ window.FGF_DATA = {
           "source_url": "https://www.hopeforfertility.org/grant/"
         }
       ],
-      "source_urls": ["https://www.hopeforfertility.org/grant/", "https://www.hopeforfertility.org/grant-faq/"],
+      "source_urls": [
+        "https://www.hopeforfertility.org/grant/",
+        "https://www.hopeforfertility.org/grant-faq/"
+      ],
       "last_verified_at": "2026-10-18",
       "verification_status": "verified",
       "research_notes": [
@@ -128,7 +164,6 @@ window.FGF_DATA = {
         "A third-party directory lists this grant as \"up to $5,000\". The official page says $250 to $10,000."
       ]
     },
-
     {
       "id": "baby-quest",
       "name": "Baby Quest Foundation",
@@ -136,10 +171,21 @@ window.FGF_DATA = {
       "official_url": "https://babyquestfoundation.org/",
       "application_url": "https://babyquestfoundation.org/applying-for-a-grant-2/",
       "program_type": "Grant",
-      "geography": { "type": "us_national", "states": [], "text": "Permanent U.S. residents under the care of an accredited U.S. fertility facility." },
+      "geography": {
+        "type": "us_national",
+        "states": [],
+        "text": "Permanent U.S. residents under the care of an accredited U.S. fertility facility."
+      },
       "clinic_required": false,
       "clinic_restrictions": "Any accredited U.S. fertility facility of the applicant's choice.",
-      "treatments_covered": ["IVF", "PGT", "Egg freezing", "Donor eggs/sperm", "Embryo donation/adoption", "Surrogacy"],
+      "treatments_covered": [
+        "IVF",
+        "PGT",
+        "Egg freezing",
+        "Donor eggs/sperm",
+        "Embryo donation/adoption",
+        "Surrogacy"
+      ],
       "award_min": null,
       "award_max": null,
       "currency": "USD",
@@ -164,9 +210,22 @@ window.FGF_DATA = {
           "cycle_label": "Summer/Fall 2026",
           "cycle_year": 2026,
           "kind": "dated",
-          "application_opens_at": { "date": "2026-06-08", "confidence": "needs_confirmation", "note": "The page says June 8 without a year, listed with the 2026 cycle." },
-          "start_application_deadline_at": { "date": "2026-08-28", "confidence": "needs_confirmation", "note": "The page says August 28 without a year, listed with the 2026 cycle." },
-          "submission_deadline_at": { "date": "2026-09-03", "time": "17:00", "tz": "America/New_York", "tz_label": "ET" },
+          "application_opens_at": {
+            "date": "2026-06-08",
+            "confidence": "needs_confirmation",
+            "note": "The page says June 8 without a year, listed with the 2026 cycle."
+          },
+          "start_application_deadline_at": {
+            "date": "2026-08-28",
+            "confidence": "needs_confirmation",
+            "note": "The page says August 28 without a year, listed with the 2026 cycle."
+          },
+          "submission_deadline_at": {
+            "date": "2026-09-03",
+            "time": "17:00",
+            "tz": "America/New_York",
+            "tz_label": "ET"
+          },
           "deadline_basis": "submitted",
           "notification_date": null,
           "notification_window_text": "By email about 4 to 6 weeks after the deadline.",
@@ -184,9 +243,18 @@ window.FGF_DATA = {
           "cycle_label": "Spring 2027",
           "cycle_year": 2027,
           "kind": "dated",
-          "application_opens_at": { "date": "2027-01-02", "confidence": "needs_confirmation", "note": "The homepage says \"Next Grant cycle begins January 2nd\" next to the March 4, 2027 deadline. The year is implied, not written." },
+          "application_opens_at": {
+            "date": "2027-01-02",
+            "confidence": "needs_confirmation",
+            "note": "The homepage says \"Next Grant cycle begins January 2nd\" next to the March 4, 2027 deadline. The year is implied, not written."
+          },
           "start_application_deadline_at": null,
-          "submission_deadline_at": { "date": "2027-03-04", "time": "17:00", "tz": "America/New_York", "tz_label": "ET" },
+          "submission_deadline_at": {
+            "date": "2027-03-04",
+            "time": "17:00",
+            "tz": "America/New_York",
+            "tz_label": "ET"
+          },
           "deadline_basis": "submitted",
           "notification_date": null,
           "notification_window_text": "Published general rule: by email about 4 to 6 weeks after the deadline.",
@@ -200,7 +268,11 @@ window.FGF_DATA = {
           "source_url": "https://babyquestfoundation.org/"
         }
       ],
-      "source_urls": ["https://babyquestfoundation.org/", "https://babyquestfoundation.org/applying-for-a-grant-2/", "https://babyquestfoundation.org/surrogacy/"],
+      "source_urls": [
+        "https://babyquestfoundation.org/",
+        "https://babyquestfoundation.org/applying-for-a-grant-2/",
+        "https://babyquestfoundation.org/surrogacy/"
+      ],
       "last_verified_at": "2026-10-18",
       "verification_status": "verified",
       "research_notes": [
@@ -208,7 +280,6 @@ window.FGF_DATA = {
         "The official pages checked did not state an award range. A third-party directory lists $2,000 to $16,000 in money and medications."
       ]
     },
-
     {
       "id": "waiting-for-baby-bird",
       "name": "Waiting for Baby Bird Ministries",
@@ -216,10 +287,19 @@ window.FGF_DATA = {
       "official_url": "https://waitingforbabybird.com/",
       "application_url": null,
       "program_type": "GIFTaways and event-based grants",
-      "geography": { "type": "unknown", "states": ["IL"], "text": "Not stated. Events have been held in person in Carmi, Illinois." },
+      "geography": {
+        "type": "unknown",
+        "states": [
+          "IL"
+        ],
+        "text": "Not stated. Events have been held in person in Carmi, Illinois."
+      },
       "clinic_required": null,
       "clinic_restrictions": null,
-      "treatments_covered": ["General fertility treatment", "Adoption"],
+      "treatments_covered": [
+        "General fertility treatment",
+        "Adoption"
+      ],
       "award_min": null,
       "award_max": null,
       "currency": "USD",
@@ -239,7 +319,11 @@ window.FGF_DATA = {
           "kind": "dated",
           "application_opens_at": null,
           "start_application_deadline_at": null,
-          "submission_deadline_at": { "date": "2024-10-14", "confidence": "historical", "note": "The October 3, 2024 post says applications are open until October 14." },
+          "submission_deadline_at": {
+            "date": "2024-10-14",
+            "confidence": "historical",
+            "note": "The October 3, 2024 post says applications are open until October 14."
+          },
           "deadline_basis": "unknown",
           "notification_date": null,
           "notification_window_text": "Recipients announced November 4, 2024.",
@@ -260,7 +344,12 @@ window.FGF_DATA = {
           "application_opens_at": null,
           "start_application_deadline_at": null,
           "submission_deadline_at": null,
-          "event_date": { "date": "2025-10-18", "time": "16:00", "tz": "America/Chicago", "tz_label": "CST (as written)" },
+          "event_date": {
+            "date": "2025-10-18",
+            "time": "16:00",
+            "tz": "America/Chicago",
+            "tz_label": "CST (as written)"
+          },
           "deadline_basis": "unknown",
           "notification_date": null,
           "notification_window_text": null,
@@ -294,12 +383,17 @@ window.FGF_DATA = {
           "source_url": "https://waitingforbabybird.com/events/"
         }
       ],
-      "source_urls": ["https://waitingforbabybird.com/", "https://waitingforbabybird.com/category/ministry-updates-events/", "https://waitingforbabybird.com/events/"],
+      "source_urls": [
+        "https://waitingforbabybird.com/",
+        "https://waitingforbabybird.com/category/ministry-updates-events/",
+        "https://waitingforbabybird.com/events/"
+      ],
       "last_verified_at": "2026-10-18",
       "verification_status": "verified",
-      "research_notes": ["The GIFTaway program began in 2020, according to the ministry's 2024 announcement."]
+      "research_notes": [
+        "The GIFTaway program began in 2020, according to the ministry's 2024 announcement."
+      ]
     },
-
     {
       "id": "cade-foundation",
       "name": "Tinina Q. Cade Foundation",
@@ -307,10 +401,21 @@ window.FGF_DATA = {
       "official_url": "https://cadefoundation.org/familygrant",
       "application_url": "https://tininaqcadefoundation.submittable.com/submit",
       "program_type": "Grant",
-      "geography": { "type": "us_national", "states": [], "text": "United States. U.S. citizens or legal permanent residents." },
+      "geography": {
+        "type": "us_national",
+        "states": [],
+        "text": "United States. U.S. citizens or legal permanent residents."
+      },
       "clinic_required": false,
       "clinic_restrictions": "Any clinic for the main grant. The Savannah Grant and Dr. Stephen Greenhouse Grant are only for Shady Grove Fertility IVF patients (they are entered automatically through the main application).",
-      "treatments_covered": ["IUI", "IVF", "Donor eggs/sperm", "Surrogacy", "Adoption", "Medications"],
+      "treatments_covered": [
+        "IUI",
+        "IVF",
+        "Donor eggs/sperm",
+        "Surrogacy",
+        "Adoption",
+        "Medications"
+      ],
       "award_min": null,
       "award_max": 10000,
       "currency": "USD",
@@ -336,7 +441,13 @@ window.FGF_DATA = {
           "kind": "dated",
           "application_opens_at": null,
           "start_application_deadline_at": null,
-          "submission_deadline_at": { "date": "2027-02-01", "time": "23:00", "tz": "America/Chicago", "tz_label": "CT", "note": "The application portal showed \"Ends on Mon, Feb 1, 2027 11:00 PM\" when viewed in Central Time. The portal may show deadlines in each visitor's local time." },
+          "submission_deadline_at": {
+            "date": "2027-02-01",
+            "time": "23:00",
+            "tz": "America/Chicago",
+            "tz_label": "CT",
+            "note": "The application portal showed \"Ends on Mon, Feb 1, 2027 11:00 PM\" when viewed in Central Time. The portal may show deadlines in each visitor's local time."
+          },
           "deadline_basis": "submitted",
           "notification_date": null,
           "notification_window_text": "Published recurring schedule: spring decisions June 15. Not confirmed for 2027.",
@@ -365,19 +476,23 @@ window.FGF_DATA = {
           "treatment_start_rule": null,
           "expiration_rule": null,
           "recurring_text": "Published recurring fall schedule: submission July 1, decisions October 15, funds January 1 of the following year, redeem by December 31. Not confirmed for 2027.",
-          "recurring_months": [7],
+          "recurring_months": [
+            7
+          ],
           "date_confidence": "recurring",
           "open_verified_on": null,
           "status_note": null,
           "source_url": "https://cadefoundation.org/familygrant"
         }
       ],
-      "source_urls": ["https://cadefoundation.org/familygrant", "https://tininaqcadefoundation.submittable.com/submit"],
+      "source_urls": [
+        "https://cadefoundation.org/familygrant",
+        "https://tininaqcadefoundation.submittable.com/submit"
+      ],
       "last_verified_at": "2026-10-18",
       "verification_status": "verified",
       "research_notes": []
     },
-
     {
       "id": "gift-of-parenthood",
       "name": "Gift of Parenthood",
@@ -385,10 +500,19 @@ window.FGF_DATA = {
       "official_url": "https://giftofparenthood.org/",
       "application_url": "https://grant.giftofparenthood.org/",
       "program_type": "Grant (the organization also runs a separate fundraising platform)",
-      "geography": { "type": "unknown", "states": [], "text": "Not stated on the pages checked." },
+      "geography": {
+        "type": "unknown",
+        "states": [],
+        "text": "Not stated on the pages checked."
+      },
       "clinic_required": false,
       "clinic_restrictions": null,
-      "treatments_covered": ["IVF", "General fertility treatment", "Surrogacy", "Adoption"],
+      "treatments_covered": [
+        "IVF",
+        "General fertility treatment",
+        "Surrogacy",
+        "Adoption"
+      ],
       "award_min": null,
       "award_max": 20000,
       "currency": "USD",
@@ -401,18 +525,44 @@ window.FGF_DATA = {
         "Health insurance is not required.",
         "Grants generally aren't given to people already receiving significant help from other charities."
       ],
-      "coverage_notes": ["Can't be used for treatment that began before the award notification."],
+      "coverage_notes": [
+        "Can't be used for treatment that began before the award notification."
+      ],
       "cycles": [
         {
           "id": "gift-of-parenthood-2026-q3",
           "cycle_label": "Q3 2026",
           "cycle_year": 2026,
           "kind": "dated",
-          "application_opens_at": { "date": "2026-06-30", "alternatives": [{ "date": "2026-07-01", "source": "Grant FAQ (Q3 runs July 1 to September 30)" }] },
+          "application_opens_at": {
+            "date": "2026-06-30",
+            "alternatives": [
+              {
+                "date": "2026-07-01",
+                "source": "Grant FAQ (Q3 runs July 1 to September 30)"
+              }
+            ]
+          },
           "start_application_deadline_at": null,
-          "submission_deadline_at": { "date": "2026-09-29", "alternatives": [{ "date": "2026-09-30", "source": "Grant FAQ" }] },
+          "submission_deadline_at": {
+            "date": "2026-09-29",
+            "alternatives": [
+              {
+                "date": "2026-09-30",
+                "source": "Grant FAQ"
+              }
+            ]
+          },
           "deadline_basis": "submitted",
-          "notification_date": { "date": "2026-10-14", "alternatives": [{ "date": "2026-10-15", "source": "Grant FAQ (results by October 15)" }] },
+          "notification_date": {
+            "date": "2026-10-14",
+            "alternatives": [
+              {
+                "date": "2026-10-15",
+                "source": "Grant FAQ (results by October 15)"
+              }
+            ]
+          },
           "notification_window_text": null,
           "funds_available_date": null,
           "funds_available_text": null,
@@ -428,11 +578,38 @@ window.FGF_DATA = {
           "cycle_label": "Q4 2026",
           "cycle_year": 2026,
           "kind": "dated",
-          "application_opens_at": { "date": "2026-09-30", "alternatives": [{ "date": "2026-10-01", "source": "Grant FAQ (Q4 runs October 1 to December 31)" }] },
+          "application_opens_at": {
+            "date": "2026-09-30",
+            "alternatives": [
+              {
+                "date": "2026-10-01",
+                "source": "Grant FAQ (Q4 runs October 1 to December 31)"
+              }
+            ]
+          },
           "start_application_deadline_at": null,
-          "submission_deadline_at": { "date": "2026-12-30", "alternatives": [{ "date": "2026-12-31", "time": "23:59", "tz": "America/Los_Angeles", "tz_label": "PT", "source": "Grant FAQ and the grant portal in earlier research" }] },
+          "submission_deadline_at": {
+            "date": "2026-12-30",
+            "alternatives": [
+              {
+                "date": "2026-12-31",
+                "time": "23:59",
+                "tz": "America/Los_Angeles",
+                "tz_label": "PT",
+                "source": "Grant FAQ and the grant portal in earlier research"
+              }
+            ]
+          },
           "deadline_basis": "submitted",
-          "notification_date": { "date": "2027-01-14", "alternatives": [{ "date": "2027-01-15", "source": "Grant FAQ (results by January 15)" }] },
+          "notification_date": {
+            "date": "2027-01-14",
+            "alternatives": [
+              {
+                "date": "2027-01-15",
+                "source": "Grant FAQ (results by January 15)"
+              }
+            ]
+          },
           "notification_window_text": null,
           "funds_available_date": null,
           "funds_available_text": null,
@@ -448,11 +625,35 @@ window.FGF_DATA = {
           "cycle_label": "Q1 2027",
           "cycle_year": 2027,
           "kind": "dated",
-          "application_opens_at": { "date": "2026-12-31", "alternatives": [{ "date": "2027-01-01", "source": "Grant FAQ (Q1 runs January 1 to March 31)" }] },
+          "application_opens_at": {
+            "date": "2026-12-31",
+            "alternatives": [
+              {
+                "date": "2027-01-01",
+                "source": "Grant FAQ (Q1 runs January 1 to March 31)"
+              }
+            ]
+          },
           "start_application_deadline_at": null,
-          "submission_deadline_at": { "date": "2027-03-30", "alternatives": [{ "date": "2027-03-31", "source": "Grant FAQ" }] },
+          "submission_deadline_at": {
+            "date": "2027-03-30",
+            "alternatives": [
+              {
+                "date": "2027-03-31",
+                "source": "Grant FAQ"
+              }
+            ]
+          },
           "deadline_basis": "submitted",
-          "notification_date": { "date": "2027-04-14", "alternatives": [{ "date": "2027-04-15", "source": "Grant FAQ (results by April 15)" }] },
+          "notification_date": {
+            "date": "2027-04-14",
+            "alternatives": [
+              {
+                "date": "2027-04-15",
+                "source": "Grant FAQ (results by April 15)"
+              }
+            ]
+          },
           "notification_window_text": null,
           "funds_available_date": null,
           "funds_available_text": null,
@@ -468,11 +669,35 @@ window.FGF_DATA = {
           "cycle_label": "Q2 2027",
           "cycle_year": 2027,
           "kind": "dated",
-          "application_opens_at": { "date": "2027-03-31", "alternatives": [{ "date": "2027-04-01", "source": "Grant FAQ (Q2 runs April 1 to June 30)" }] },
+          "application_opens_at": {
+            "date": "2027-03-31",
+            "alternatives": [
+              {
+                "date": "2027-04-01",
+                "source": "Grant FAQ (Q2 runs April 1 to June 30)"
+              }
+            ]
+          },
           "start_application_deadline_at": null,
-          "submission_deadline_at": { "date": "2027-06-29", "alternatives": [{ "date": "2027-06-30", "source": "Grant FAQ" }] },
+          "submission_deadline_at": {
+            "date": "2027-06-29",
+            "alternatives": [
+              {
+                "date": "2027-06-30",
+                "source": "Grant FAQ"
+              }
+            ]
+          },
           "deadline_basis": "submitted",
-          "notification_date": { "date": "2027-07-14", "alternatives": [{ "date": "2027-07-15", "source": "Grant FAQ (results by July 15)" }] },
+          "notification_date": {
+            "date": "2027-07-14",
+            "alternatives": [
+              {
+                "date": "2027-07-15",
+                "source": "Grant FAQ (results by July 15)"
+              }
+            ]
+          },
           "notification_window_text": null,
           "funds_available_date": null,
           "funds_available_text": null,
@@ -488,11 +713,35 @@ window.FGF_DATA = {
           "cycle_label": "Q3 2027",
           "cycle_year": 2027,
           "kind": "dated",
-          "application_opens_at": { "date": "2027-06-30", "alternatives": [{ "date": "2027-07-01", "source": "Grant FAQ (Q3 runs July 1 to September 30)" }] },
+          "application_opens_at": {
+            "date": "2027-06-30",
+            "alternatives": [
+              {
+                "date": "2027-07-01",
+                "source": "Grant FAQ (Q3 runs July 1 to September 30)"
+              }
+            ]
+          },
           "start_application_deadline_at": null,
-          "submission_deadline_at": { "date": "2027-09-29", "alternatives": [{ "date": "2027-09-30", "source": "Grant FAQ" }] },
+          "submission_deadline_at": {
+            "date": "2027-09-29",
+            "alternatives": [
+              {
+                "date": "2027-09-30",
+                "source": "Grant FAQ"
+              }
+            ]
+          },
           "deadline_basis": "submitted",
-          "notification_date": { "date": "2027-10-14", "alternatives": [{ "date": "2027-10-15", "source": "Grant FAQ (results by October 15)" }] },
+          "notification_date": {
+            "date": "2027-10-14",
+            "alternatives": [
+              {
+                "date": "2027-10-15",
+                "source": "Grant FAQ (results by October 15)"
+              }
+            ]
+          },
           "notification_window_text": null,
           "funds_available_date": null,
           "funds_available_text": null,
@@ -508,11 +757,35 @@ window.FGF_DATA = {
           "cycle_label": "Q4 2027",
           "cycle_year": 2027,
           "kind": "dated",
-          "application_opens_at": { "date": "2027-09-30", "alternatives": [{ "date": "2027-10-01", "source": "Grant FAQ (Q4 runs October 1 to December 31)" }] },
+          "application_opens_at": {
+            "date": "2027-09-30",
+            "alternatives": [
+              {
+                "date": "2027-10-01",
+                "source": "Grant FAQ (Q4 runs October 1 to December 31)"
+              }
+            ]
+          },
           "start_application_deadline_at": null,
-          "submission_deadline_at": { "date": "2027-12-30", "alternatives": [{ "date": "2027-12-31", "source": "Grant FAQ" }] },
+          "submission_deadline_at": {
+            "date": "2027-12-30",
+            "alternatives": [
+              {
+                "date": "2027-12-31",
+                "source": "Grant FAQ"
+              }
+            ]
+          },
           "deadline_basis": "submitted",
-          "notification_date": { "date": "2028-01-14", "alternatives": [{ "date": "2028-01-15", "source": "Grant FAQ (results by January 15)" }] },
+          "notification_date": {
+            "date": "2028-01-14",
+            "alternatives": [
+              {
+                "date": "2028-01-15",
+                "source": "Grant FAQ (results by January 15)"
+              }
+            ]
+          },
           "notification_window_text": null,
           "funds_available_date": null,
           "funds_available_text": null,
@@ -524,7 +797,11 @@ window.FGF_DATA = {
           "source_url": "https://grant.giftofparenthood.org/timeline"
         }
       ],
-      "source_urls": ["https://grant.giftofparenthood.org/timeline", "https://grant.giftofparenthood.org/faqs", "https://giftofparenthood.org/"],
+      "source_urls": [
+        "https://grant.giftofparenthood.org/timeline",
+        "https://grant.giftofparenthood.org/faqs",
+        "https://giftofparenthood.org/"
+      ],
       "last_verified_at": "2026-10-18",
       "verification_status": "verified",
       "research_notes": [
@@ -532,7 +809,6 @@ window.FGF_DATA = {
         "The timeline page appears to show each date one day earlier than the FAQ. This may be a display issue on their site, but it has not been confirmed."
       ]
     },
-
     {
       "id": "bundle-of-joy",
       "name": "Samantha and Kyle Busch Bundle of Joy Fund",
@@ -540,10 +816,19 @@ window.FGF_DATA = {
       "official_url": "https://bundleofjoyfund.org/",
       "application_url": "https://bundleofjoyfund.org/grants/",
       "program_type": "Grant",
-      "geography": { "type": "us_regional", "states": ["NC", "SC"], "text": "Apply through a partnering clinic: REACH Fertility, Piedmont Reproductive Endocrinology Group (PREG), or Carolina Conceptions." },
+      "geography": {
+        "type": "us_regional",
+        "states": [
+          "NC",
+          "SC"
+        ],
+        "text": "Apply through a partnering clinic: REACH Fertility, Piedmont Reproductive Endocrinology Group (PREG), or Carolina Conceptions."
+      },
       "clinic_required": true,
       "clinic_restrictions": "Must have an infertility diagnosis from a partnering clinic: REACH Fertility, Piedmont Reproductive Endocrinology Group (PREG), or Carolina Conceptions.",
-      "treatments_covered": ["IVF"],
+      "treatments_covered": [
+        "IVF"
+      ],
       "award_min": null,
       "award_max": 20000,
       "currency": "USD",
@@ -565,7 +850,9 @@ window.FGF_DATA = {
           "kind": "dated",
           "application_opens_at": null,
           "start_application_deadline_at": null,
-          "submission_deadline_at": { "date": "2026-03-02" },
+          "submission_deadline_at": {
+            "date": "2026-03-02"
+          },
           "deadline_basis": "unknown",
           "notification_date": null,
           "notification_window_text": "Review within 6 to 8 weeks after the deadline. Reveals within 60 days of the deadline.",
@@ -585,7 +872,9 @@ window.FGF_DATA = {
           "kind": "dated",
           "application_opens_at": null,
           "start_application_deadline_at": null,
-          "submission_deadline_at": { "date": "2026-06-29" },
+          "submission_deadline_at": {
+            "date": "2026-06-29"
+          },
           "deadline_basis": "unknown",
           "notification_date": null,
           "notification_window_text": "Review within 6 to 8 weeks after the deadline. Reveals within 60 days of the deadline.",
@@ -639,7 +928,10 @@ window.FGF_DATA = {
           "source_url": "https://bundleofjoyfund.org/grants/"
         }
       ],
-      "source_urls": ["https://bundleofjoyfund.org/grants/", "https://bundleofjoyfund.org/"],
+      "source_urls": [
+        "https://bundleofjoyfund.org/grants/",
+        "https://bundleofjoyfund.org/"
+      ],
       "last_verified_at": "2026-10-18",
       "verification_status": "verified",
       "research_notes": [
@@ -647,7 +939,6 @@ window.FGF_DATA = {
         "A third-party directory describes eligibility as North or South Carolina residents. The official page lists the partnering-clinic requirement instead."
       ]
     },
-
     {
       "id": "footsteps-for-fertility",
       "name": "Footsteps for Fertility Foundation",
@@ -655,10 +946,21 @@ window.FGF_DATA = {
       "official_url": "https://footstepsforfertility.org/",
       "application_url": "https://footstepsforfertility.org/grants/",
       "program_type": "Event-based random-selection grants",
-      "geography": { "type": "us_regional", "states": ["UT", "ID"], "text": "Most grants are tied to in-person events (2026 events were in Utah and Idaho). A National Application is offered from time to time." },
+      "geography": {
+        "type": "us_regional",
+        "states": [
+          "UT",
+          "ID"
+        ],
+        "text": "Most grants are tied to in-person events (2026 events were in Utah and Idaho). A National Application is offered from time to time."
+      },
       "clinic_required": true,
       "clinic_restrictions": "Donated treatment comes through SART-recognized partner clinics.",
-      "treatments_covered": ["IVF", "FET", "IUI"],
+      "treatments_covered": [
+        "IVF",
+        "FET",
+        "IUI"
+      ],
       "award_min": null,
       "award_max": null,
       "currency": "USD",
@@ -670,7 +972,9 @@ window.FGF_DATA = {
         "Complete the online grant application with your event registration.",
         "Register for and attend a local event if selected."
       ],
-      "coverage_notes": ["Donated IVF cycles do not cover medications, blood work, anesthesia, donor sperm, donor eggs, or adopted embryos."],
+      "coverage_notes": [
+        "Donated IVF cycles do not cover medications, blood work, anesthesia, donor sperm, donor eggs, or adopted embryos."
+      ],
       "cycles": [
         {
           "id": "footsteps-2026-salt-lake-city",
@@ -680,7 +984,12 @@ window.FGF_DATA = {
           "application_opens_at": null,
           "start_application_deadline_at": null,
           "submission_deadline_at": null,
-          "event_date": { "date": "2026-09-12", "time": "10:00", "tz": "America/Denver", "tz_label": "MT" },
+          "event_date": {
+            "date": "2026-09-12",
+            "time": "10:00",
+            "tz": "America/Denver",
+            "tz_label": "MT"
+          },
           "deadline_basis": "unknown",
           "notification_date": null,
           "notification_window_text": "Grants are awarded by random selection right after the event.",
@@ -754,12 +1063,17 @@ window.FGF_DATA = {
           "source_url": "https://footstepsforfertility.org/grants/"
         }
       ],
-      "source_urls": ["https://footstepsforfertility.org/", "https://footstepsforfertility.org/grants/", "https://footstepsforfertility.org/services/"],
+      "source_urls": [
+        "https://footstepsforfertility.org/",
+        "https://footstepsforfertility.org/grants/",
+        "https://footstepsforfertility.org/services/"
+      ],
       "last_verified_at": "2026-10-18",
       "verification_status": "verified",
-      "research_notes": ["Different organization from Footprints of Angels."]
+      "research_notes": [
+        "Different organization from Footprints of Angels."
+      ]
     },
-
     {
       "id": "parental-hope",
       "name": "Parental Hope",
@@ -767,10 +1081,21 @@ window.FGF_DATA = {
       "official_url": "https://parentalhope.org/parental-hope-family-grant-2/",
       "application_url": "https://parentalhope.org/parental-hope-family-grant-2/grant-process/",
       "program_type": "Grant (donated IVF or FET cycle) and Embryo Adoption & Donation Grant",
-      "geography": { "type": "us_regional", "states": ["OH", "TN"], "text": "U.S. citizens. IVF and FET grants are used at the Institute for Reproductive Health in Cincinnati, Ohio. The embryo adoption grant is through the National Embryo Donation Center in Knoxville, Tennessee." },
+      "geography": {
+        "type": "us_regional",
+        "states": [
+          "OH",
+          "TN"
+        ],
+        "text": "U.S. citizens. IVF and FET grants are used at the Institute for Reproductive Health in Cincinnati, Ohio. The embryo adoption grant is through the National Embryo Donation Center in Knoxville, Tennessee."
+      },
       "clinic_required": true,
       "clinic_restrictions": "IVF and FET: Institute for Reproductive Health, Cincinnati, Ohio. Embryo adoption: National Embryo Donation Center, Knoxville, Tennessee.",
-      "treatments_covered": ["IVF", "FET", "Embryo donation/adoption"],
+      "treatments_covered": [
+        "IVF",
+        "FET",
+        "Embryo donation/adoption"
+      ],
       "award_min": null,
       "award_max": 5000,
       "currency": "USD",
@@ -795,9 +1120,19 @@ window.FGF_DATA = {
           "kind": "dated",
           "application_opens_at": null,
           "start_application_deadline_at": null,
-          "submission_deadline_at": { "month": "2026-09", "time": "23:30", "tz": null, "tz_label": null, "confidence": "needs_confirmation", "note": "The official page says \"11:30 p.m. on September, 2026\". The day is missing." },
+          "submission_deadline_at": {
+            "month": "2026-09",
+            "time": "23:30",
+            "tz": null,
+            "tz_label": null,
+            "confidence": "needs_confirmation",
+            "note": "The official page says \"11:30 p.m. on September, 2026\". The day is missing."
+          },
           "deadline_basis": "submitted",
-          "notification_date": { "date": "2026-11-15", "note": "Chosen applicants notified by this date. Others are notified after chosen applicants accept." },
+          "notification_date": {
+            "date": "2026-11-15",
+            "note": "Chosen applicants notified by this date. Others are notified after chosen applicants accept."
+          },
           "notification_window_text": null,
           "funds_available_date": null,
           "funds_available_text": null,
@@ -813,7 +1148,10 @@ window.FGF_DATA = {
           "cycle_label": "Spring 2027",
           "cycle_year": 2027,
           "kind": "dated",
-          "application_opens_at": { "month": "2027-03", "note": "\"Spring Grant applications will open in March 2027.\" Day not announced." },
+          "application_opens_at": {
+            "month": "2027-03",
+            "note": "\"Spring Grant applications will open in March 2027.\" Day not announced."
+          },
           "start_application_deadline_at": null,
           "submission_deadline_at": null,
           "deadline_basis": "unknown",
@@ -829,12 +1167,17 @@ window.FGF_DATA = {
           "source_url": "https://parentalhope.org/parental-hope-family-grant-2/"
         }
       ],
-      "source_urls": ["https://parentalhope.org/parental-hope-family-grant-2/", "https://parentalhope.org/parental-hope-family-grant-2/grant-process/", "https://parentalhope.org/parental-hope-family-grant-2/faqs/"],
+      "source_urls": [
+        "https://parentalhope.org/parental-hope-family-grant-2/",
+        "https://parentalhope.org/parental-hope-family-grant-2/grant-process/",
+        "https://parentalhope.org/parental-hope-family-grant-2/faqs/"
+      ],
       "last_verified_at": "2026-10-18",
       "verification_status": "verified",
-      "research_notes": ["Separate IVF/FET and embryo adoption terms and conditions documents are linked from the grant process page. Check them for treatment start and expiration rules."]
+      "research_notes": [
+        "Separate IVF/FET and embryo adoption terms and conditions documents are linked from the grant process page. Check them for treatment start and expiration rules."
+      ]
     },
-
     {
       "id": "chicago-coalition",
       "name": "Chicago Coalition for Family Building",
@@ -842,10 +1185,27 @@ window.FGF_DATA = {
       "official_url": "https://coalitionforfamilybuilding.org/grants/",
       "application_url": "https://coalitionforfamilybuilding.org/interest-form/",
       "program_type": "Financial assistance, donated IVF cycles, and named grants",
-      "geography": { "type": "us_regional", "states": ["IL", "WI", "IN"], "text": "Most grants require Illinois providers. IVF Cycle Grant applicants may live in Illinois, Wisconsin, or Indiana but are treated at an Illinois partner practice. JUF grants require residence in Cook, Lake, DuPage, Will, McHenry, or Kane County. Willow Grant applicants may live and be treated in IL, IN, or WI." },
+      "geography": {
+        "type": "us_regional",
+        "states": [
+          "IL",
+          "WI",
+          "IN"
+        ],
+        "text": "Most grants require Illinois providers. IVF Cycle Grant applicants may live in Illinois, Wisconsin, or Indiana but are treated at an Illinois partner practice. JUF grants require residence in Cook, Lake, DuPage, Will, McHenry, or Kane County. Willow Grant applicants may live and be treated in IL, IN, or WI."
+      },
       "clinic_required": true,
       "clinic_restrictions": "Financial grants are limited to SART member clinics, mostly in Illinois. Donated IVF cycles are at Illinois partner practices.",
-      "treatments_covered": ["IVF", "IUI", "Medications", "Donor eggs/sperm", "Surrogacy", "Adoption", "PGT", "Egg freezing"],
+      "treatments_covered": [
+        "IVF",
+        "IUI",
+        "Medications",
+        "Donor eggs/sperm",
+        "Surrogacy",
+        "Adoption",
+        "PGT",
+        "Egg freezing"
+      ],
       "award_min": null,
       "award_max": 10000,
       "currency": "USD",
@@ -868,7 +1228,10 @@ window.FGF_DATA = {
           "cycle_label": "Late fall 2026 (November–December)",
           "cycle_year": 2026,
           "kind": "dated",
-          "application_opens_at": { "month": "2026-11", "note": "\"The next application cycle will begin in November 2026.\" Day not announced." },
+          "application_opens_at": {
+            "month": "2026-11",
+            "note": "\"The next application cycle will begin in November 2026.\" Day not announced."
+          },
           "start_application_deadline_at": null,
           "submission_deadline_at": null,
           "deadline_basis": "unknown",
@@ -919,14 +1282,19 @@ window.FGF_DATA = {
           "treatment_start_rule": null,
           "expiration_rule": null,
           "recurring_text": "The main cycle opens each April during National Infertility Awareness Week. IVF Cycle Grants and JUF Path to Parenthood also open in April. Not confirmed for 2027.",
-          "recurring_months": [4],
+          "recurring_months": [
+            4
+          ],
           "date_confidence": "recurring",
           "open_verified_on": null,
           "status_note": null,
           "source_url": "https://coalitionforfamilybuilding.org/grants/"
         }
       ],
-      "source_urls": ["https://coalitionforfamilybuilding.org/grants/", "https://coalitionforfamilybuilding.org/interest-form/"],
+      "source_urls": [
+        "https://coalitionforfamilybuilding.org/grants/",
+        "https://coalitionforfamilybuilding.org/interest-form/"
+      ],
       "last_verified_at": "2026-10-18",
       "verification_status": "verified",
       "research_notes": [
@@ -935,7 +1303,6 @@ window.FGF_DATA = {
         "The Kevin J. Lederer Memorial Grant is a donated IVF cycle for an existing Fertility Centers of Illinois patient."
       ]
     },
-
     {
       "id": "nest-egg",
       "name": "Nest Egg Foundation",
@@ -943,10 +1310,21 @@ window.FGF_DATA = {
       "official_url": "https://www.nesteggfoundation.org/",
       "application_url": "https://www.nesteggfoundation.org/apply/",
       "program_type": "Grant",
-      "geography": { "type": "us_regional", "states": ["CT", "NY"], "text": "Connecticut or New York residents, treated at a participating Connecticut center." },
+      "geography": {
+        "type": "us_regional",
+        "states": [
+          "CT",
+          "NY"
+        ],
+        "text": "Connecticut or New York residents, treated at a participating Connecticut center."
+      },
       "clinic_required": true,
       "clinic_restrictions": "Center for Advanced Reproductive Services (CARS) or Illume Fertility.",
-      "treatments_covered": ["IVF", "Donor eggs/sperm", "Surrogacy"],
+      "treatments_covered": [
+        "IVF",
+        "Donor eggs/sperm",
+        "Surrogacy"
+      ],
       "award_min": 5000,
       "award_max": 20000,
       "currency": "USD",
@@ -960,7 +1338,9 @@ window.FGF_DATA = {
         "Primary infertility (no children). Seen by a reproductive endocrinologist in the previous 6 to 9 months.",
         "Clinical criteria apply (AMH, FSH, BMI, and others). See the official page."
       ],
-      "coverage_notes": ["Grants must be used within six months."],
+      "coverage_notes": [
+        "Grants must be used within six months."
+      ],
       "cycles": [
         {
           "id": "nest-egg-2026",
@@ -1004,12 +1384,16 @@ window.FGF_DATA = {
           "source_url": "https://www.nesteggfoundation.org/"
         }
       ],
-      "source_urls": ["https://www.nesteggfoundation.org/", "https://www.nesteggfoundation.org/apply/"],
+      "source_urls": [
+        "https://www.nesteggfoundation.org/",
+        "https://www.nesteggfoundation.org/apply/"
+      ],
       "last_verified_at": "2026-10-18",
       "verification_status": "verified",
-      "research_notes": ["Coverage wording varies across the page: one section lists IVF only, another adds egg or embryo donation and surrogacy."]
+      "research_notes": [
+        "Coverage wording varies across the page: one section lists IVF only, another adds egg or embryo donation and surrogacy."
+      ]
     },
-
     {
       "id": "everlasting-hope",
       "name": "Everlasting Hope",
@@ -1017,17 +1401,27 @@ window.FGF_DATA = {
       "official_url": "https://www.raisingeverlastinghope.org/grant-program",
       "application_url": "https://www.raisingeverlastinghope.org/grant-program",
       "program_type": "Grant",
-      "geography": { "type": "unknown", "states": ["ND"], "text": "Described as support for local couples. The organization is based in North Dakota. Check the application for the exact service area." },
+      "geography": {
+        "type": "unknown",
+        "states": [
+          "ND"
+        ],
+        "text": "Described as support for local couples. The organization is based in North Dakota. Check the application for the exact service area."
+      },
       "clinic_required": null,
       "clinic_restrictions": null,
-      "treatments_covered": ["General fertility treatment"],
+      "treatments_covered": [
+        "General fertility treatment"
+      ],
       "award_min": null,
       "award_max": null,
       "currency": "USD",
       "award_text": null,
       "application_fee": null,
       "fee_text": null,
-      "eligibility_notes": ["Full qualifications are in the application."],
+      "eligibility_notes": [
+        "Full qualifications are in the application."
+      ],
       "coverage_notes": [],
       "cycles": [
         {
@@ -1051,12 +1445,15 @@ window.FGF_DATA = {
           "source_url": "https://www.raisingeverlastinghope.org/grant-program"
         }
       ],
-      "source_urls": ["https://www.raisingeverlastinghope.org/grant-program"],
+      "source_urls": [
+        "https://www.raisingeverlastinghope.org/grant-program"
+      ],
       "last_verified_at": "2026-10-18",
       "verification_status": "partially_verified",
-      "research_notes": ["The page footer reads © 2019, so some details may be out of date."]
+      "research_notes": [
+        "The page footer reads © 2019, so some details may be out of date."
+      ]
     },
-
     {
       "id": "journey-to-parenthood",
       "name": "Journey to Parenthood",
@@ -1064,17 +1461,25 @@ window.FGF_DATA = {
       "official_url": "https://journeytoparenthood.org/",
       "application_url": "https://journeytoparenthood.org/application-html/",
       "program_type": "Grant",
-      "geography": { "type": "unknown", "states": [], "text": "Not stated on the application page. Check the FAQ." },
+      "geography": {
+        "type": "unknown",
+        "states": [],
+        "text": "Not stated on the application page. Check the FAQ."
+      },
       "clinic_required": null,
       "clinic_restrictions": null,
-      "treatments_covered": ["General fertility treatment"],
+      "treatments_covered": [
+        "General fertility treatment"
+      ],
       "award_min": 2000,
       "award_max": 10000,
       "currency": "USD",
       "award_text": "Typically $2,000 to $10,000. Usually 1 to 4 grants a year from 75 to 100 applications.",
       "application_fee": null,
       "fee_text": null,
-      "eligibility_notes": ["See the FAQ page on the official site."],
+      "eligibility_notes": [
+        "See the FAQ page on the official site."
+      ],
       "coverage_notes": [],
       "cycles": [
         {
@@ -1082,11 +1487,19 @@ window.FGF_DATA = {
           "cycle_label": "2026 annual cycle",
           "cycle_year": 2026,
           "kind": "dated",
-          "application_opens_at": { "date": "2026-08-01" },
+          "application_opens_at": {
+            "date": "2026-08-01"
+          },
           "start_application_deadline_at": null,
-          "submission_deadline_at": { "date": "2026-10-17", "note": "Must be postmarked by this date. Applications are not accepted by email." },
+          "submission_deadline_at": {
+            "date": "2026-10-17",
+            "note": "Must be postmarked by this date. Applications are not accepted by email."
+          },
           "deadline_basis": "postmark",
-          "notification_date": { "date": "2026-12-31", "note": "Outcome notification by this date. Receipt acknowledgement by November 1, 2026." },
+          "notification_date": {
+            "date": "2026-12-31",
+            "note": "Outcome notification by this date. Receipt acknowledgement by November 1, 2026."
+          },
           "notification_window_text": "Applicants told by November 1, 2026 that their application was received.",
           "funds_available_date": null,
           "funds_available_text": null,
@@ -1113,19 +1526,25 @@ window.FGF_DATA = {
           "treatment_start_rule": null,
           "expiration_rule": null,
           "recurring_text": "Past pattern: applications open in August, receipt acknowledged by the end of October, outcomes by the end of December. Not confirmed for 2027.",
-          "recurring_months": [8],
+          "recurring_months": [
+            8
+          ],
           "date_confidence": "recurring",
           "open_verified_on": null,
           "status_note": null,
           "source_url": "https://journeytoparenthooddotorg.wpcomstaging.com/application-html/"
         }
       ],
-      "source_urls": ["https://journeytoparenthood.org/", "https://journeytoparenthood.org/application-html/"],
+      "source_urls": [
+        "https://journeytoparenthood.org/",
+        "https://journeytoparenthood.org/application-html/"
+      ],
       "last_verified_at": "2026-10-18",
       "verification_status": "verified",
-      "research_notes": ["The official application address redirects to journeytoparenthooddotorg.wpcomstaging.com. The 2026 dates were read there."]
+      "research_notes": [
+        "The official application address redirects to journeytoparenthooddotorg.wpcomstaging.com. The 2026 dates were read there."
+      ]
     },
-
     {
       "id": "footprints-of-angels",
       "name": "Footprints of Angels",
@@ -1133,17 +1552,29 @@ window.FGF_DATA = {
       "official_url": "https://www.footprintsofangels.org/",
       "application_url": null,
       "program_type": "Grant (annual award)",
-      "geography": { "type": "unknown", "states": [], "text": "Not stated." },
+      "geography": {
+        "type": "unknown",
+        "states": [],
+        "text": "Not stated."
+      },
       "clinic_required": false,
       "clinic_restrictions": "Any reproductive endocrinology practice the recipient chooses.",
-      "treatments_covered": ["Medications", "IVF", "Egg freezing", "Donor eggs/sperm", "Embryo donation/adoption"],
+      "treatments_covered": [
+        "Medications",
+        "IVF",
+        "Egg freezing",
+        "Donor eggs/sperm",
+        "Embryo donation/adoption"
+      ],
       "award_min": null,
       "award_max": 5000,
       "currency": "USD",
       "award_text": "Up to $5,000. The number of recipients depends on donations.",
       "application_fee": null,
       "fee_text": null,
-      "eligibility_notes": ["For women affected by infertility and recurrent miscarriage. No other criteria are published."],
+      "eligibility_notes": [
+        "For women affected by infertility and recurrent miscarriage. No other criteria are published."
+      ],
       "coverage_notes": [],
       "cycles": [
         {
@@ -1167,12 +1598,16 @@ window.FGF_DATA = {
           "source_url": "https://www.footprintsofangels.org/"
         }
       ],
-      "source_urls": ["https://www.footprintsofangels.org/"],
+      "source_urls": [
+        "https://www.footprintsofangels.org/"
+      ],
       "last_verified_at": "2026-10-18",
       "verification_status": "partially_verified",
-      "research_notes": ["Different organization from Footsteps for Fertility Foundation.", "Recipients listed for 2020 and 2021 only."]
+      "research_notes": [
+        "Different organization from Footsteps for Fertility Foundation.",
+        "Recipients listed for 2020 and 2021 only."
+      ]
     },
-
     {
       "id": "international-fertility-foundation",
       "name": "The International Fertility Foundation",
@@ -1180,7 +1615,11 @@ window.FGF_DATA = {
       "official_url": "https://www.internationalfertilityfoundation.org/",
       "application_url": null,
       "program_type": "Grant (status needs verification)",
-      "geography": { "type": "unknown", "states": [], "text": "Not verified." },
+      "geography": {
+        "type": "unknown",
+        "states": [],
+        "text": "Not verified."
+      },
       "clinic_required": null,
       "clinic_restrictions": null,
       "treatments_covered": [],
@@ -1214,12 +1653,16 @@ window.FGF_DATA = {
           "source_url": "https://www.linkedin.com/company/the-international-fertility-foundation"
         }
       ],
-      "source_urls": ["https://www.internationalfertilityfoundation.org/", "https://www.linkedin.com/company/the-international-fertility-foundation"],
+      "source_urls": [
+        "https://www.internationalfertilityfoundation.org/",
+        "https://www.linkedin.com/company/the-international-fertility-foundation"
+      ],
       "last_verified_at": null,
       "verification_status": "unverified",
-      "research_notes": ["Website could not be reached on October 18, 2026 (the address did not resolve). Shown as needing verification, not as open or closed."]
+      "research_notes": [
+        "Website could not be reached on October 18, 2026 (the address did not resolve). Shown as needing verification, not as open or closed."
+      ]
     },
-
     {
       "id": "fertility-foundation-uk",
       "name": "The Fertility Foundation (United Kingdom)",
@@ -1227,10 +1670,17 @@ window.FGF_DATA = {
       "official_url": "https://fertilityfoundation.org/ivf-grants/",
       "application_url": "https://fertilityfoundation.org/ivf-grants/",
       "program_type": "Grant",
-      "geography": { "type": "international", "states": [], "country": "UK", "text": "United Kingdom only. British citizens living full time in the UK." },
+      "geography": {
+        "type": "international",
+        "states": [],
+        "country": "UK",
+        "text": "United Kingdom only. British citizens living full time in the UK."
+      },
       "clinic_required": false,
       "clinic_restrictions": null,
-      "treatments_covered": ["IVF"],
+      "treatments_covered": [
+        "IVF"
+      ],
       "award_min": null,
       "award_max": 3000,
       "currency": "GBP",
@@ -1242,18 +1692,30 @@ window.FGF_DATA = {
         "British citizens with no criminal record, living full time in the UK.",
         "Female applicant 42 or under. Couple must live together. At least one applicant in full-time work."
       ],
-      "coverage_notes": ["Does not cover medication, surrogacy, or reversing other medical treatment.", "Treatment usually must begin within four months of receiving the grant."],
+      "coverage_notes": [
+        "Does not cover medication, surrogacy, or reversing other medical treatment.",
+        "Treatment usually must begin within four months of receiving the grant."
+      ],
       "cycles": [
         {
           "id": "fertility-foundation-uk-2026",
           "cycle_label": "2026 round",
           "cycle_year": 2026,
           "kind": "dated",
-          "application_opens_at": { "date": "2026-01-01", "tz": "Europe/London" },
+          "application_opens_at": {
+            "date": "2026-01-01",
+            "tz": "Europe/London"
+          },
           "start_application_deadline_at": null,
-          "submission_deadline_at": { "month": "2026-03", "note": "\"Our grants run from January to March each year.\"" },
+          "submission_deadline_at": {
+            "month": "2026-03",
+            "note": "\"Our grants run from January to March each year.\""
+          },
           "deadline_basis": "unknown",
-          "notification_date": { "month": "2026-04", "note": "\"By the end of April 2026 all applicants will be informed.\"" },
+          "notification_date": {
+            "month": "2026-04",
+            "note": "\"By the end of April 2026 all applicants will be informed.\""
+          },
           "notification_window_text": null,
           "funds_available_date": null,
           "funds_available_text": null,
@@ -1285,13 +1747,140 @@ window.FGF_DATA = {
           "source_url": "https://fertilityfoundation.org/ivf-grants/"
         }
       ],
-      "source_urls": ["https://fertilityfoundation.org/ivf-grants/"],
+      "source_urls": [
+        "https://fertilityfoundation.org/ivf-grants/"
+      ],
       "last_verified_at": "2026-10-18",
       "verification_status": "verified",
-      "research_notes": ["Amounts are in British pounds (GBP). Keep separate from U.S. programs."]
+      "research_notes": [
+        "Amounts are in British pounds (GBP). Keep separate from U.S. programs."
+      ]
+    },
+    {
+      "id": "starfish-infertility",
+      "name": "Starfish Infertility Foundation",
+      "program_name": "2026 Leighton Grant",
+      "official_url": "https://www.starfishinfertilityfoundation.org/available-grants",
+      "application_url": "https://www.starfishinfertilityfoundation.org/available-grants",
+      "program_type": "Grant",
+      "geography": {
+        "type": "us_national",
+        "states": [],
+        "text": "Open to all U.S. residents (2026 Leighton Grant)."
+      },
+      "clinic_required": false,
+      "clinic_restrictions": "Paid directly to the recipient's clinic. A third-party directory says other Starfish grants require a SART member clinic.",
+      "treatments_covered": [
+        "IVF"
+      ],
+      "award_min": null,
+      "award_max": null,
+      "currency": "USD",
+      "award_text": "Not stated on the 2026 Leighton Grant page. A third-party directory lists other Starfish grants (Braxton, Bexleigh) at up to $5,000.",
+      "application_fee": 50,
+      "fee_text": "$50 application fee, paid when you submit.",
+      "eligibility_notes": [
+        "Open to all U.S. residents.",
+        "Applications must be fully completed to be considered."
+      ],
+      "coverage_notes": [
+        "Grant money is paid directly to the recipient's clinic."
+      ],
+      "cycles": [
+        {
+          "id": "starfish-2026-leighton",
+          "cycle_label": "2026 Leighton Grant",
+          "cycle_year": 2026,
+          "kind": "dated",
+          "application_opens_at": null,
+          "start_application_deadline_at": null,
+          "submission_deadline_at": {
+            "date": "2026-11-30"
+          },
+          "deadline_basis": "unknown",
+          "notification_date": null,
+          "notification_window_text": "Recipients contacted by email or phone the week of December 14, 2026.",
+          "funds_available_date": null,
+          "funds_available_text": null,
+          "treatment_start_rule": null,
+          "expiration_rule": null,
+          "date_confidence": "confirmed",
+          "open_verified_on": "2026-10-18",
+          "status_note": "The page said \"Apply for the 2026 Leighton Grant!\" on October 18, 2026.",
+          "source_url": "https://www.starfishinfertilityfoundation.org/available-grants"
+        }
+      ],
+      "source_urls": [
+        "https://www.starfishinfertilityfoundation.org/available-grants"
+      ],
+      "last_verified_at": "2026-10-18",
+      "verification_status": "verified",
+      "research_notes": []
+    },
+    {
+      "id": "conceive-fertility-foundation",
+      "name": "Conceive Fertility Foundation and The Wyatt Foundation",
+      "program_name": "IVF Grant Program",
+      "official_url": "https://cadenlane.com/pages/conceive-fertility-foundation-applications",
+      "application_url": "https://yourivfgrant.com",
+      "program_type": "Grant",
+      "geography": {
+        "type": "us_national",
+        "states": [],
+        "text": "Applicants from across the U.S. have applied. Full eligibility is on the application site."
+      },
+      "clinic_required": null,
+      "clinic_restrictions": null,
+      "treatments_covered": [
+        "IVF",
+        "PGT"
+      ],
+      "award_min": 15000,
+      "award_max": 15000,
+      "currency": "USD",
+      "award_text": "$15,000 per grant. A partner press release says five grants for fall 2026, plus $1,000 toward PGT from CooperSurgical.",
+      "application_fee": null,
+      "fee_text": "No fee mentioned on the official page.",
+      "eligibility_notes": [
+        "Not listed on the page checked. See the application site."
+      ],
+      "coverage_notes": [],
+      "cycles": [
+        {
+          "id": "conceive-2026-fall",
+          "cycle_label": "Fall 2026",
+          "cycle_year": 2026,
+          "kind": "dated",
+          "application_opens_at": {
+            "date": "2026-09-14"
+          },
+          "start_application_deadline_at": null,
+          "submission_deadline_at": {
+            "date": "2026-11-09"
+          },
+          "deadline_basis": "unknown",
+          "notification_date": null,
+          "notification_window_text": null,
+          "funds_available_date": null,
+          "funds_available_text": null,
+          "treatment_start_rule": null,
+          "expiration_rule": null,
+          "date_confidence": "confirmed",
+          "open_verified_on": "2026-10-18",
+          "status_note": "Official page banner: \"Conceive Applications Open!\" and \"APPLY BY 11/9\".",
+          "source_url": "https://cadenlane.com/pages/conceive-fertility-foundation-applications"
+        }
+      ],
+      "source_urls": [
+        "https://cadenlane.com/pages/conceive-fertility-foundation-applications"
+      ],
+      "last_verified_at": "2026-10-18",
+      "verification_status": "verified",
+      "research_notes": [
+        "The foundation is the nonprofit arm of Caden Lane, a baby products brand. The program also ran in spring 2026."
+      ]
     }
   ],
-
   "resources": [
     {
       "id": "resolve-directory",
