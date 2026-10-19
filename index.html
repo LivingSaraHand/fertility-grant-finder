@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fertility Grant Finder</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Search fertility grants by deadline, location, and treatment. Every date is labeled confirmed, month only, recurring, or not yet announced, with a link to the official source.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to grants</a>
+
+<header class="site-head">
+  <div class="wrap head-inner">
+    <div class="brand">
+      <h1 class="brand-name">Fertility Grant Finder</h1>
+      <p class="brand-line">Fertility grants in one place, with each deadline, decision date, and funding rule labeled by how certain it is.</p>
+    </div>
+    <p class="head-note">Not a complete list of every grant. Applying never guarantees an award. Always confirm details with the organization.</p>
+  </div>
+  <nav class="tabs wrap" aria-label="Sections">
+    <a href="#find" data-tab="find">Find grants</a>
+    <a href="#calendar" data-tab="calendar">Calendar</a>
+    <a href="#tracker" data-tab="tracker">My tracker <span class="tab-count" id="tracker-count" hidden></span></a>
+    <a href="#resources" data-tab="resources">Resources</a>
+    <a href="#about" data-tab="about">About</a>
+  </nav>
+</header>
+
+<div class="wrap" id="preview-banner" hidden></div>
+
+<main id="main" class="wrap">
+
+  <!-- FIND -->
+  <section id="view-find" class="view" aria-labelledby="find-title">
+    <h2 id="find-title" class="visually-hidden">Find grants</h2>
+    <div class="find-layout">
+      <aside class="filters" aria-label="Search and filters">
+        <div class="field">
+          <label for="q">Search</label>
+          <input id="q" type="search" placeholder="Name, state, treatment, month…" autocomplete="off">
+        </div>
+
+        <fieldset class="field">
+          <legend>Application status</legend>
+          <label class="check"><input type="checkbox" id="st-open" value="open" checked> Open now</label>
+          <label class="check"><input type="checkbox" id="st-upcoming" value="upcoming" checked> Upcoming</label>
+          <label class="check"><input type="checkbox" id="st-rolling" value="rolling" checked> Rolling, year-round</label>
+          <label class="check"><input type="checkbox" id="st-tba" value="tba" checked> Dates to be announced</label>
+          <label class="check"><input type="checkbox" id="st-archive" value="archive"> Past cycles (archive)</label>
+        </fieldset>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="f-year">Year</label>
+            <select id="f-year"></select>
+          </div>
+          <div class="field">
+            <label for="f-month">Month</label>
+            <select id="f-month"></select>
+          </div>
+        </div>
+
+        <details class="more-filters" id="more-filters">
+          <summary>More filters <span id="more-count"></span></summary>
+          <div class="field">
+            <label for="f-conf">Date certainty</label>
+            <select id="f-conf">
+              <option value="">Any</option>
+              <option value="confirmed">Has a confirmed date</option>
+              <option value="needs_confirmation">Needs confirmation</option>
+              <option value="awaiting">Awaiting announcement</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-geo">Where</label>
+            <select id="f-geo">
+              <option value="">Anywhere</option>
+              <option value="us_national">U.S. nationwide</option>
+              <option value="us_regional">Certain states or areas</option>
+              <option value="international">Outside the U.S.</option>
+              <option value="unknown">Not stated</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-state">State</label>
+            <select id="f-state"></select>
+          </div>
+          <div class="field">
+            <label for="f-clinic">Clinic rule</label>
+            <select id="f-clinic">
+              <option value="">Any</option>
+              <option value="no">Any clinic allowed</option>
+              <option value="yes">Partner clinic required</option>
+              <option value="unknown">Not stated</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-treat">Treatment</label>
+            <select id="f-treat"></select>
+          </div>
+          <div class="field">
+            <label for="f-fee">Application fee</label>
+            <select id="f-fee">
+              <option value="">Any</option>
+              <option value="none">No fee</option>
+              <option value="has">Has a fee</option>
+              <option value="unknown">Fee not announced</option>
+            </select>
+          </div>
+        </details>
+
+        <label class="check"><input type="checkbox" id="f-fav"> Saved grants only</label>
+        <button type="button" class="btn-link" id="reset-filters">Reset filters</button>
+      </aside>
+
+      <div class="results">
+        <div class="results-bar">
+          <p class="count" id="result-count" aria-live="polite"></p>
+          <div class="results-tools">
+            <label for="sort" class="inline-label">Sort</label>
+            <select id="sort">
+              <option value="deadline">Next deadline</option>
+              <option value="name">Organization A–Z</option>
+              <option value="award">Largest award</option>
+            </select>
+            <div class="seg" role="group" aria-label="Layout">
+              <button type="button" id="view-cards" aria-pressed="true">Cards</button>
+              <button type="button" id="view-table" aria-pressed="false">Table</button>
+            </div>
+            <button type="button" class="btn" id="export-csv">Download CSV</button>
+          </div>
+        </div>
+        <div id="results"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALENDAR -->
+  <section id="view-calendar" class="view" aria-labelledby="cal-title" hidden>
+    <div class="view-head">
+      <h2 id="cal-title">Calendar and timeline</h2>
+      <p class="lede">Only dates published by the organizations appear here. Treatment start and expiration rules depend on when you're awarded, so they're listed on each grant instead.</p>
+    </div>
+    <div class="cal-controls">
+      <fieldset class="types" id="event-types">
+        <legend>Show</legend>
+      </fieldset>
+      <div class="cal-options">
+        <label class="check"><input type="checkbox" id="cal-fav"> Saved grants only</label>
+        <label class="check"><input type="checkbox" id="cal-unconfirmed" checked> Include dates that need confirmation</label>
+        <button type="button" class="btn" id="export-ics">Add confirmed dates to my calendar (.ics)</button>
+      </div>
+    </div>
+
+    <div class="cal-month">
+      <div class="cal-nav">
+        <button type="button" class="btn" id="cal-prev" aria-label="Previous month">‹</button>
+        <h3 id="cal-label" aria-live="polite"></h3>
+        <button type="button" class="btn" id="cal-next" aria-label="Next month">›</button>
+        <button type="button" class="btn-link" id="cal-today">This month</button>
+      </div>
+      <div class="cal-grid" id="cal-grid" role="grid" aria-labelledby="cal-label"></div>
+      <div class="cal-agenda" id="cal-agenda"></div>
+      <div id="cal-monthonly"></div>
+    </div>
+
+    <div class="timeline-wrap">
+      <div class="timeline-head">
+        <h3>Timeline</h3>
+        <label class="check"><input type="checkbox" id="tl-past"> Show past dates</label>
+      </div>
+      <ol class="timeline" id="timeline"></ol>
+    </div>
+  </section>
+
+  <!-- TRACKER -->
+  <section id="view-tracker" class="view" aria-labelledby="tracker-title" hidden>
+    <div class="view-head">
+      <h2 id="tracker-title">My tracker</h2>
+      <p class="lede">Save grants and track your applications. Everything here stays in this browser on this device. Nobody else can see it, including the people who run this site. Please don't enter medical details, account numbers, or ID numbers.</p>
+    </div>
+    <div id="tracker-body"></div>
+  </section>
+
+  <!-- RESOURCES -->
+  <section id="view-resources" class="view" aria-labelledby="res-title" hidden>
+    <div class="view-head">
+      <h2 id="res-title">Resources</h2>
+      <p class="lede">Directories and articles that list other programs. These aren't grants themselves, so they're kept separate.</p>
+    </div>
+    <div id="resources-list" class="res-list"></div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="view-about" class="view prose" aria-labelledby="about-title" hidden>
+    <h2 id="about-title">About this site</h2>
+    <p id="about-credit"></p>
+    <p>Fertility Grant Finder collects grant programs that help with the cost of fertility treatment, donor conception, surrogacy, and adoption. It is a starting point for your own research. It isn't a complete list, it doesn't decide whether you're eligible, and applying for any grant never guarantees an award.</p>
+
+    <h3>How to read the dates</h3>
+    <dl class="legend" id="legend"></dl>
+    <p>Old deadlines are never moved forward into a new year. When a program hasn't announced its next cycle, it's listed under <strong>Dates to be announced</strong>, and any pattern from past years is shown as a recurring pattern, not a date.</p>
+    <p>Times are shown in the organization's own time zone. Turn on Central Time below to see both.</p>
+    <label class="check"><input type="checkbox" id="pref-central"> Also show times in Central Time</label>
+
+    <h3>Each year stays separate</h3>
+    <p>Every application cycle is its own record. When a program announces a new year, it's added as a new cycle, and past cycles move to the archive with their original dates.</p>
+
+    <h3>Your privacy</h3>
+    <p>Saved grants and tracker notes are stored only in your browser. There are no accounts and no uploads. Never share medical records, tax returns, or identification documents through this site.</p>
+
+    <h3>Keeping it current</h3>
+    <p>Dates are rechecked against each organization's official pages. Every listing shows when it was last checked and links to the source. Programs change their rules, so confirm with the organization before you apply.</p>
+    <p id="about-updated"></p>
+    <p id="suggest-wrap" hidden><a class="btn" id="suggest-link" href="#" target="_blank" rel="noopener">Suggest a grant or correction</a></p>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-inner">
+    <p class="credit" id="credit"></p>
+    <p class="foot-small">Independent directory. Not affiliated with any program listed. Not medical, legal, or financial advice. <span id="foot-updated"></span></p>
+    <p class="foot-small" id="foot-suggest" hidden><a id="foot-suggest-link" href="#" target="_blank" rel="noopener">Suggest a grant or correction</a></p>
+  </div>
+</footer>
+
+<dialog id="detail" aria-labelledby="detail-title">
+  <div class="dialog-inner" id="detail-body"></div>
+</dialog>
+
+<dialog id="filedlg" aria-labelledby="filedlg-title">
+  <div class="dialog-inner">
+    <div class="dialog-head">
+      <h2 id="filedlg-title">Your file is ready</h2>
+      <button type="button" class="icon-btn" data-close aria-label="Close">×</button>
+    </div>
+    <p id="filedlg-note"></p>
+    <p class="dlg-actions"><a class="btn btn-primary" id="filedlg-dl" href="#">Download</a> <button type="button" class="btn" id="filedlg-copy">Copy text</button> <span id="filedlg-status" class="muted" aria-live="polite"></span></p>
+    <label for="filedlg-text" class="visually-hidden">File contents</label>
+    <textarea id="filedlg-text" rows="8" readonly></textarea>
+  </div>
+</dialog>
+
+<script src="data/grants.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
