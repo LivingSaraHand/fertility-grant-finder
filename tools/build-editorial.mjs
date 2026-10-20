@@ -59,7 +59,6 @@ swap(`    <h2 id="find-title" class="visually-hidden">Find grants</h2>
         </div>
         <button type="submit" class="btn ed-go">Find grants →</button>
       </form>
-      <p class="ed-fast"><button type="button" class="btn-link" data-quick="fast" data-scroll-results>Facing a medical deadline, like cancer treatment? See which grants decide fastest →</button></p>
     </section>
 
     <section class="ed-paths" aria-labelledby="ed-paths-title">
