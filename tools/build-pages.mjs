@@ -19,7 +19,7 @@ const { esc, fmtDate, fmtMonth, fmtTime, STATE_NAMES, CONF_LABEL, CONF_HELP, STA
 const SITE = DATA.meta.site_url.replace(/\/?$/, "/");
 const UPDATED = DATA.meta.data_updated;
 const BUILD_DAY = UPDATED; // statuses are recomputed in each visitor's browser; this is only the fallback
-const V = "16";
+const V = "18";
 const ORGS = DATA.organizations;
 const nameSort = (a, b) => a.name.localeCompare(b.name);
 const stateSlug = (code) => C.slug(STATE_NAMES[code]);
@@ -123,6 +123,12 @@ function grantItem(o, base) {
   </article>`;
 }
 
+// "Listen" links to the podcast, shown in the top bar of every page.
+const headphones = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1v-6h3zM3 19a2 2 0 0 0 2 2h1v-6H3z"/></svg>';
+const listenHTML = (links) => `<nav class="listen" aria-label="Listen to the podcast"><span class="listen-label">${headphones} Listen:</span> ${links
+  .map((l) => `<a href="${esc(l.url)}" target="_blank" rel="noopener">${l.label === "Apple Podcasts" ? 'Apple<span class="lp-long"> Podcasts</span>' : esc(l.label)}</a>`)
+  .join('<span class="listen-sep" aria-hidden="true">·</span>')}</nav>`;
+
 function page({ base, pathName, title, description, h1, crumbs, body, jsonld, rounds }) {
   const url = SITE + pathName;
   const m = DATA.meta;
@@ -159,6 +165,7 @@ function page({ base, pathName, title, description, h1, crumbs, body, jsonld, ro
       <p class="eyebrow">A free resource from ${esc(m.credit.show_name)} podcast</p>
       <p class="brand-name"><a href="${base}">Fertility Grant Finder</a></p>
     </div>
+    ${listenHTML(m.credit.links || [])}
   </div>
   <nav class="tabs wrap" aria-label="Sections">
     <a href="${base}#find">Find grants</a>

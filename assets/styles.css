@@ -722,3 +722,25 @@ a.logo-badge { text-decoration: none; }
 .editorial .req-check { border: 1.5px solid var(--line-strong); margin-bottom: 18px; }
 .editorial .req-check[open], .editorial .req-check:focus-within { border-color: var(--accent); }
 .req-check { scroll-margin-top: 16px; }
+
+/* Podcast "Listen" links in the top bar */
+.listen { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; margin-left: auto; font-size: var(--step--1); font-weight: 700; }
+.listen-label { display: inline-flex; align-items: center; gap: 6px; color: var(--band-ink); }
+.listen a { color: var(--band-ink-2); text-underline-offset: 0.18em; }
+.listen-sep { opacity: 0.6; }
+.editorial .listen-label { color: var(--ink-2); }
+.editorial .listen a { color: var(--accent); }
+.editorial.plum-band .listen-label { color: var(--band-ink); }
+.editorial.plum-band .listen a { color: var(--band-ink-2); }
+@media (max-width: 640px) {
+  .editorial .ed-top, .head-inner { flex-wrap: wrap; }
+  .listen { margin-left: 0; width: 100%; }
+  .lp-long { display: none; }
+}
+
+/* Footer: "Listen on" readable on the dark band */
+.site-foot .credit .muted { color: var(--band-ink); opacity: 0.85; font-weight: 400; }
+@media (max-width: 640px) {
+  /* Line the links up under "The Long Way There" (56px logo + 14px gap) */
+  .editorial .listen { padding-left: 70px; margin-top: -2px; }
+}

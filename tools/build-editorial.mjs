@@ -5,9 +5,21 @@
 import { readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import vm from "node:vm";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 let html = readFileSync(path.join(root, "index-classic.html"), "utf8");
+const dataCtx = { window: {} };
+vm.createContext(dataCtx);
+vm.runInContext(readFileSync(path.join(root, "data/grants.js"), "utf8"), dataCtx);
+const PODCAST_LINKS = dataCtx.window.FGF_DATA.meta.credit.links || [];
+const esc = (x) => String(x).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+// "Listen" links to the podcast, shown in the top bar of every page.
+const headphones = '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1v-6h3zM3 19a2 2 0 0 0 2 2h1v-6H3z"/></svg>';
+const listenHTML = (links) => `<nav class="listen" aria-label="Listen to the podcast"><span class="listen-label">${headphones} Listen:</span> ${links
+  .map((l) => `<a href="${esc(l.url)}" target="_blank" rel="noopener">${l.label === "Apple Podcasts" ? 'Apple<span class="lp-long"> Podcasts</span>' : esc(l.label)}</a>`)
+  .join('<span class="listen-sep" aria-hidden="true">·</span>')}</nav>`;
+
 
 const swap = (from, to) => {
   if (!html.includes(from)) throw new Error("build-editorial: could not find:\n" + from.slice(0, 120));
@@ -29,6 +41,7 @@ html = html.slice(0, headStart) + `<header class="site-head">
       <span class="logo-badge" id="logo-badge" hidden><img id="brand-logo" alt="The Long Way There logo" width="72" height="72"></span>
       <span class="ed-brand-text">The Long Way There<small>A free resource from the podcast</small></span>
     </a>
+    ${listenHTML(PODCAST_LINKS)}
   </div>
 ` + html.slice(navStart);
 
