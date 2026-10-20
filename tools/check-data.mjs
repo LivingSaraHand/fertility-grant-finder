@@ -56,7 +56,13 @@ function checkOrgs(list, label) {
     else {
       const TRI = ["married", "us_citizen", "us_status", "diagnosis", "no_children", "employment", "health_insurance", "attend_event"];
       TRI.forEach((k) => { const v = o.requirements[k]; if (!(v === true || v === false || v === null || v === "some")) errors.push(`${w}.requirements.${k}: use true, false, "some", or null`); });
+      (o.requirements.welcomes || []).forEach((x) => { if (!["single", "lgbtq", "cancer", "military"].includes(x)) errors.push(`${w}.requirements.welcomes: use "single", "lgbtq", "cancer", or "military"`); });
+      if (o.requirements.only != null && !["cancer", "military"].includes(o.requirements.only)) errors.push(`${w}.requirements.only: use "cancer", "military", or leave it out`);
       ["children_max", "age_min", "age_max", "income_max"].forEach((k) => { const v = o.requirements[k]; if (!(v === null || Number.isFinite(v))) errors.push(`${w}.requirements.${k}: use a number or null`); });
+    }
+    if (o.decision_speed) {
+      const d = o.decision_speed;
+      if (!d.text || !Number.isFinite(d.days_max) || !["after_deadline", "after_applying"].includes(d.basis)) errors.push(`${w}.decision_speed: needs text, days_max (number), and basis "after_deadline" or "after_applying"`);
     }
     (o.cycles || []).forEach((c) => {
       const cw = `${w} / ${c.id || "(no id)"}`;

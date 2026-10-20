@@ -182,6 +182,9 @@
     return out;
   }
 
+  // Lowercase and strip accents, so "adopción" matches "adopcion" and "FIV" matches "fiv".
+  const norm = (x) => String(x || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
   function haystack(c) {
     const o = c.org;
     const parts = [o.name, o.program_name, o.program_type, c.cycle_label, c.cycle_year, o.geography && o.geography.text,
@@ -198,7 +201,12 @@
     parts.push(reqShort(reqOf(c)).join(" "), ((o.requirements && o.requirements.other) || []).join(" "));
     return parts.filter(Boolean).join(" ").toLowerCase();
   }
-  CYCLES.forEach((c) => { c._hay = haystack(c); });
+  CYCLES.forEach((c) => {
+    c._hay = norm(haystack(c));
+    c._words = Array.from(new Set(c._hay.split(/[^a-z0-9+]+/).filter(Boolean)));
+  });
+  // Whole words only, so "fiv" doesn't match "five". Longer words may match the start of a word ("adopt" finds "adoption").
+  const termMatch = (c, t) => c._words.includes(t) || (t.length >= 4 && c._words.some((w) => w.startsWith(t)));
 
   // ---------- Filters ----------
   const F = {
@@ -217,7 +225,7 @@
     F.state.innerHTML = '<option value="">Any state</option>' + states.map((s) => `<option value="${s}">${esc(STATE_NAMES[s])}</option>`).join("");
     const treats = new Set();
     ORGS.forEach((o) => (o.treatments_covered || []).forEach((t) => treats.add(t)));
-    F.treat.innerHTML = '<option value="">Any treatment</option>' + Array.from(treats).sort().map((t) => `<option value="${esc(t)}">${esc(t)}</option>`).join("");
+    F.treat.innerHTML = '<option value="">Any treatment</option>' + Array.from(treats).sort((a, b) => CORE.treatLabel(a).localeCompare(CORE.treatLabel(b))).map((t) => `<option value="${esc(t)}">${esc(CORE.treatLabel(t))}</option>`).join("");
   }
 
   function cycleMonths(c) {
@@ -229,13 +237,84 @@
     return set;
   }
 
+  // ---------- Smart search ----------
+  // Turns everyday words ("Texas", "IVF", "single", "gay") into filters, so a search never
+  // depends on a grant using the exact same words. Whatever isn't recognized is matched as text.
+  const STATE_BY_NAME = Object.fromEntries(Object.entries(STATE_NAMES).map(([code, name]) => [name.toLowerCase(), code]));
+  STATE_BY_NAME["washington dc"] = "DC"; STATE_BY_NAME["washington d.c."] = "DC"; STATE_BY_NAME["d.c."] = "DC";
+  // Spanish state names
+  Object.assign(STATE_BY_NAME, { "nueva york": "NY", "nuevo mexico": "NM", "nueva jersey": "NJ", "carolina del norte": "NC", "carolina del sur": "SC",
+    "dakota del norte": "ND", "dakota del sur": "SD", "virginia occidental": "WV", "luisiana": "LA", "misuri": "MO", "pensilvania": "PA", "hawai": "HI" });
+  const TREAT_WORDS = [
+    // Spanish (longer phrases first)
+    ["fecundacion in vitro", "IVF"], ["inseminacion artificial", "IUI"], ["transferencia de embriones congelados", "FET"], ["transferencia de embriones", "FET"],
+    ["donacion de ovulos", "Donor eggs/sperm"], ["ovulos donados", "Donor eggs/sperm"], ["esperma de donante", "Donor eggs/sperm"], ["ovodonacion", "Donor eggs/sperm"],
+    ["gestacion subrogada", "Surrogacy"], ["vientre de alquiler", "Surrogacy"], ["madre subrogada", "Surrogacy"], ["subrogacion", "Surrogacy"],
+    ["congelacion de ovulos", "Egg freezing"], ["congelar ovulos", "Egg freezing"], ["preservacion de la fertilidad", "Egg freezing"],
+    ["adopcion de embriones", "Embryo donation/adoption"], ["fiv", "IVF"], ["inseminacion", "IUI"], ["donante", "Donor eggs/sperm"],
+    ["adopcion", "Adoption"], ["adoptar", "Adoption"], ["medicamentos", "Medications"],
+    ["embryo adoption", "Embryo donation/adoption"], ["embryo donation", "Embryo donation/adoption"],
+    ["frozen embryo transfer", "FET"], ["frozen embryo", "FET"], ["embryo transfer", "FET"],
+    ["in vitro", "IVF"], ["ivf", "IVF"], ["iui", "IUI"], ["insemination", "IUI"], ["fet", "FET"],
+    ["egg donor", "Donor eggs/sperm"], ["sperm donor", "Donor eggs/sperm"], ["donor eggs", "Donor eggs/sperm"], ["donor egg", "Donor eggs/sperm"],
+    ["donor sperm", "Donor eggs/sperm"], ["donor conception", "Donor eggs/sperm"], ["donor", "Donor eggs/sperm"],
+    ["gestational carrier", "Surrogacy"], ["surrogacy", "Surrogacy"], ["surrogate", "Surrogacy"],
+    ["egg freezing", "Egg freezing"], ["freeze eggs", "Egg freezing"], ["freezing eggs", "Egg freezing"], ["fertility preservation", "Egg freezing"],
+    ["genetic testing", "PGT"], ["pgt", "PGT"], ["medications", "Medications"], ["medication", "Medications"], ["meds", "Medications"],
+    ["adoption", "Adoption"], ["adopt", "Adoption"]
+  ];
+  const AUDIENCE_WORDS = [
+    ["same sex", "lgbtq"], ["same-sex", "lgbtq"], ["two dads", "lgbtq"], ["two moms", "lgbtq"], ["lgbtq+", "lgbtq"], ["lgbtq", "lgbtq"], ["lgbt", "lgbtq"],
+    ["gay", "lgbtq"], ["lesbian", "lgbtq"], ["queer", "lgbtq"], ["trans", "lgbtq"],
+    ["breast cancer", "cancer"], ["cancer", "cancer"], ["chemotherapy", "cancer"], ["chemo", "cancer"], ["quimioterapia", "cancer"], ["oncofertility", "cancer"],
+    ["oncology", "cancer"], ["oncologist", "cancer"], ["leukemia", "cancer"], ["lymphoma", "cancer"],
+    ["va benefits", "military"], ["va benefit", "military"], ["service member", "military"], ["servicemember", "military"], ["national guard", "military"], ["air force", "military"],
+    ["veterans", "military"], ["veteran", "military"], ["veterano", "military"], ["military", "military"], ["militar", "military"], ["army", "military"], ["navy", "military"], ["marines", "military"], ["marine", "military"],
+    ["single mom", "single"], ["single mother", "single"], ["single woman", "single"], ["single women", "single"], ["single dad", "single"], ["single", "single"], ["unmarried", "single"], ["not married", "single"]
+  ];
+  const FILLER = new Set(["grant", "grants", "fertility", "infertility", "help", "for", "in", "with", "money", "funding", "fund", "funds", "financial", "assistance",
+    "the", "a", "an", "my", "me", "i", "we", "our", "near", "cost", "costs", "pay", "paying", "treatment", "treatments", "free", "and", "or", "of", "to", "who", "are", "is", "need", "looking", "find", "scholarship", "scholarships", "program", "programs", "resident", "residents", "state", "couple", "couples", "va",
+    // Everyday family words people type ("gay dads", "army wife", "help for my wife and me")
+    "dad", "dads", "mom", "moms", "mother", "mothers", "father", "fathers", "wife", "husband", "spouse", "partner", "partners", "parent", "parents", "family", "families",
+    "baby", "babies", "us", "journey", "ttc", "trying", "get", "pregnant", "can", "afford", "cant", "can't",
+    // Spanish filler words
+    "ayuda", "ayudas", "para", "de", "del", "la", "el", "los", "las", "subvencion", "subvenciones", "beca", "becas", "fertilidad", "infertilidad", "tratamiento", "tratamientos",
+    "dinero", "gratis", "en", "y", "o", "mi", "mis", "con", "por", "que", "un", "una", "programa", "programas", "apoyo", "financiera", "financiero", "costo", "costos", "pagar", "necesito", "busco"]);
+  const SPANISH_HINTS = new Set(["ayuda", "ayudas", "para", "subvencion", "subvenciones", "beca", "becas", "fertilidad", "infertilidad", "tratamiento", "fiv", "fecundacion", "ovulos", "gestacion",
+    "subrogada", "adopcion", "adoptar", "inseminacion", "embriones", "donante", "dinero", "necesito", "busco", "nueva", "quimioterapia", "veterano", "militar", "medicamentos"]);
+  function parseQuery(raw) {
+    let text = " " + norm(raw).replace(/[,;:!?¿¡]/g, " ").replace(/\s+/g, " ") + " ";
+    const out = { state: "", treat: "", audience: new Set(), openNow: false, noFee: false, rest: "", understood: [], spanish: text.split(" ").some((w) => SPANISH_HINTS.has(w)) };
+    const take = (phrase) => { const re = new RegExp("(^|\\s)" + phrase.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "(?=\\s|$)"); if (re.test(text)) { text = text.replace(re, " "); return true; } return false; };
+    for (const name of Object.keys(STATE_BY_NAME).sort((a, b) => b.length - a.length)) {
+      if (take(name)) { out.state = STATE_BY_NAME[name]; out.understood.push(STATE_NAMES[out.state]); break; }
+    }
+    for (const [phrase, tag] of TREAT_WORDS) { if (!out.treat && take(phrase)) { out.treat = tag; out.understood.push(CORE.treatLabel(tag)); } }
+    for (const [phrase, who] of AUDIENCE_WORDS) { if (take(phrase) && !out.audience.has(who)) { out.audience.add(who); out.understood.push(AUDIENCE_LABEL[who]); } }
+    // Diagnoses: grants rarely limit by diagnosis, so these show every grant instead of nothing.
+    for (const phrase of ["diminished ovarian reserve", "unexplained infertility", "recurrent pregnancy loss", "recurrent miscarriage", "secondary infertility", "male factor infertility", "male factor", "blocked tubes",
+      "low amh", "failed ivf", "endometriosis", "miscarriages", "miscarriage", "pcos", "dor", "poi", "endo"]) {
+      if (take(phrase) && !out.condition) { out.condition = phrase; out.understood.push("Any diagnosis"); }
+    }
+    if (take("open now") || take("open right now") || take("accepting applications")) { out.openNow = true; out.understood.push("Open now"); }
+    if (take("no application fee") || take("no fee") || take("no fees")) { out.noFee = true; out.understood.push("No application fee"); }
+    out.rest = text.split(" ").filter((w) => w && !FILLER.has(w)).join(" ");
+    return out;
+  }
+  const AUDIENCE_LABEL = { lgbtq: "Open to LGBTQ+ families", single: "Open to single applicants", cancer: "For people with cancer", military: "For veterans and service members" };
+  const welcomes = (o, who) => ((o.requirements && o.requirements.welcomes) || []).includes(who);
+
   function matches(c, opts) {
     const o = c.org;
     const st = GROUP_OF[cycleStatus(c)];
     if (!opts.ignoreStatus && !opts.statuses.has(st)) return false;
+    if (opts.openNow && !(st === "open" || st === "rolling")) return false;
+    if (opts.audience && (opts.audience.has("single") || opts.audience.has("lgbtq")) && o.requirements && o.requirements.married === true) return false;
+    if (opts.audience && opts.audience.has("cancer") && !welcomes(o, "cancer")) return false;
+    if (opts.audience && opts.audience.has("military") && !welcomes(o, "military")) return false;
     if (opts.q) {
       const terms = opts.q.toLowerCase().split(/\s+/).filter(Boolean);
-      if (!terms.every((t) => c._hay.includes(t))) return false;
+      if (!terms.every((t) => termMatch(c, t))) return false;
     }
     if (opts.year) {
       if (opts.year === "none") { if (c.cycle_year) return false; }
@@ -258,28 +337,62 @@
       if (opts.conf === "awaiting" && !(c.kind === "awaiting" || c.kind === "paused" || cycleStatus(c) === "check")) return false;
     }
     if (opts.geo && (o.geography && o.geography.type || "unknown") !== opts.geo) return false;
-    if (opts.state && !(o.geography && ((o.geography.states || []).includes(opts.state) || o.geography.type === "us_national"))) return false;
+    if (opts.state && !(o.geography && ((o.geography.states || []).includes(opts.state) || o.geography.type === "us_national" || o.geography.type === "unknown"))) return false;
     if (opts.clinic && clinicKind(o) !== opts.clinic) return false;
-    if (opts.treat && !(o.treatments_covered || []).includes(opts.treat)) return false;
+    if (opts.treat && !treatMatch(o, opts.treat)) return false;
     if (opts.fee && feeKind(o) !== opts.fee) return false;
+    if (opts.noFee && feeKind(o) !== "none") return false;
     if (opts.fav && !isFav(o.id)) return false;
     if (!opts.ignoreReq && reqConflicts(c, opts.me).length) return false;
     return true;
   }
 
+  function treatMatch(o, t) {
+    const list = o.treatments_covered || [];
+    return list.includes(t) || (["IVF", "IUI", "FET"].includes(t) && list.includes("General fertility treatment"));
+  }
+
   function currentOpts() {
+    const parsed = parseQuery(F.q.value);
     return {
-      q: F.q.value.trim(),
+      q: parsed.rest,
+      parsed,
       statuses: new Set(STATUS_BOXES.filter((b) => b.checked).map((b) => b.value)),
-      year: F.year.value, month: F.month.value, conf: F.conf.value, geo: F.geo.value, state: F.state.value,
-      clinic: F.clinic.value, treat: F.treat.value, fee: F.fee.value, fav: F.fav.checked,
+      year: F.year.value, month: F.month.value, conf: F.conf.value, geo: F.geo.value,
+      state: F.state.value || parsed.state,
+      clinic: F.clinic.value, treat: F.treat.value || parsed.treat, fee: F.fee.value, fav: F.fav.checked,
+      audience: parsed.audience, openNow: parsed.openNow, noFee: parsed.noFee,
       me: readMe()
     };
+  }
+
+  function addDays(iso, n) {
+    const [y, m, d] = iso.split("-").map(Number);
+    const t = new Date(Date.UTC(y, m - 1, d + n));
+    return t.getUTCFullYear() + "-" + pad(t.getUTCMonth() + 1) + "-" + pad(t.getUTCDate());
+  }
+  // Earliest decision for a round: the published date if there is one, otherwise an estimate from the
+  // organization's published timing ("about 4 to 6 weeks after the deadline"). Estimates are labeled as such.
+  function estDecision(c) {
+    const st = cycleStatus(c);
+    if (GROUP_OF[st] === "archive" && st !== "pending") return null;
+    if (c.notification_date && c.notification_date.date && dLatest(c.notification_date) >= TODAY) return { date: dLatest(c.notification_date), kind: "published" };
+    const ds = c.org.decision_speed;
+    if (!ds) return null;
+    if (c.kind === "event" && c.event_date && c.event_date.date) return { date: c.event_date.date, kind: "published" };
+    if (ds.basis === "after_applying" && (st === "open" || st === "rolling")) return { date: addDays(TODAY, ds.days_max), kind: "estimate" };
+    if (ds.basis === "after_deadline" && c.submission_deadline_at && dLatest(c.submission_deadline_at) >= TODAY) return { date: addDays(dLatest(c.submission_deadline_at), ds.days_max), kind: "estimate" };
+    return null;
   }
 
   function sortCycles(list, how) {
     const byName = (a, b) => a.org.name.localeCompare(b.org.name) || String(a.cycle_label).localeCompare(String(b.cycle_label));
     if (how === "name") return list.sort(byName);
+    if (how === "fast") return list.sort((a, b) => {
+      const ea = estDecision(a), eb = estDecision(b);
+      if (ea && eb) return ea.date.localeCompare(eb.date) || byName(a, b);
+      return (ea ? -1 : eb ? 1 : 0) || byName(a, b);
+    });
     if (how === "award") return list.sort((a, b) => (b.org.currency === "USD" ? b.org.award_max || -1 : -1) - (a.org.currency === "USD" ? a.org.award_max || -1 : -1) || byName(a, b));
     return list.sort((a, b) => {
       const ka = nextDeadlineKey(a), kb = nextDeadlineKey(b);
@@ -388,6 +501,15 @@
     return links.find((l) => l.label !== "Website") || links[0] || { url: o.official_url };
   }
 
+  function favButton(o) {
+    const on = isFav(o.id);
+    return `<button type="button" class="btn fav-btn" data-fav="${esc(o.id)}" aria-pressed="${on}" aria-label="${esc("Save " + o.name)}"><span aria-hidden="true">${on ? "★" : "☆"}</span> ${on ? "Saved" : "Save"}</button>`;
+  }
+  function shareUrl(o) {
+    const base = (DATA.meta.site_url || "").replace(/\/?$/, "/");
+    return o.pending ? base + "#grant-" + o.id : base + "grants/" + o.id + "/";
+  }
+
   function cardLedger(c) {
     const rows = [];
     const longText = (t) => `<span class="clamp">${esc(t)}</span>`;
@@ -407,7 +529,26 @@
       if (c.notification_date) rows.push(["Decisions", dateValueHTML(c.notification_date, c, {})]);
       else rows.push(["Decisions", c.notification_window_text ? longText(c.notification_window_text) : `<span class="dv na">Not announced</span>`]);
     }
+    const ds = c.org.decision_speed;
+    if (ds && c.kind !== "awaiting" && c.kind !== "paused" && GROUP_OF[cycleStatus(c)] !== "archive") rows.push(["How fast", longText(ds.text)]);
     return `<dl class="ledger">${rows.map(([k, v, key]) => `<dt${key ? ' class="key"' : ""}>${esc(k)}</dt><dd${key ? ' class="key"' : ""}>${v}</dd>`).join("")}</dl>`;
+  }
+
+  // Plain location tag: "Nationwide", "Only in Texas", "Only in 10 states (including New York)".
+  let viewState = "";
+  function locTag(o) {
+    const g = o.geography || {};
+    if (g.type === "us_national") return "Nationwide";
+    if (g.type === "international") return geoShort(o);
+    if (g.type === "us_regional" && (g.states || []).length) {
+      const n = g.states.length;
+      if (n <= 3) return "Only in " + g.states.map((x) => STATE_NAMES[x] || x).join(", ");
+      return `Only in ${n} states` + (viewState && g.states.includes(viewState) ? ` (including ${STATE_NAMES[viewState]})` : "");
+    }
+    if (g.type === "us_regional") return "Certain areas only";
+    // Area not published, but we know where they're based (for example, "local couples" in North Dakota).
+    if ((g.states || []).length) return "Area not stated · based in " + g.states.map((x) => STATE_NAMES[x] || x).join(", ");
+    return "Location not stated";
   }
 
   function card(c) {
@@ -418,8 +559,19 @@
     const review = o.pending ? `<p class="note-box"><strong>Pending your review.</strong> ${esc(o.review && o.review.why || "")} Not shown on the public site.</p>` : "";
     const fee = o.application_fee === 0 ? "No fee" : (o.application_fee == null ? "Fee not announced" : feeText(o) + " fee");
     const award = awardText(o) === "Not announced" ? "Award not announced" : awardText(o);
-    const tags = [award, fee, geoShort(o) === "Not stated" ? "Location not stated" : geoShort(o)];
+    const g = o.geography || {};
+    const loc = `<span class="meta-tag loc-tag loc-${g.type === "us_national" ? "national" : g.type === "us_regional" ? "local" : "other"}"${g.type === "us_regional" && (g.states || []).length > 3 ? ` title="${esc(geoShort(o))}"` : ""}>${esc(locTag(o))}</span>`;
+    const tags = [award, fee];
     if (clinicKind(o) === "yes") tags.push("Partner clinic required");
+    if (welcomes(o, "lgbtq")) tags.push("Welcomes LGBTQ+ families");
+    if (welcomes(o, "single")) tags.push("Open to single applicants");
+    const only = o.requirements && o.requirements.only;
+    if (only === "cancer") tags.push("People with cancer only");
+    else if (welcomes(o, "cancer")) tags.push("For people with cancer");
+    if (only === "military") tags.push("Veterans only");
+    else if (welcomes(o, "military")) tags.push("For veterans");
+    const est = F.sort.value === "fast" ? estDecision(c) : null;
+    const fastLine = F.sort.value === "fast" ? `<p class="fast-line">${est ? `<strong>Earliest decision:</strong> ${est.kind === "published" ? "" : "around "}${esc(fmtDate(est.date))} <span class="muted">(${est.kind === "published" ? "published date" : "estimate from their published timing"})</span>` : "Decision timing not published. Contact them to ask."}</p>` : "";
     return `<article class="card${o.pending ? " is-pending" : ""}" data-cycle="${esc(c.id)}">
       <div class="card-top">${pill(st)}${o.pending ? '<span class="pill review">Pending review</span>' : ""}<span class="cycle-tag">${esc(c.cycle_label)}</span></div>
       <div class="card-title">
@@ -427,17 +579,18 @@
         <p class="card-sub">${esc(o.program_name)}</p>
       </div>
       ${review}
+      ${fastLine}
       ${cardLedger(c)}
       ${statusExtra}
-      <div class="card-meta">${tags.map((t) => `<span class="meta-tag">${esc(t)}</span>`).join("")}</div>
+      <div class="card-meta">${loc}${tags.map((t) => `<span class="meta-tag">${esc(t)}</span>`).join("")}</div>
       <p class="req-line">${reqShort(reqOf(c)).length ? `<strong>Requires:</strong> ${esc(reqShort(reqOf(c)).join(", "))}` : "Requirements not fully published. Check their website."}</p>
       <div class="card-foot">
         <div class="card-actions">
-          <button type="button" class="btn fav-btn" data-fav="${esc(o.id)}" aria-pressed="${isFav(o.id)}">${isFav(o.id) ? "★ Saved" : "☆ Save"}</button>
-          <button type="button" class="btn" data-track-open="${esc(c.id)}">${tl ? "Tracking: " + esc(tl) : "Track"}</button>
-          <button type="button" class="btn btn-primary btn-more" data-open="${esc(o.id)}" data-cycle-focus="${esc(c.id)}">Details</button>
+          ${favButton(o)}
+          <button type="button" class="btn" data-track-open="${esc(c.id)}" aria-label="${esc((tl ? "Tracking " + tl + ": " : "Track an application for ") + o.name + ", " + c.cycle_label)}">${tl ? "Tracking: " + esc(tl) : "Track"}</button>
+          <button type="button" class="btn btn-primary btn-more" data-open="${esc(o.id)}" data-cycle-focus="${esc(c.id)}" aria-label="${esc("Details for " + o.name + ", " + c.cycle_label)}">Details</button>
         </div>
-        <p class="src-line"><a href="${esc(moreLink(o).url)}" target="_blank" rel="noopener">More on their website</a> · <a href="${esc(c.source_url || o.official_url)}" target="_blank" rel="noopener">Source for these dates</a> · ${esc(verifiedText(o))}</p>
+        <p class="src-line"><button type="button" class="btn-link share-btn" data-share="${esc(o.id)}" aria-label="${esc("Share " + o.name)}">Share</button> · <a href="${esc(moreLink(o).url)}" target="_blank" rel="noopener">More on their website</a> · <a href="${esc(c.source_url || o.official_url)}" target="_blank" rel="noopener">Source for these dates</a> · ${esc(verifiedText(o))}</p>
       </div>
     </article>`;
   }
@@ -464,7 +617,7 @@
       </tr>`;
     };
     return `<div class="table-wrap"><table>
-      <thead><tr><th>Organization</th><th>Cycle</th><th>Status</th><th>Opens</th><th>Deadline or event</th><th>Decisions</th><th>Award</th><th>Fee</th><th>Where</th><th>Source</th></tr></thead>
+      <thead><tr><th>Organization</th><th>Round</th><th>Status</th><th>Opens</th><th>Deadline or event</th><th>Decisions</th><th>Award</th><th>Fee</th><th>Where</th><th>Source</th></tr></thead>
       <tbody>${list.map(row).join("")}</tbody></table></div>`;
   }
 
@@ -480,6 +633,7 @@
 
   function renderFind() {
     const opts = currentOpts();
+    viewState = opts.state || "";
     const list = sortCycles(CYCLES.filter((c) => matches(c, opts)), F.sort.value);
     const hiddenByReq = opts.me.active ? CYCLES.filter((c) => matches(c, { ...opts, ignoreReq: true }) && reqConflicts(c, opts.me).length) : [];
     const hiddenOrgs = new Set(hiddenByReq.map((c) => c.org.id)).size;
@@ -489,23 +643,63 @@
     const moreActive = [F.conf, F.geo, F.clinic, F.fee].filter((s) => s.value).length;
     $("#more-count").textContent = moreActive ? `(${moreActive} on)` : "";
     const statusDefault = STATUS_BOXES.every((b) => b.checked === (b.value !== "archive"));
-    const allActive = [F.year, F.month, F.conf, F.geo, F.state, F.clinic, F.treat, F.fee].filter((s) => s.value).length + (F.fav.checked ? 1 : 0) + (statusDefault ? 0 : 1);
+    const allActive = [F.year, F.month, F.conf, F.geo, F.clinic, F.treat, F.fee].filter((s) => s.value).length + (F.fav.checked ? 1 : 0) + (statusDefault ? 0 : 1);
     $("#filters-on").textContent = allActive ? `(${allActive} on)` : "";
     syncQuick();
+    syncEditorial();
     const out = $("#results");
+    const p = opts.parsed;
+    const searchNote = p.understood.length
+      ? `<p class="search-note"><span>Searching for: ${p.understood.map((u) => `<span class="meta-tag">${esc(u)}</span>`).join(" ")}${p.rest ? ` <span class="meta-tag">“${esc(p.rest)}”</span>` : ""}</span>${(p.audience.has("single") || p.audience.has("lgbtq")) ? `<span class="note">Showing grants that don't require marriage. Grants marked “Welcomes…” or “Open to…” say so on their own website.</span>` : ""}${p.audience.has("cancer") ? `<span class="note">Showing programs that say they serve people with cancer, including fertility preservation before treatment. Tap “Need help fast” to see who decides soonest.</span>` : ""}${p.audience.has("military") ? `<span class="note">Showing programs that say they serve veterans or service members.</span>` : ""}${p.condition ? `<span class="note">Grants rarely limit by diagnosis, so we're showing every grant. Some require a doctor's infertility diagnosis; check each grant's requirements.</span>` : ""}${p.spanish ? `<span class="note" lang="es">Entendimos tu búsqueda en español. Por ahora, el sitio está en inglés.</span>` : ""}</p>`
+      : "";
     if (!list.length) {
-      out.innerHTML = `<p class="empty">No grants match these filters. Try removing a filter, clearing your answers in "Check requirements", or tap "Past rounds".</p>`;
+      const tips = [];
+      if (p.rest) tips.push(`<button type="button" class="btn" data-search-drop>Search without “${esc(p.rest)}”</button>`);
+      if (F.q.value.trim()) tips.push(`<button type="button" class="btn" data-search-clear>Clear the search</button>`);
+      tips.push(`<button type="button" class="btn" data-quick="default">Show all current grants</button>`);
+      const gap = p.audience.has("military") ? "No grants on this site are specifically for veterans yet. Enrolled veterans can also ask the VA about infertility services. "
+        : p.audience.has("cancer") ? "No grants on this site match that for people with cancer yet. "
+        : "";
+      out.innerHTML = searchNote + `<div class="empty"><p><strong>No grants match yet.</strong> ${gap}${p.rest ? `We couldn't find “${esc(p.rest)}” in any grant. ` : ""}Try one of these:</p><p class="dlg-actions">${tips.join(" ")}</p><p class="note">You can also pick your state and what you're exploring in the filters, or check "Past rounds".</p></div>`;
       return;
     }
-    const stateNote = F.state.value ? `<p class="state-note"><span>Showing grants for <strong>${esc(STATE_NAMES[F.state.value])}</strong> residents: local grants plus grants open anywhere in the U.S.</span> <a href="states/${CORE.slug(STATE_NAMES[F.state.value])}/">${esc(STATE_NAMES[F.state.value])} grants page</a> <button type="button" class="btn-link" data-state-clear>Show all states</button></p>` : "";
-    const reqNote = stateNote + (hiddenByReq.length ? `<p class="hidden-note">${hiddenOrgs} ${hiddenOrgs === 1 ? "grant is" : "grants are"} hidden because ${hiddenOrgs === 1 ? "its" : "their"} published rules don't fit your answers: ${esc([...new Set(hiddenByReq.map((c) => c.org.name))].join(", "))}. <button type="button" class="btn-link" data-req-clear>Show all grants again</button></p>` : "");
+    const st = opts.state;
+    const stName = st ? STATE_NAMES[st] : "";
+    const stateNote = st ? `<p class="state-note"><span>Showing grants you can apply for from <strong>${esc(stName)}</strong>. Where an organization is based doesn't matter.</span> <span class="state-note-actions">${F.state.value ? `<button type="button" class="btn-link" data-state-change>Change</button> <button type="button" class="btn-link" data-state-clear>Show all states</button> ` : ""}<a href="states/${CORE.slug(stName)}/">${esc(stName)} grants page</a></span></p>` : "";
+    const reqNote = searchNote + stateNote + (hiddenByReq.length ? `<p class="hidden-note">${hiddenOrgs} ${hiddenOrgs === 1 ? "grant is" : "grants are"} hidden because ${hiddenOrgs === 1 ? "its" : "their"} published rules don't fit your answers: ${esc([...new Set(hiddenByReq.map((c) => c.org.name))].join(", "))}. <button type="button" class="btn-link" data-req-clear>Show all grants again</button></p>` : "");
     if (layout === "table") { out.innerHTML = reqNote + tableHTML(list); return; }
-    out.innerHTML = reqNote + GROUPS.map((g) => {
-      const items = list.filter((c) => GROUP_OF[cycleStatus(c)] === g.key);
+    // "Need help fast": one list, soonest decision first, so the order isn't split by status.
+    if (F.sort.value === "fast") {
+      out.innerHTML = reqNote + `<section class="group" aria-label="Soonest decisions">
+        <div class="group-head"><h3>Soonest decisions first</h3><p>Open and year-round programs, ordered by the earliest date you could hear back. Most dates are estimates from each organization's published timing, not promises. If you're facing a medical deadline, call the organization to confirm.</p></div>
+        <div class="cards">${list.map(card).join("")}</div>
+      </section>`;
+      return;
+    }
+    const groupsHTML = (rows, h) => GROUPS.map((g) => {
+      const items = rows.filter((c) => GROUP_OF[cycleStatus(c)] === g.key);
       if (!items.length) return "";
       return `<section class="group" aria-label="${esc(g.title)}">
-        <div class="group-head"><h3>${esc(g.title)}</h3><p>${esc(g.help)}</p></div>
+        <div class="group-head"><${h}>${esc(g.title)}</${h}><p>${esc(g.help)}</p></div>
         <div class="cards">${items.map(card).join("")}</div>
+      </section>`;
+    }).join("");
+    if (!st) { out.innerHTML = reqNote + groupsHTML(list, "h3"); return; }
+    // With a state set: grants limited to that state first, then nationwide, then "location not stated".
+    const where = (c) => { const g = c.org.geography || {}; return g.type === "us_national" ? "national" : (g.type === "us_regional" || g.type === "unknown") && (g.states || []).includes(st) ? "local" : "other"; };
+    const LOC = [
+      { key: "local", title: `Local to ${stName}`, help: `Grants limited to areas that include ${stName}, plus local groups based here. Check each card's tag for the exact area.`,
+        none: `No local grants for ${stName} match right now. The nationwide grants below are open to you.` },
+      { key: "national", title: "Open to anyone in the U.S.", help: "Nationwide grants. You can apply from any state, wherever the organization is based." },
+      { key: "other", title: "Location not stated", help: "These grants don't say where applicants must live. Some are small local groups. Check their website before applying." }
+    ];
+    out.innerHTML = reqNote + LOC.map((l) => {
+      const rows = list.filter((c) => where(c) === l.key);
+      if (!rows.length && !l.none) return "";
+      const orgs = new Set(rows.map((c) => c.org.id)).size;
+      return `<section class="loc-group loc-${l.key}" aria-labelledby="loc-${l.key}">
+        <div class="loc-head"><h3 id="loc-${l.key}">${esc(l.title)} <span class="loc-count">${orgs} ${orgs === 1 ? "grant" : "grants"}</span></h3><p>${esc(rows.length ? l.help : l.none)}</p></div>
+        ${groupsHTML(rows, "h4")}
       </section>`;
     }).join("");
   }
@@ -513,32 +707,90 @@
   // ---------- Shortcuts ----------
   const QUICK = {
     default: { statuses: ["open", "upcoming", "rolling", "tba"] },
+    fast: { statuses: ["open", "rolling"], sort: "fast" },
     open: { statuses: ["open", "rolling"] },
     upcoming: { statuses: ["upcoming"] },
-    national: { statuses: ["open", "upcoming", "rolling", "tba"], geo: "us_national" },
     saved: { statuses: ["open", "upcoming", "rolling", "tba", "archive"], fav: true },
     archive: { statuses: ["archive"] }
   };
+  // "Where you live" is a setting, not a filter: shortcuts keep it, and this browser remembers it.
+  function setState(code) {
+    F.state.value = STATE_NAMES[code] ? code : "";
+    store.prefs.state = F.state.value;
+    save();
+  }
   function applyQuick(key) {
     const q = QUICK[key];
     if (!q) return;
-    [F.year, F.month, F.conf, F.geo, F.state, F.clinic, F.treat, F.fee].forEach((sel) => { sel.value = ""; });
+    [F.year, F.month, F.conf, F.geo, F.clinic, F.treat, F.fee].forEach((sel) => { sel.value = ""; });
     STATUS_BOXES.forEach((b) => { b.checked = q.statuses.includes(b.value); });
     F.geo.value = q.geo || "";
     F.fav.checked = !!q.fav;
+    if (q.sort) F.sort.value = q.sort;
+    else if (F.sort.value === "fast") F.sort.value = "deadline";
     renderFind();
   }
   function syncQuick() {
     const statuses = STATUS_BOXES.filter((b) => b.checked).map((b) => b.value).sort().join(",");
-    const others = [F.year, F.month, F.conf, F.state, F.clinic, F.treat, F.fee].some((sel) => sel.value);
+    const others = [F.year, F.month, F.conf, F.clinic, F.treat, F.fee].some((sel) => sel.value);
     let active = null;
     if (!others) {
       Object.entries(QUICK).forEach(([k, q]) => {
         if (active) return;
-        if (q.statuses.slice().sort().join(",") === statuses && (q.geo || "") === F.geo.value && !!q.fav === F.fav.checked) active = k;
+        if (q.statuses.slice().sort().join(",") === statuses && (q.geo || "") === F.geo.value && !!q.fav === F.fav.checked && (q.sort ? F.sort.value === q.sort : F.sort.value !== "fast")) active = k;
       });
     }
     $$(".quick button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.quick === active)));
+  }
+
+  // ---------- Editorial home page (index-editorial.html) ----------
+  function setupEditorial() {
+    const form = $("#ed-form");
+    if (!form) return;
+    const edState = $("#ed-state"), edPath = $("#ed-path");
+    edState.innerHTML = F.state.innerHTML.replace("Any state", "All states");
+    const pubOrgs = ORGS.filter((o) => !o.pending);
+    $$("[data-path-count]").forEach((el) => {
+      const n = pubOrgs.filter((o) => treatMatch(o, el.dataset.pathCount)).length;
+      el.textContent = n ? `${n} ${n === 1 ? "grant" : "grants"} to explore` : "Browse this path";
+    });
+    const go = (state, treat) => {
+      applyQuick("default");
+      setState(state);
+      F.treat.value = treat || "";
+      renderFind();
+      focusResults();
+    };
+    form.addEventListener("submit", (ev) => { ev.preventDefault(); go(edState.value, edPath.value); });
+    edState.addEventListener("change", () => { setState(edState.value); renderFind(); });
+    $$(".ed-card").forEach((card) => card.addEventListener("click", () => {
+      edPath.value = card.dataset.path;
+      go(edState.value, card.dataset.path);
+    }));
+  }
+  // "Change" next to "Showing grants you can apply for from ...": go to the state picker.
+  function changeState() {
+    let sel = $("#ed-state");
+    if (!sel || !sel.getClientRects().length) {
+      sel = F.state;
+      if (!sel.getClientRects().length && $("#filters-toggle")) $("#filters-toggle").click();
+    }
+    sel.scrollIntoView({ block: "center", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    sel.focus({ preventScroll: true });
+  }
+  // Scroll to the results and move keyboard focus there (announced by screen readers).
+  function focusResults() {
+    const target = $("#ed-all") || $("#results");
+    if (!target) return;
+    target.scrollIntoView({ block: "start", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    const h = $("#ed-all h2") || $("#result-count");
+    if (h) { h.setAttribute("tabindex", "-1"); h.focus({ preventScroll: true }); }
+  }
+  function syncEditorial() {
+    const edState = $("#ed-state"), edPath = $("#ed-path");
+    if (!edState) return;
+    edState.value = F.state.value;
+    edPath.value = [...edPath.options].some((o) => o.value === F.treat.value) ? F.treat.value : "";
   }
 
   // ---------- Logos (shown only if the image files exist) ----------
@@ -593,14 +845,16 @@
       <div class="dlg-actions">
         ${o.application_url ? `<a class="btn btn-primary" href="${esc(o.application_url)}" target="_blank" rel="noopener">Official application page</a>` : ""}
         <a class="btn" href="${esc(o.official_url)}" target="_blank" rel="noopener">Official website</a>
-        <button type="button" class="btn fav-btn" data-fav="${esc(o.id)}" aria-pressed="${isFav(o.id)}">${isFav(o.id) ? "★ Saved" : "☆ Save"}</button>
+        ${favButton(o)}
+        <button type="button" class="btn" data-share="${esc(o.id)}">Share this grant</button>
+        ${o.pending ? "" : `<a class="btn" href="grants/${esc(o.id)}/">Open this grant's page</a>`}
       </div>
       <div class="facts">
         <div><span>Award</span><span>${esc(o.award_text || awardText(o))}</span></div>
         <div><span>Application fee</span><span>${esc(o.fee_text || feeText(o))}</span></div>
         <div><span>Where</span><span>${esc(o.geography && o.geography.text || "Not stated")}</span></div>
         <div><span>Clinic</span><span>${esc(o.clinic_restrictions || clinicShort(o))}</span></div>
-        <div><span>Treatments mentioned</span><span>${esc((o.treatments_covered || []).join(", ") || "Not yet verified")}</span></div>
+        <div><span>Treatments mentioned</span><span>${esc((o.treatments_covered || []).map(CORE.treatLabel).join(", ") || "Not yet verified")}</span></div>
       </div>
       <section class="detail-section"><h3>More details on their website</h3>
         <div class="link-list">${(o.links || [{ label: "Official website", url: o.official_url }]).map((l) => `<a class="btn" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join("")}</div>
@@ -624,13 +878,49 @@
     `;
     if (!detail.open) detail.showModal();
     const target = focusCycleId && document.getElementById("cb-" + focusCycleId);
-    if (openTracker && target) {
-      const d = $("details.tracker-form", target);
-      if (d) { d.open = true; d.scrollIntoView({ block: "start" }); const sel = $("select", d); if (sel) sel.focus(); return; }
+    if (openTracker) {
+      const trackable = cycles.filter((c) => c.kind !== "awaiting" && c.kind !== "paused");
+      if (trackable.length > 1) { showRoundPicker(trackable); return; }
+      const only = trackable[0] && document.getElementById("cb-" + trackable[0].id);
+      openTrackerIn(only || target);
+      return;
     }
     if (target && focusCycleId !== cycles[0].id) target.scrollIntoView({ block: "start" });
     else $(".dialog-inner", detail).scrollTop = 0;
     if (location.hash !== "#grant-" + orgId) history.replaceState(null, "", "#grant-" + orgId);
+  }
+
+  function openTrackerIn(block) {
+    if (!block) return;
+    const d = $("details.tracker-form", block);
+    if (!d) return;
+    d.open = true;
+    d.scrollIntoView({ block: "start" });
+    const sel = $("select", d);
+    if (sel) sel.focus();
+  }
+  function showRoundPicker(trackable) {
+    const box = document.createElement("section");
+    box.className = "round-picker";
+    box.setAttribute("aria-label", "Choose a round to track");
+    box.innerHTML = `<p><strong>Which round are you tracking?</strong> Pick the one you applied to, or plan to apply to.</p>
+      <div class="round-options">${trackable.map((c) => {
+        const st = cycleStatus(c);
+        const dec = knownDecision(c);
+        const extra = st === "pending" && dec ? ` · decisions by ${fmtDate(dec)}` : (c.submission_deadline_at && GROUP_OF[st] !== "archive" ? ` · deadline ${fmtDate(dEarliest(c.submission_deadline_at))}` : "");
+        return `<button type="button" class="btn" data-pick-round="${esc(c.id)}"><span>${esc(c.cycle_label)}</span> <span class="muted">${esc(STATUS_LABEL[st])}${esc(extra)}</span></button>`;
+      }).join("")}</div>`;
+    const head = $(".dialog-head", detail);
+    head.insertAdjacentElement("afterend", box);
+    $(".dialog-inner", detail).scrollTop = 0;
+    const first = $("button", box);
+    if (first) first.focus();
+  }
+  // The decision date a grant has published for a round, if any (latest date when sources differ).
+  function knownDecision(c) {
+    const n = c.notification_date;
+    if (!n || !n.date) return "";
+    return dLatest(n);
   }
 
   function reqTable(o) {
@@ -657,7 +947,10 @@
         <div class="tf-grid">
           <div class="field"><label for="${id("status")}">My status</label>
             <select id="${id("status")}" name="status"><option value="">Not tracking</option>${TRACK_STATUSES.map(([v, l]) => `<option value="${v}" ${t.status === v ? "selected" : ""}>${l}</option>`).join("")}</select></div>
-          ${TRACK_FIELDS.map(([k, l, type]) => `<div class="field"><label for="${id(k)}">${l}</label><input id="${id(k)}" name="${k}" type="${type}" value="${esc(t[k] || "")}"></div>`).join("")}
+          ${TRACK_FIELDS.map(([k, l, type]) => {
+            const known = k === "expected_decision_date" && !t[k] ? knownDecision(c) : "";
+            return `<div class="field"><label for="${id(k)}">${l}</label><input id="${id(k)}" name="${k}" type="${type}" value="${esc(t[k] || known)}">${known ? `<span class="hint">Filled in from the date the grant published.</span>` : ""}</div>`;
+          }).join("")}
         </div>
         <div class="field"><label for="${id("notes")}">Notes (non-sensitive only)</label><textarea id="${id("notes")}" name="notes" rows="3" placeholder="For example: emailed to ask about the fee waiver.">${esc(t.notes || "")}</textarea></div>
         <fieldset class="field checklist"><legend>Optional preparation checklist</legend>
@@ -786,6 +1079,32 @@
     el.textContent = n;
   }
 
+  function compareHTML(orgs) {
+    const featured = (o) => {
+      const cs = sortCycles(CYCLES.filter((c) => c.org.id === o.id && GROUP_OF[cycleStatus(c)] !== "archive"), "deadline");
+      return cs[0] || CYCLES.filter((c) => c.org.id === o.id).slice(-1)[0];
+    };
+    const cols = orgs.map((o) => ({ o, c: featured(o) }));
+    const dateOrNA = (d, c) => (d ? dateValueHTML(d, c, {}) : '<span class="muted">Not announced</span>');
+    const rows = [
+      ["Status", ({ c }) => `${pill(cycleStatus(c))} <span class="muted">${esc(c.cycle_label)}</span>`],
+      ["Deadline", ({ c }) => (c.kind === "rolling" ? "Accepted year-round" : dateOrNA(c.submission_deadline_at, c))],
+      ["Decision expected", ({ c }) => { const e = estDecision(c); return e ? `${esc(fmtDate(e.date))} <span class="muted">(${e.kind === "published" ? "published" : "estimate"})</span>` : '<span class="muted">Not published</span>'; }],
+      ["How fast they decide", ({ o }) => (o.decision_speed ? esc(o.decision_speed.text) : '<span class="muted">Not published</span>')],
+      ["Award", ({ o }) => esc(awardText(o))],
+      ["Application fee", ({ o }) => esc(feeText(o))],
+      ["Where", ({ o }) => esc(geoShort(o))],
+      ["Clinic", ({ o }) => esc(clinicShort(o))],
+      ["Requires", ({ c }) => { const r = reqShort(reqOf(c)); return r.length ? esc(r.join(", ")) : '<span class="muted">Not fully published</span>'; }],
+      ["Welcomes", ({ o }) => { const w = ((o.requirements && o.requirements.welcomes) || []).map((x) => AUDIENCE_LABEL[x]); return w.length ? esc(w.join(", ")) : '<span class="muted">Not stated</span>'; }],
+      ["More details", ({ o }) => `<a href="${esc(moreLink(o).url)}" target="_blank" rel="noopener">Their website</a>`]
+    ];
+    return `<h3 style="margin-top:24px">Compare your saved grants</h3>
+      <p class="note">Side by side, using each grant's next or current round. Scroll sideways on a phone.</p>
+      <div class="table-wrap"><table class="compare"><thead><tr><th scope="col">What to compare</th>${cols.map(({ o }) => `<th scope="col"><button type="button" class="t-name" data-open="${esc(o.id)}">${esc(o.name)}</button></th>`).join("")}</tr></thead>
+      <tbody>${rows.map(([label, fn]) => `<tr><th scope="row">${esc(label)}</th>${cols.map((col) => `<td>${fn(col)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+  }
+
   function renderTracker() {
     const tracked = Object.entries(store.tracking).map(([cid, t]) => ({ cid, t, c: CYCLE_BY_ID[cid] }));
     const favOrgs = store.favorites.map((id) => ORG_BY_ID[id]).filter(Boolean);
@@ -800,7 +1119,7 @@
     tracked.forEach(({ t }) => { counts[t.status || "none"] = (counts[t.status || "none"] || 0) + 1; });
     html += `<div class="tracker-summary">${TRACK_STATUSES.filter(([v]) => counts[v]).map(([v, l]) => `<span class="chip">${esc(l)}: ${counts[v]}</span>`).join("")}</div>`;
     if (tracked.length) {
-      html += `<h3>Applications</h3><div class="table-wrap"><table><thead><tr><th>Grant</th><th>Cycle</th><th>My status</th><th>Deadline</th><th>Submitted</th><th>Expected decision</th><th>Decision</th><th>Award</th><th>Notes</th></tr></thead><tbody>` +
+      html += `<h3>Applications</h3><div class="table-wrap"><table><thead><tr><th>Grant</th><th>Round</th><th>My status</th><th>Deadline</th><th>Submitted</th><th>Expected decision</th><th>Decision</th><th>Award</th><th>Notes</th></tr></thead><tbody>` +
         tracked.sort((a, b) => (a.c ? a.c.org.name : a.cid).localeCompare(b.c ? b.c.org.name : b.cid)).map(({ cid, t, c }) => {
           if (!c) return `<tr><td colspan="9">A tracked application round (${esc(cid)}) is no longer listed. Your notes: ${esc(t.notes || "none")}</td></tr>`;
           const s = TRACK_STATUSES.find((x) => x[0] === t.status);
@@ -809,12 +1128,14 @@
             <td>${esc(c.cycle_label)}</td><td>${esc(s ? s[1] : "Not set")}</td>
             <td>${c.submission_deadline_at ? dateValueHTML(c.submission_deadline_at, c, {}) : '<span class="muted">Not announced</span>'}</td>
             <td>${esc(t.submitted_date ? fmtDate(t.submitted_date) : "")}</td>
-            <td>${esc(t.expected_decision_date ? fmtDate(t.expected_decision_date) : "")}</td>
+            <td>${t.expected_decision_date ? esc(fmtDate(t.expected_decision_date)) : (knownDecision(c) ? `${esc(fmtDate(knownDecision(c)))} <span class="muted">(published)</span>` : "")}</td>
             <td>${esc(t.actual_decision_date ? fmtDate(t.actual_decision_date) : "")}</td>
             <td>${esc(t.award_amount || "")}</td>
             <td>${esc(t.notes || "")}</td></tr>`;
         }).join("") + `</tbody></table></div>`;
     }
+    if (favOrgs.length >= 2) html += compareHTML(favOrgs);
+    else if (favOrgs.length === 1) html += `<p class="note" style="margin-top:16px">Save one more grant to compare them side by side.</p>`;
     if (favOrgs.length) {
       html += `<h3 style="margin-top:24px">Saved grants</h3><div class="cards">` + favOrgs.map((o) => {
         const cs = sortCycles(CYCLES.filter((c) => c.org.id === o.id && GROUP_OF[cycleStatus(c)] !== "archive"), "deadline");
@@ -841,7 +1162,7 @@
     return s;
   }
   function grantsCSV(list) {
-    const head = ["organization", "program", "cycle", "cycle_year", "status", "application_opens", "start_application_by", "submission_deadline", "deadline_basis", "event_date", "notification", "notification_window", "funds_available", "treatment_start_rule", "expiration_rule", "date_confidence", "award", "application_fee", "geography", "clinic_rule", "treatments", "official_source", "last_checked"];
+    const head = ["organization", "program", "round", "round_year", "status", "application_opens", "start_application_by", "submission_deadline", "deadline_basis", "event_date", "notification", "notification_window", "funds_available", "treatment_start_rule", "expiration_rule", "date_confidence", "award", "application_fee", "geography", "clinic_rule", "treatments", "official_source", "last_checked"];
     const rows = list.map((c) => {
       const o = c.org;
       return [o.name, o.program_name, c.cycle_label, c.cycle_year, STATUS_LABEL[cycleStatus(c)], dateCSV(c.application_opens_at), dateCSV(c.start_application_deadline_at), dateCSV(c.submission_deadline_at), c.deadline_basis, dateCSV(c.event_date),
@@ -851,11 +1172,11 @@
     return [head].concat(rows).map((r) => r.map(csvCell).join(",")).join("\r\n");
   }
   function trackerCSV() {
-    const head = ["organization", "cycle", "my_status", "submitted_date", "confirmation_date", "expected_decision_date", "actual_decision_date", "award_amount", "funds_received_date", "notes", "checklist_done", "last_updated"];
+    const head = ["organization", "round", "my_status", "submitted_date", "confirmation_date", "expected_decision_date", "actual_decision_date", "award_amount", "funds_received_date", "notes", "checklist_done", "last_updated"];
     const rows = Object.entries(store.tracking).map(([cid, t]) => {
       const c = CYCLE_BY_ID[cid];
       const s = TRACK_STATUSES.find((x) => x[0] === t.status);
-      return [c ? c.org.name : cid, c ? c.cycle_label : "", s ? s[1] : "", t.submitted_date, t.confirmation_date, t.expected_decision_date, t.actual_decision_date, t.award_amount, t.funds_received_date, t.notes,
+      return [c ? c.org.name : cid, c ? c.cycle_label : "", s ? s[1] : "", t.submitted_date, t.confirmation_date, t.expected_decision_date || (c ? knownDecision(c) : ""), t.actual_decision_date, t.award_amount, t.funds_received_date, t.notes,
         CHECKLIST.filter(([k]) => t.checklist && t.checklist[k]).map(([, l]) => l).join("; "), t.updated];
     });
     store.favorites.forEach((id) => { if (ORG_BY_ID[id]) rows.push([ORG_BY_ID[id].name, "(saved grant)", "", "", "", "", "", "", "", "", "", ""]); });
@@ -956,7 +1277,7 @@
     const h = location.hash.replace(/^#/, "");
     if (h.startsWith("state-")) {
       const code = h.slice(6).toUpperCase();
-      if (STATE_NAMES[code]) { F.state.value = code; showView("find"); return; }
+      if (STATE_NAMES[code]) { setState(code); showView("find"); return; }
     }
     if (h.startsWith("grant-")) {
       const id = h.slice(6);
@@ -974,21 +1295,64 @@
     updateTrackerCount();
   }
 
+  // Short message at the bottom of the screen (screen readers announce it).
+  let toastTimer = null;
+  function toast(html) {
+    let el = $("#toast");
+    if (!el) { el = document.createElement("div"); el.id = "toast"; el.className = "toast"; el.setAttribute("role", "status"); el.setAttribute("aria-live", "polite"); document.body.appendChild(el); }
+    el.innerHTML = html;
+    el.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { el.hidden = true; }, 9000);
+  }
+  async function shareGrant(id) {
+    const o = ORG_BY_ID[id];
+    if (!o) return;
+    const url = shareUrl(o);
+    const text = `${o.name}: ${o.program_name}. Dates, requirements, and official links on Fertility Grant Finder.`;
+    if (navigator.share) {
+      try { await navigator.share({ title: o.name, text, url }); return; }
+      catch (e) { if (e && e.name === "AbortError") return; }
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      toast(`Link copied. Paste it into a text or email.<br><span class="muted">${esc(url)}</span>`);
+    } catch (e) {
+      toast(`Copy this link to share it: <input type="text" readonly value="${esc(url)}" aria-label="Link to share" onfocus="this.select()">`);
+      const inp = $("#toast input");
+      if (inp) { inp.focus(); inp.select(); }
+    }
+  }
+
+  // Where to put keyboard focus back after the Details window closes.
+  let lastOpener = null;
+
   document.addEventListener("click", (ev) => {
     const t = ev.target;
+    const shareBtn = t.closest("[data-share]");
+    if (shareBtn) { shareGrant(shareBtn.getAttribute("data-share")); return; }
     const openBtn = t.closest("[data-open]");
-    if (openBtn) { openDetail(openBtn.getAttribute("data-open"), openBtn.getAttribute("data-cycle-focus")); return; }
+    if (openBtn) { if (!detail.open) lastOpener = { org: openBtn.getAttribute("data-open"), attr: "data-open" }; openDetail(openBtn.getAttribute("data-open"), openBtn.getAttribute("data-cycle-focus")); return; }
+    const pick = t.closest("[data-pick-round]");
+    if (pick) { const box = pick.closest(".round-picker"); openTrackerIn(document.getElementById("cb-" + pick.getAttribute("data-pick-round"))); if (box) box.remove(); return; }
     const trackBtn = t.closest("[data-track-open]");
-    if (trackBtn) { const c = CYCLE_BY_ID[trackBtn.getAttribute("data-track-open")]; if (c) openDetail(c.org.id, c.id, true); return; }
+    if (trackBtn) { const c = CYCLE_BY_ID[trackBtn.getAttribute("data-track-open")]; if (c) { lastOpener = { org: c.org.id, attr: "data-track-open", value: c.id }; openDetail(c.org.id, c.id, true); } return; }
     if (t.closest("[data-req-clear]")) { clearReq(); return; }
-    if (t.closest("[data-state-clear]")) { F.state.value = ""; if (location.hash.startsWith("#state-")) history.replaceState(null, "", "#find"); renderFind(); return; }
+    if (t.closest("[data-search-clear]")) { F.q.value = ""; renderFind(); return; }
+    if (t.closest("[data-search-drop]")) { const p = parseQuery(F.q.value); F.q.value = p.understood.length ? F.q.value.replace(new RegExp(p.rest.split(" ").map((w) => w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|"), "gi"), "").replace(/\s+/g, " ").trim() : ""; renderFind(); return; }
+    if (t.closest("[data-state-change]")) { changeState(); return; }
+    if (t.closest("[data-state-clear]")) { setState(""); if (location.hash.startsWith("#state-")) history.replaceState(null, "", "#find"); renderFind(); return; }
     const quickBtn = t.closest("[data-quick]");
-    if (quickBtn) { applyQuick(quickBtn.dataset.quick); return; }
+    if (quickBtn) {
+      applyQuick(quickBtn.dataset.quick);
+      if (quickBtn.hasAttribute("data-scroll-results")) focusResults();
+      return;
+    }
     const fav = t.closest("[data-fav]");
     if (fav) {
       const id = fav.getAttribute("data-fav");
       toggleFav(id);
-      $$(`[data-fav="${CSS.escape(id)}"]`).forEach((b) => { b.setAttribute("aria-pressed", isFav(id)); b.textContent = isFav(id) ? "★ Saved" : "☆ Save"; });
+      $$(`[data-fav="${CSS.escape(id)}"]`).forEach((b) => { b.outerHTML = favButton(ORG_BY_ID[id]); });
       updateTrackerCount();
       if (!$("#view-tracker").hidden || F.fav.checked) rerenderAll();
       return;
@@ -1006,6 +1370,16 @@
   detail.addEventListener("close", () => {
     if (location.hash.startsWith("#grant-")) history.replaceState(null, "", "#find");
     rerenderAll();
+    // Put focus back on the button that opened Details, so keyboard and screen-reader users keep their place.
+    if (lastOpener) {
+      // Only buttons on screen (not inside a closed window or a hidden tab). Prefer the same kind of button.
+      const onScreen = (sel) => $$(sel).find((el) => !el.closest("dialog") && el.getClientRects().length);
+      const org = CSS.escape(lastOpener.org);
+      const target = (lastOpener.attr === "data-track-open" && onScreen(`[data-track-open="${CSS.escape(lastOpener.value)}"]`))
+        || onScreen(`.btn-more[data-open="${org}"]`) || onScreen(`[data-open="${org}"]`);
+      if (target) target.focus();
+      lastOpener = null;
+    }
   });
   detail.addEventListener("click", (ev) => { if (ev.target === detail) detail.close(); });
   fileDlg.addEventListener("click", (ev) => { if (ev.target === fileDlg) fileDlg.close(); });
@@ -1024,7 +1398,8 @@
   detail.addEventListener("submit", (ev) => ev.preventDefault());
 
   [F.q].forEach((el) => el.addEventListener("input", renderFind));
-  [F.year, F.month, F.conf, F.geo, F.state, F.clinic, F.treat, F.fee, F.fav, F.sort].concat(STATUS_BOXES).forEach((el) => el.addEventListener("change", renderFind));
+  [F.year, F.month, F.conf, F.geo, F.clinic, F.treat, F.fee, F.fav, F.sort].concat(STATUS_BOXES).forEach((el) => el.addEventListener("change", renderFind));
+  F.state.addEventListener("change", () => { setState(F.state.value); renderFind(); });
   const reqPanel = $("#req-check");
   reqPanel.addEventListener("change", renderFind);
   reqPanel.addEventListener("input", (ev) => { if (ev.target.type === "number") renderFind(); });
@@ -1036,7 +1411,7 @@
   $("#rq-clear").addEventListener("click", clearReq);
   $("#reset-filters").addEventListener("click", () => {
     F.q.value = "";
-    [F.year, F.month, F.conf, F.geo, F.state, F.clinic, F.treat, F.fee].forEach((s) => { s.value = ""; });
+    [F.year, F.month, F.conf, F.geo, F.clinic, F.treat, F.fee].forEach((s) => { s.value = ""; });
     F.fav.checked = false;
     STATUS_BOXES.forEach((b) => { b.checked = b.value !== "archive"; });
     renderFind();
@@ -1096,6 +1471,8 @@
 
   // ---------- Boot ----------
   fillSelects();
+  if (store.prefs.state && STATE_NAMES[store.prefs.state]) F.state.value = store.prefs.state;
+  setupEditorial();
   loadLogos();
   if (store.prefs.howtoHidden) { $("#howto").hidden = true; $("#howto-show-wrap").hidden = false; }
   renderTypes();

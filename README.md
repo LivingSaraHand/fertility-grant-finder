@@ -11,11 +11,12 @@ This is an independent directory. It isn't affiliated with any program listed an
 
 ## What's here
 
-- `index.html`, `assets/`: the site (plain HTML, CSS, and JavaScript; no build step).
+- `index.html`, `assets/`: the site (plain HTML, CSS, and JavaScript). `index.html` is generated from `index-classic.html` by `tools/build-editorial.mjs`; edit the classic file, then rebuild.
 - `data/grants.js`: all grant data. See [UPDATING.md](UPDATING.md).
 - `tools/check-data.mjs`: checks the data for mistakes.
 - `tools/build-pages.mjs`: builds a page for every grant and every state, plus `sitemap.xml`, so search engines can find them.
 - `tools/build-preview.mjs`: builds a private preview that includes programs pending review.
+- `index-classic.html`: the source for the home page, and a backup copy of the earlier design (hidden from search engines).
 - `grants/`, `states/`: generated pages. Don't edit by hand.
 
 ## View it on your computer

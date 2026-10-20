@@ -19,7 +19,7 @@ const { esc, fmtDate, fmtMonth, fmtTime, STATE_NAMES, CONF_LABEL, CONF_HELP, STA
 const SITE = DATA.meta.site_url.replace(/\/?$/, "/");
 const UPDATED = DATA.meta.data_updated;
 const BUILD_DAY = UPDATED; // statuses are recomputed in each visitor's browser; this is only the fallback
-const V = "6";
+const V = "15";
 const ORGS = DATA.organizations;
 const nameSort = (a, b) => a.name.localeCompare(b.name);
 const stateSlug = (code) => C.slug(STATE_NAMES[code]);
@@ -117,7 +117,7 @@ function grantItem(o, base) {
     <div class="card-top">${pill(c)}<span class="cycle-tag">${esc(c.cycle_label)}</span></div>
     <div class="card-title"><h3 class="card-h"><a href="${base}grants/${o.id}/">${esc(o.name)}</a></h3><p class="card-sub">${esc(o.program_name)}</p></div>
     <p class="key-line">${esc(keyDateLine(c))}</p>
-    <div class="card-meta"><span class="meta-tag">${esc(C.awardText(o) === "Not announced" ? "Award not announced" : C.awardText(o))}</span><span class="meta-tag">${esc(o.application_fee === 0 ? "No fee" : o.application_fee == null ? "Fee not announced" : C.feeText(o) + " fee")}</span><span class="meta-tag">${esc(C.geoShort(o))}</span>${C.clinicKind(o) === "yes" ? '<span class="meta-tag">Partner clinic required</span>' : ""}</div>
+    <div class="card-meta"><span class="meta-tag">${esc(C.awardText(o) === "Not announced" ? "Award not announced" : C.awardText(o))}</span><span class="meta-tag">${esc(o.application_fee === 0 ? "No fee" : o.application_fee == null ? "Fee not announced" : C.feeText(o) + " fee")}</span><span class="meta-tag">${esc(C.geoShort(o))}</span>${C.clinicKind(o) === "yes" ? '<span class="meta-tag">Partner clinic required</span>' : ""}${((o.requirements && o.requirements.welcomes) || []).includes("lgbtq") ? '<span class="meta-tag">Welcomes LGBTQ+ families</span>' : ""}${((o.requirements && o.requirements.welcomes) || []).includes("single") ? '<span class="meta-tag">Open to single applicants</span>' : ""}${(o.requirements && o.requirements.only) === "cancer" ? '<span class="meta-tag">People with cancer only</span>' : ((o.requirements && o.requirements.welcomes) || []).includes("cancer") ? '<span class="meta-tag">For people with cancer</span>' : ""}${(o.requirements && o.requirements.only) === "military" ? '<span class="meta-tag">Veterans only</span>' : ((o.requirements && o.requirements.welcomes) || []).includes("military") ? '<span class="meta-tag">For veterans</span>' : ""}</div>
     <p class="req-line">${req.length ? `<strong>Requires:</strong> ${esc(req.join(", "))}` : "Requirements not fully published. Check their website."}</p>
     <p class="src-line"><a href="${base}grants/${o.id}/">Dates, requirements, and links</a> · ${esc(C.verifiedText(o))}</p>
   </article>`;
@@ -218,7 +218,9 @@ function grantPage(o) {
     <div><span>Application fee</span><span>${esc(o.fee_text || C.feeText(o))}</span></div>
     <div><span>Where</span><span>${esc(g.text || C.geoShort(o))}</span></div>
     <div><span>Clinic</span><span>${esc(o.clinic_restrictions || C.clinicShort(o))}</span></div>
-    <div><span>Treatments mentioned</span><span>${esc((o.treatments_covered || []).join(", ") || "Not yet verified")}</span></div>
+    ${((o.requirements && o.requirements.welcomes) || []).length ? `<div><span>Who it serves</span><span>${esc(o.requirements.welcomes.map((x) => ({ single: "Open to single applicants", lgbtq: "Welcomes LGBTQ+ families", cancer: "People with cancer", military: "Veterans and service members" })[x]).join(", "))}</span></div>` : ""}
+    ${o.decision_speed ? `<div><span>How fast they decide</span><span>${esc(o.decision_speed.text)}</span></div>` : ""}
+    <div><span>Treatments mentioned</span><span>${esc((o.treatments_covered || []).map(C.treatLabel).join(", ") || "Not yet verified")}</span></div>
     <div><span>Last checked</span><span>${esc(C.verifiedText(o))}</span></div>
   </div>
   <section class="detail-section"><h2>Application rounds</h2>

@@ -195,7 +195,12 @@ window.FGF_DATA = {
           "label": "Grant FAQ",
           "url": "https://www.hopeforfertility.org/grant-faq/"
         }
-      ]
+      ],
+      "decision_speed": {
+        "text": "About 6 weeks after the deadline (fall 2026: deadline Sept 30, recipients announced Nov 11).",
+        "days_max": 42,
+        "basis": "after_deadline"
+      }
     },
     {
       "id": "baby-quest",
@@ -331,7 +336,11 @@ window.FGF_DATA = {
           "Adequate housing.",
           "Two applications total."
         ],
-        "checked_on": "2026-10-18"
+        "checked_on": "2026-10-18",
+        "welcomes": [
+          "single",
+          "lgbtq"
+        ]
       },
       "links": [
         {
@@ -346,7 +355,12 @@ window.FGF_DATA = {
           "label": "Surrogacy grants",
           "url": "https://babyquestfoundation.org/surrogacy/"
         }
-      ]
+      ],
+      "decision_speed": {
+        "text": "About 4 to 6 weeks after the deadline.",
+        "days_max": 42,
+        "basis": "after_deadline"
+      }
     },
     {
       "id": "waiting-for-baby-bird",
@@ -622,7 +636,12 @@ window.FGF_DATA = {
           "label": "Application portal",
           "url": "https://tininaqcadefoundation.submittable.com/submit"
         }
-      ]
+      ],
+      "decision_speed": {
+        "text": "About 4 to 5 months after the deadline (spring: deadline Feb 1, decisions June 15).",
+        "days_max": 135,
+        "basis": "after_deadline"
+      }
     },
     {
       "id": "gift-of-parenthood",
@@ -975,7 +994,12 @@ window.FGF_DATA = {
           "label": "Grant FAQ",
           "url": "https://grant.giftofparenthood.org/faqs"
         }
-      ]
+      ],
+      "decision_speed": {
+        "text": "About 2 weeks after each quarterly deadline.",
+        "days_max": 16,
+        "basis": "after_deadline"
+      }
     },
     {
       "id": "bundle-of-joy",
@@ -1134,7 +1158,12 @@ window.FGF_DATA = {
           "label": "Grant details",
           "url": "https://bundleofjoyfund.org/grants/"
         }
-      ]
+      ],
+      "decision_speed": {
+        "text": "Within 60 days of the deadline.",
+        "days_max": 60,
+        "basis": "after_deadline"
+      }
     },
     {
       "id": "footsteps-for-fertility",
@@ -1304,7 +1333,12 @@ window.FGF_DATA = {
           "label": "Events",
           "url": "https://footstepsforfertility.org/services/"
         }
-      ]
+      ],
+      "decision_speed": {
+        "text": "Random selection right after each event.",
+        "days_max": 0,
+        "basis": "after_deadline"
+      }
     },
     {
       "id": "parental-hope",
@@ -1444,7 +1478,12 @@ window.FGF_DATA = {
           "label": "Grant FAQ",
           "url": "https://parentalhope.org/parental-hope-family-grant-2/faqs/"
         }
-      ]
+      ],
+      "decision_speed": {
+        "text": "About 6 to 8 weeks after the deadline.",
+        "days_max": 56,
+        "basis": "after_deadline"
+      }
     },
     {
       "id": "chicago-coalition",
@@ -1713,7 +1752,11 @@ window.FGF_DATA = {
           "Diagnosis not required for single applicants and same-sex couples.",
           "Clinical criteria apply (AMH, FSH, BMI, non-smoking)."
         ],
-        "checked_on": "2026-10-18"
+        "checked_on": "2026-10-18",
+        "welcomes": [
+          "single",
+          "lgbtq"
+        ]
       },
       "links": [
         {
@@ -1724,7 +1767,12 @@ window.FGF_DATA = {
           "label": "Eligibility and how to apply",
           "url": "https://www.nesteggfoundation.org/apply/"
         }
-      ]
+      ],
+      "decision_speed": {
+        "text": "Review can take up to 12 weeks.",
+        "days_max": 84,
+        "basis": "after_deadline"
+      }
     },
     {
       "id": "everlasting-hope",
@@ -1938,7 +1986,12 @@ window.FGF_DATA = {
           "label": "FAQ",
           "url": "https://journeytoparenthood.org/faq/"
         }
-      ]
+      ],
+      "decision_speed": {
+        "text": "About 10 weeks after the deadline (2026: postmark deadline Oct 17, outcomes by Dec 31).",
+        "days_max": 75,
+        "basis": "after_deadline"
+      }
     },
     {
       "id": "footprints-of-angels",
@@ -2314,7 +2367,12 @@ window.FGF_DATA = {
           "label": "Available grants",
           "url": "https://www.starfishinfertilityfoundation.org/available-grants"
         }
-      ]
+      ],
+      "decision_speed": {
+        "text": "About 2 weeks after the deadline (2026: deadline Nov 30, recipients contacted the week of Dec 14).",
+        "days_max": 18,
+        "basis": "after_deadline"
+      }
     },
     {
       "id": "conceive-fertility-foundation",
@@ -2522,7 +2580,12 @@ window.FGF_DATA = {
           "Diagnosis not required for same-sex couples, single applicants, or people recently diagnosed with cancer.",
           "If you have coverage, insurance is billed first; majority coverage makes you ineligible."
         ],
-        "checked_on": "2026-10-18"
+        "checked_on": "2026-10-18",
+        "welcomes": [
+          "single",
+          "lgbtq",
+          "cancer"
+        ]
       },
       "links": [
         {
@@ -2533,7 +2596,12 @@ window.FGF_DATA = {
           "label": "FAQ",
           "url": "https://storkfoundation.org/faq"
         }
-      ]
+      ],
+      "decision_speed": {
+        "text": "About 6 to 7 weeks after the deadline (reviews in October, email update by mid-November).",
+        "days_max": 47,
+        "basis": "after_deadline"
+      }
     },
     {
       "id": "fertility-foundation-texas",
@@ -2727,7 +2795,12 @@ window.FGF_DATA = {
           "label": "Grant details",
           "url": "https://hopefulmamafoundation.org/grant/"
         }
-      ]
+      ],
+      "decision_speed": {
+        "text": "About 7 weeks after the deadline (closes May 9, recipients notified by June 30).",
+        "days_max": 52,
+        "basis": "after_deadline"
+      }
     },
     {
       "id": "jewish-fertility-foundation",
@@ -2855,7 +2928,12 @@ window.FGF_DATA = {
           "label": "Grants",
           "url": "https://jewishfertilityfoundation.org/grants/"
         }
-      ]
+      ],
+      "decision_speed": {
+        "text": "Generally 6 to 8 weeks after your application is received.",
+        "days_max": 56,
+        "basis": "after_applying"
+      }
     },
     {
       "id": "giving-grace",
@@ -2949,7 +3027,12 @@ window.FGF_DATA = {
           "label": "How to apply",
           "url": "https://www.givinggracemn.org/how-to-apply"
         }
-      ]
+      ],
+      "decision_speed": {
+        "text": "About 4 to 8 weeks after the deadline.",
+        "days_max": 56,
+        "basis": "after_deadline"
+      }
     },
     {
       "id": "aneden-gives",
@@ -3071,7 +3154,12 @@ window.FGF_DATA = {
           "label": "Lagos grant",
           "url": "https://www.anedengives.com/lagos-grant/"
         }
-      ]
+      ],
+      "decision_speed": {
+        "text": "About 11 weeks after the deadline (2026: closed May 31, notified Aug 10–16).",
+        "days_max": 77,
+        "basis": "after_deadline"
+      }
     },
     {
       "id": "bivf-foundation",
@@ -3185,7 +3273,12 @@ window.FGF_DATA = {
           "Limited or no IVF insurance coverage.",
           "Age, BMI, and hormone limits apply for some treatments."
         ],
-        "checked_on": "2026-10-18"
+        "checked_on": "2026-10-18",
+        "welcomes": [
+          "single",
+          "lgbtq",
+          "cancer"
+        ]
       },
       "links": [
         {
@@ -3196,6 +3289,625 @@ window.FGF_DATA = {
           "label": "Grants",
           "url": "https://www.bivffoundation.org/grants"
         }
+      ]
+    },
+    {
+      "award_min": null,
+      "award_max": null,
+      "currency": "USD",
+      "clinic_required": null,
+      "clinic_restrictions": null,
+      "last_verified_at": "2026-10-19",
+      "verification_status": "verified",
+      "research_notes": [],
+      "id": "men-having-babies",
+      "name": "Men Having Babies",
+      "program_name": "Gay Parenting Assistance Program (GPAP)",
+      "official_url": "https://menhavingbabies.org/assistance/",
+      "application_url": "https://menhavingbabies.org/assistance/application1/",
+      "program_type": "Discounts, free services, and small cash grants",
+      "geography": {
+        "type": "us_national",
+        "states": [],
+        "text": "Residents of the USA, Canada, Taiwan, Israel, and several European countries have full access. Residents of some other countries can use Stage I only."
+      },
+      "treatments_covered": [
+        "Surrogacy",
+        "IVF",
+        "Donor eggs/sperm"
+      ],
+      "award_text": "Stage I: discounts from participating IVF, surrogacy, egg donation, and legal providers. Stage II: free services and small cash grants (about $1,000,000 in free services awarded each year). Individual amounts aren't published.",
+      "application_fee": null,
+      "fee_text": "No application fee for Supporting Members of Men Having Babies. The membership price isn't stated on the assistance page.",
+      "eligibility_notes": [
+        "For gay prospective parents; individuals or couples can apply.",
+        "Must be a Supporting Member of Men Having Babies in good standing.",
+        "Stage I is based on income and other criteria. Stage II applicants are typically expected to cover at least 30–40% of total U.S. journey costs."
+      ],
+      "coverage_notes": [
+        "Stage I discounts are limited each calendar year.",
+        "Stage I recipients can't run parallel journeys with GPAP discounts."
+      ],
+      "links": [
+        {
+          "label": "Website",
+          "url": "https://menhavingbabies.org/"
+        },
+        {
+          "label": "Financial assistance (GPAP)",
+          "url": "https://menhavingbabies.org/assistance/"
+        },
+        {
+          "label": "Eligibility and criteria",
+          "url": "https://menhavingbabies.org/assistance/criteria/"
+        },
+        {
+          "label": "Stage I application",
+          "url": "https://menhavingbabies.org/assistance/application1/"
+        }
+      ],
+      "requirements": {
+        "married": null,
+        "us_citizen": null,
+        "us_status": null,
+        "diagnosis": null,
+        "no_children": null,
+        "children_max": null,
+        "employment": null,
+        "health_insurance": null,
+        "attend_event": null,
+        "age_min": null,
+        "age_max": null,
+        "income_max": null,
+        "other": [
+          "Supporting Member of Men Having Babies.",
+          "Stage II: contribute typically at least 30–40% of total costs."
+        ],
+        "checked_on": "2026-10-19",
+        "welcomes": [
+          "single",
+          "lgbtq"
+        ]
+      },
+      "cycles": [
+        {
+          "cycle_year": null,
+          "application_opens_at": null,
+          "start_application_deadline_at": null,
+          "submission_deadline_at": null,
+          "deadline_basis": "unknown",
+          "notification_date": null,
+          "notification_window_text": null,
+          "funds_available_date": null,
+          "funds_available_text": null,
+          "treatment_start_rule": null,
+          "expiration_rule": null,
+          "open_verified_on": "2026-10-19",
+          "status_note": "Stage I applications are accepted year-round.",
+          "id": "mhb-stage1",
+          "cycle_label": "Stage I discounts (year-round)",
+          "kind": "rolling",
+          "date_confidence": "confirmed",
+          "source_url": "https://menhavingbabies.org/assistance/"
+        },
+        {
+          "cycle_year": 2027,
+          "application_opens_at": null,
+          "start_application_deadline_at": null,
+          "submission_deadline_at": null,
+          "deadline_basis": "unknown",
+          "notification_date": null,
+          "notification_window_text": null,
+          "funds_available_date": null,
+          "funds_available_text": null,
+          "treatment_start_rule": null,
+          "expiration_rule": null,
+          "open_verified_on": null,
+          "status_note": null,
+          "id": "mhb-stage2-2027",
+          "cycle_label": "Stage II direct assistance, 2027",
+          "kind": "awaiting",
+          "recurring_text": "Published pattern: Stage II applications are accepted February 1 to March 31 each year, and awards are typically made by the end of the year. Eligible Stage I recipients are invited to apply. Not confirmed for 2027.",
+          "recurring_months": [
+            2,
+            3
+          ],
+          "date_confidence": "recurring",
+          "source_url": "https://menhavingbabies.org/assistance/"
+        }
+      ],
+      "source_urls": [
+        "https://menhavingbabies.org/assistance/",
+        "https://menhavingbabies.org/assistance/criteria/"
+      ]
+    },
+    {
+      "award_min": null,
+      "award_max": 100000,
+      "currency": "USD",
+      "clinic_required": null,
+      "clinic_restrictions": null,
+      "last_verified_at": "2026-10-19",
+      "verification_status": "verified",
+      "research_notes": [
+        "RESOLVE's directory listed the 2025 window as closing December 31, 2025."
+      ],
+      "id": "surrogacy-foundation",
+      "name": "The Surrogacy Foundation",
+      "program_name": "National Surrogacy Grant",
+      "official_url": "https://www.thesurrogacyfoundation.org/",
+      "application_url": "https://www.thesurrogacyfoundation.org/grants",
+      "program_type": "Grant (placed in escrow)",
+      "geography": {
+        "type": "unknown",
+        "states": [],
+        "text": "Not stated on the official grants page."
+      },
+      "treatments_covered": [
+        "Surrogacy"
+      ],
+      "award_text": "$100,000 placed in escrow for surrogacy expenses (annual grant). A separate Hatch Full Journey Grant was also awarded in 2025.",
+      "application_fee": null,
+      "fee_text": "No application fee is listed on the grants page.",
+      "eligibility_notes": [
+        "Applications are evaluated on medical, financial, and personal criteria by independent professionals.",
+        "A third-party directory (RESOLVE) lists U.S. residency, medical necessity, and at least three euploid embryos created in the U.S. Not confirmed on the official page."
+      ],
+      "coverage_notes": [
+        "Funds are held in escrow for surrogacy expenses. Families choose their own professionals."
+      ],
+      "links": [
+        {
+          "label": "Website",
+          "url": "https://www.thesurrogacyfoundation.org/"
+        },
+        {
+          "label": "Grants",
+          "url": "https://www.thesurrogacyfoundation.org/grants"
+        }
+      ],
+      "requirements": {
+        "married": null,
+        "us_citizen": null,
+        "us_status": null,
+        "diagnosis": null,
+        "no_children": null,
+        "children_max": null,
+        "employment": null,
+        "health_insurance": null,
+        "attend_event": null,
+        "age_min": null,
+        "age_max": null,
+        "income_max": null,
+        "other": [
+          "Eligibility isn't listed on the official grants page. Check before applying."
+        ],
+        "checked_on": "2026-10-19"
+      },
+      "cycles": [
+        {
+          "cycle_year": null,
+          "application_opens_at": null,
+          "start_application_deadline_at": null,
+          "submission_deadline_at": null,
+          "deadline_basis": "unknown",
+          "notification_date": null,
+          "notification_window_text": null,
+          "funds_available_date": null,
+          "funds_available_text": null,
+          "treatment_start_rule": null,
+          "expiration_rule": null,
+          "open_verified_on": null,
+          "status_note": "The grants page shows 2025 winners and doesn't give dates for the next application window (checked October 19, 2026).",
+          "id": "surrogacy-foundation-next",
+          "cycle_label": "Next national grant",
+          "kind": "awaiting",
+          "date_confidence": "not_announced",
+          "source_url": "https://www.thesurrogacyfoundation.org/grants"
+        }
+      ],
+      "source_urls": [
+        "https://www.thesurrogacyfoundation.org/grants"
+      ]
+    },
+    {
+      "award_min": null,
+      "award_max": null,
+      "currency": "USD",
+      "clinic_required": true,
+      "clinic_restrictions": "Must use a SART member clinic, which provides a W-9 to the foundation.",
+      "last_verified_at": "2026-10-19",
+      "verification_status": "verified",
+      "research_notes": [
+        "The page also notes that the VA offers infertility services to enrolled, eligible veterans regardless of service connection, sexual orientation, gender identity, relationship status, or marital status. Veterans can call (855) 829-6636 to reach a Women Veteran Program Manager."
+      ],
+      "id": "bob-woodruff-viva",
+      "name": "Bob Woodruff Foundation",
+      "program_name": "VIVA Fertility Grants",
+      "official_url": "https://bobwoodrufffoundation.org/for-veterans/fertility-grants-viva-program/",
+      "application_url": "https://bobwoodrufffoundation.org/for-veterans/fertility-grants-viva-program/",
+      "program_type": "Grant",
+      "geography": {
+        "type": "us_national",
+        "states": [],
+        "text": "U.S. veterans. Treatment at a SART member clinic."
+      },
+      "treatments_covered": [
+        "IVF",
+        "Donor eggs/sperm",
+        "Surrogacy",
+        "General fertility treatment"
+      ],
+      "award_text": "Amount not stated on the official page. The foundation says it funds donor sperm, eggs, and surrogates, with broader criteria than the VA program.",
+      "application_fee": null,
+      "fee_text": "No fee mentioned on the official page.",
+      "eligibility_notes": [
+        "The veteran must have a service-connected condition causing infertility.",
+        "Wounds or injuries don't have to involve reproductive organs; spinal injuries, PTSD, or TBI are considered case by case.",
+        "Apply through the Got Your 6 Network grantee portal (choose \"I'm an individual applying for fertility assistance\")."
+      ],
+      "coverage_notes": [
+        "If approved, the check goes to the fertility center."
+      ],
+      "decision_speed": {
+        "text": "Decision within a few days of a complete application (the foundation aims to respond within one week). The check goes to the clinic in about a month.",
+        "days_max": 7,
+        "basis": "after_applying"
+      },
+      "links": [
+        {
+          "label": "VIVA fertility grants",
+          "url": "https://bobwoodrufffoundation.org/for-veterans/fertility-grants-viva-program/"
+        },
+        {
+          "label": "Website",
+          "url": "https://bobwoodrufffoundation.org/"
+        }
+      ],
+      "requirements": {
+        "married": null,
+        "us_citizen": null,
+        "us_status": null,
+        "diagnosis": null,
+        "no_children": null,
+        "children_max": null,
+        "employment": null,
+        "health_insurance": null,
+        "attend_event": null,
+        "age_min": null,
+        "age_max": null,
+        "income_max": null,
+        "other": [
+          "Service-connected condition causing infertility.",
+          "SART member clinic."
+        ],
+        "checked_on": "2026-10-19",
+        "welcomes": [
+          "military"
+        ],
+        "only": "military"
+      },
+      "cycles": [
+        {
+          "cycle_year": null,
+          "application_opens_at": null,
+          "start_application_deadline_at": null,
+          "submission_deadline_at": null,
+          "deadline_basis": "unknown",
+          "notification_date": null,
+          "notification_window_text": "Decision within a few days of a complete application.",
+          "funds_available_date": null,
+          "funds_available_text": null,
+          "treatment_start_rule": null,
+          "expiration_rule": null,
+          "open_verified_on": "2026-10-19",
+          "status_note": "\"We review applications as we receive them.\"",
+          "id": "viva-rolling",
+          "cycle_label": "Rolling applications",
+          "kind": "rolling",
+          "date_confidence": "confirmed",
+          "source_url": "https://bobwoodrufffoundation.org/for-veterans/fertility-grants-viva-program/"
+        }
+      ],
+      "source_urls": [
+        "https://bobwoodrufffoundation.org/for-veterans/fertility-grants-viva-program/"
+      ]
+    },
+    {
+      "award_min": null,
+      "award_max": null,
+      "currency": "USD",
+      "clinic_required": true,
+      "clinic_restrictions": "The application is submitted by an onboarded partner fertility clinic, before the fertility cycle starts.",
+      "last_verified_at": "2026-10-19",
+      "verification_status": "verified",
+      "research_notes": [
+        "A third-party article says Hope Grants can be approved in as little as 48 hours. Not stated on the official page."
+      ],
+      "id": "chick-mission",
+      "name": "The Chick Mission",
+      "program_name": "Hope Grants",
+      "official_url": "https://www.thechickmission.org/hope-grants/",
+      "application_url": "https://www.thechickmission.org/hope-grants/",
+      "program_type": "Grant (applied for by a partner clinic)",
+      "geography": {
+        "type": "us_regional",
+        "states": [
+          "CA",
+          "CO",
+          "FL",
+          "IL",
+          "MT",
+          "NJ",
+          "NY",
+          "OK",
+          "PA",
+          "TX"
+        ],
+        "text": "California, Colorado, Florida, Illinois, Montana, New Jersey, New York, Oklahoma, Pennsylvania, and Texas."
+      },
+      "treatments_covered": [
+        "Egg freezing"
+      ],
+      "award_text": "Covers costs of an egg-freezing cycle; amount based on financial need, insurance, and treatment plan. Doesn't cover medications.",
+      "application_fee": null,
+      "fee_text": "No fee mentioned on the official page.",
+      "eligibility_notes": [
+        "Women ages 18 to 40, newly diagnosed with cancer, with a treatment plan that poses an immediate risk to fertility (confirmed by an oncologist).",
+        "U.S. citizen or lawfully present in the U.S.",
+        "Household income under $150,000 (single) or $200,000 (married or domestic partnership).",
+        "No prior treatment that may have lowered fertility (recurrences reviewed individually).",
+        "The form on the page is an inquiry, not the application; your clinic applies."
+      ],
+      "coverage_notes": [
+        "Doesn't cover medication costs.",
+        "Paid to the partner clinic after the final invoice.",
+        "One grant per person."
+      ],
+      "links": [
+        {
+          "label": "Hope Grants",
+          "url": "https://www.thechickmission.org/hope-grants/"
+        },
+        {
+          "label": "Website",
+          "url": "https://www.thechickmission.org/"
+        }
+      ],
+      "requirements": {
+        "married": null,
+        "us_citizen": null,
+        "us_status": true,
+        "diagnosis": true,
+        "no_children": null,
+        "children_max": null,
+        "employment": null,
+        "health_insurance": null,
+        "attend_event": null,
+        "age_min": 18,
+        "age_max": 40,
+        "income_max": 200000,
+        "other": [
+          "New cancer diagnosis with treatment that threatens fertility.",
+          "Income limit: under $150,000 single, $200,000 married or partnered."
+        ],
+        "checked_on": "2026-10-19",
+        "welcomes": [
+          "cancer",
+          "single"
+        ],
+        "only": "cancer"
+      },
+      "cycles": [
+        {
+          "cycle_year": null,
+          "application_opens_at": null,
+          "start_application_deadline_at": null,
+          "submission_deadline_at": null,
+          "deadline_basis": "unknown",
+          "notification_date": null,
+          "notification_window_text": null,
+          "funds_available_date": null,
+          "funds_available_text": null,
+          "treatment_start_rule": null,
+          "expiration_rule": null,
+          "open_verified_on": "2026-10-19",
+          "status_note": "Submitted by a partner clinic before the egg-freezing cycle starts. The page doesn't state a decision timeline.",
+          "id": "chick-mission-rolling",
+          "cycle_label": "Before your fertility cycle starts",
+          "kind": "rolling",
+          "date_confidence": "confirmed",
+          "source_url": "https://www.thechickmission.org/hope-grants/"
+        }
+      ],
+      "source_urls": [
+        "https://www.thechickmission.org/hope-grants/"
+      ]
+    },
+    {
+      "award_min": null,
+      "award_max": null,
+      "currency": "USD",
+      "clinic_required": true,
+      "clinic_restrictions": "Livestrong partner fertility clinic.",
+      "last_verified_at": "2026-10-19",
+      "verification_status": "verified",
+      "research_notes": [
+        "Another Livestrong page lists different income limits and U.S. citizen or permanent resident. Confirm with Livestrong."
+      ],
+      "id": "livestrong-fertility",
+      "name": "Livestrong",
+      "program_name": "Livestrong Fertility",
+      "official_url": "https://livestrong.org/how-we-help/livestrong-fertility/",
+      "application_url": "https://livestrong.org/how-we-help/livestrong-fertility/",
+      "program_type": "Discounts and free medication (not a cash grant)",
+      "geography": {
+        "type": "us_national",
+        "states": [],
+        "text": "Lawfully present in the United States. Must use a Livestrong partner clinic."
+      },
+      "treatments_covered": [
+        "Egg freezing",
+        "Medications"
+      ],
+      "award_text": "At least 25% off services at partner clinics, plus free fertility stimulation medication (through EMD Serono) for approved patients.",
+      "application_fee": 0,
+      "fee_text": "No application fee charged to applicants.",
+      "eligibility_notes": [
+        "Confirmed cancer diagnosis (or an oncologist actively involved in your care), and your oncology team agrees treatment could affect fertility.",
+        "Income: birthing parents $130,000 or less (single) or $170,000 (married); non-birthing parents $101,000 or $130,000.",
+        "Uninsured or limited coverage for fertility preservation.",
+        "Complete Livestrong's checklist (diagnosis, partner clinic, insurance check, oncologist letter) to get the application link."
+      ],
+      "coverage_notes": [
+        "Not all costs are covered; you contribute too."
+      ],
+      "links": [
+        {
+          "label": "Livestrong Fertility",
+          "url": "https://livestrong.org/how-we-help/livestrong-fertility/"
+        }
+      ],
+      "requirements": {
+        "married": null,
+        "us_citizen": null,
+        "us_status": true,
+        "diagnosis": true,
+        "no_children": null,
+        "children_max": null,
+        "employment": null,
+        "health_insurance": null,
+        "attend_event": null,
+        "age_min": null,
+        "age_max": null,
+        "income_max": 170000,
+        "other": [
+          "Cancer diagnosis with fertility-threatening treatment.",
+          "Income limits differ for birthing and non-birthing parents."
+        ],
+        "checked_on": "2026-10-19",
+        "welcomes": [
+          "cancer",
+          "single"
+        ],
+        "only": "cancer"
+      },
+      "cycles": [
+        {
+          "cycle_year": null,
+          "application_opens_at": null,
+          "start_application_deadline_at": null,
+          "submission_deadline_at": null,
+          "deadline_basis": "unknown",
+          "notification_date": null,
+          "notification_window_text": null,
+          "funds_available_date": null,
+          "funds_available_text": null,
+          "treatment_start_rule": null,
+          "expiration_rule": null,
+          "open_verified_on": "2026-10-19",
+          "status_note": "The page doesn't state a deadline or processing time. Case management: (855) 844-7777, weekdays 8:30 a.m.–5 p.m. ET.",
+          "id": "livestrong-rolling",
+          "cycle_label": "Rolling applications",
+          "kind": "rolling",
+          "date_confidence": "confirmed",
+          "source_url": "https://livestrong.org/how-we-help/livestrong-fertility/"
+        }
+      ],
+      "source_urls": [
+        "https://livestrong.org/how-we-help/livestrong-fertility/"
+      ]
+    },
+    {
+      "award_min": null,
+      "award_max": 2500,
+      "currency": "USD",
+      "clinic_required": false,
+      "clinic_restrictions": null,
+      "last_verified_at": "2026-10-19",
+      "verification_status": "verified",
+      "research_notes": [],
+      "id": "team-maggies-dream",
+      "name": "Team Maggie's Dream",
+      "program_name": "Fertility Assistance Grants",
+      "official_url": "https://www.teammaggiesdream.org/grants",
+      "application_url": "https://www.teammaggiesdream.org/grants",
+      "program_type": "Grant (mailed application)",
+      "geography": {
+        "type": "us_national",
+        "states": [],
+        "text": "U.S. residents who are U.S. citizens, uninsured or underinsured."
+      },
+      "treatments_covered": [
+        "Egg freezing"
+      ],
+      "award_text": "Up to $2,500, depending on funds, number of qualified applicants, and need. Paid directly to the medical provider.",
+      "application_fee": null,
+      "fee_text": "No fee mentioned on the official page.",
+      "eligibility_notes": [
+        "Ages 15 to 37, receiving treatment for cancer.",
+        "U.S. citizen; uninsured or underinsured.",
+        "Must have been denied coverage by your insurance carrier.",
+        "Mail the completed application with a short explanation and documentation of financial need and medical treatment."
+      ],
+      "coverage_notes": [
+        "Fertility preservation expenses, including egg retrieval (egg or sperm preservation).",
+        "Priority may go to applicants without children."
+      ],
+      "links": [
+        {
+          "label": "Grants",
+          "url": "https://www.teammaggiesdream.org/grants"
+        }
+      ],
+      "requirements": {
+        "married": null,
+        "us_citizen": true,
+        "us_status": true,
+        "diagnosis": true,
+        "no_children": null,
+        "children_max": null,
+        "employment": null,
+        "health_insurance": null,
+        "attend_event": null,
+        "age_min": 15,
+        "age_max": 37,
+        "income_max": null,
+        "other": [
+          "Receiving treatment for cancer.",
+          "Insurance denied coverage."
+        ],
+        "checked_on": "2026-10-19",
+        "welcomes": [
+          "cancer",
+          "single"
+        ],
+        "only": "cancer"
+      },
+      "cycles": [
+        {
+          "cycle_year": null,
+          "application_opens_at": null,
+          "start_application_deadline_at": null,
+          "submission_deadline_at": null,
+          "deadline_basis": "unknown",
+          "notification_date": null,
+          "notification_window_text": null,
+          "funds_available_date": null,
+          "funds_available_text": null,
+          "treatment_start_rule": null,
+          "expiration_rule": null,
+          "open_verified_on": null,
+          "status_note": "The page lists no deadlines and doesn't say whether applications are rolling. Questions: teammaggieforacure@gmail.com.",
+          "id": "team-maggies-dream-next",
+          "cycle_label": "Applications",
+          "kind": "awaiting",
+          "date_confidence": "not_announced",
+          "source_url": "https://www.teammaggiesdream.org/grants"
+        }
+      ],
+      "source_urls": [
+        "https://www.teammaggiesdream.org/grants"
       ]
     }
   ],

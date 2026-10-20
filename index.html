@@ -17,19 +17,17 @@
 <meta property="og:url" content="https://livingsarahand.github.io/fertility-grant-finder/">
 <meta property="og:image" content="https://livingsarahand.github.io/fertility-grant-finder/assets/logo.png">
 <link rel="icon" href="assets/logo-road.png" type="image/png">
-<link rel="stylesheet" href="assets/styles.css?v=6">
+<link rel="stylesheet" href="assets/styles.css?v=15">
 </head>
-<body>
+<body class="editorial">
 <a class="skip" href="#main">Skip to grants</a>
 
 <header class="site-head">
-  <div class="wrap head-inner">
-    <span class="logo-badge" id="logo-badge" hidden><img id="brand-logo" alt="The Long Way There logo" width="96" height="96"></span>
-    <div class="head-text">
-      <p class="eyebrow">A free resource from <span id="eyebrow-show">The Long Way There</span> podcast</p>
-      <h1 class="brand-name">Fertility Grant Finder</h1>
-      <p class="brand-line">Find grants that help pay for IVF, IUI, donor conception, surrogacy, and adoption, with every deadline in one place.</p>
-    </div>
+  <div class="wrap ed-top">
+    <a class="ed-brand" href="#find">
+      <span class="logo-badge" id="logo-badge" hidden><img id="brand-logo" alt="The Long Way There logo" width="72" height="72"></span>
+      <span class="ed-brand-text">The Long Way There<small>A free resource from the podcast</small></span>
+    </a>
   </div>
   <nav class="tabs wrap" aria-label="Sections">
     <a href="#find" data-tab="find">Find grants</a>
@@ -46,44 +44,34 @@
 <main id="main" class="wrap">
 
   <!-- FIND -->
-  <section id="view-find" class="view" aria-labelledby="find-title">
-    <h2 id="find-title" class="visually-hidden">Find grants</h2>
-
-    <section class="howto" id="howto" aria-labelledby="howto-title">
-      <div class="howto-head">
-        <h2 id="howto-title">How it works</h2>
-        <button type="button" class="btn-link" id="howto-hide">Hide this</button>
-      </div>
-      <ol class="steps">
-        <li>
-          <span class="step-num" aria-hidden="true">1</span>
-          <div><h3>Search</h3><p>Type your state, a treatment like IVF, or a grant name. Or tap a shortcut like <strong>Open now</strong>.</p></div>
-        </li>
-        <li>
-          <span class="step-num" aria-hidden="true">2</span>
-          <div><h3>Check the dates</h3><p>Every date has a label. <span class="chip c-confirmed">Confirmed</span> means the organization published it. <span class="chip c-needs_confirmation">Needs confirmation</span> or <span class="chip c-not_announced">Not announced</span> means check back.</p></div>
-        </li>
-        <li>
-          <span class="step-num" aria-hidden="true">3</span>
-          <div><h3>Save and track</h3><p>Tap <strong>☆ Save</strong> to keep a grant, and <strong>Track</strong> to note where you are, from preparing to submitted. It stays private on your device.</p></div>
-        </li>
-      </ol>
-      <p class="howto-note">This isn't a complete list of every grant, and applying never guarantees an award. Always confirm details with the organization before you apply.</p>
+  <section id="view-find" class="view" aria-labelledby="ed-title">
+    <section class="ed-hero" aria-labelledby="ed-title">
+      <p class="ed-tag">A little support. A way forward.</p>
+      <h1 id="ed-title" class="ed-title">Fertility Grant Finder</h1>
+      <p class="ed-sub">Find grants that help pay for IVF, IUI, donor conception, surrogacy, and adoption, with every deadline in one place.</p>
+      <form class="ed-form" id="ed-form">
+        <div class="field">
+          <label for="ed-state">Where you live</label>
+          <select id="ed-state"><option value="">All states</option></select>
+        </div>
+        <div class="field">
+          <label for="ed-path">What you're exploring</label>
+          <select id="ed-path">
+            <option value="">All family-building paths</option>
+            <option value="IVF">IVF</option>
+            <option value="IUI">IUI</option>
+            <option value="FET">Frozen embryo transfer</option>
+            <option value="Donor eggs/sperm">Donor conception</option>
+            <option value="Surrogacy">Surrogacy</option>
+            <option value="Embryo donation/adoption">Embryo adoption</option>
+            <option value="Egg freezing">Egg freezing</option>
+            <option value="Adoption">Adoption</option>
+          </select>
+        </div>
+        <button type="submit" class="btn ed-go">Find grants →</button>
+      </form>
+      <p class="ed-fast"><button type="button" class="btn-link" data-quick="fast" data-scroll-results>Facing a medical deadline, like cancer treatment? See which grants decide fastest →</button></p>
     </section>
-    <p class="howto-show-wrap" id="howto-show-wrap" hidden><button type="button" class="btn-link" id="howto-show">How this site works</button></p>
-
-    <div class="searchbar">
-      <label for="q" class="visually-hidden">Search grants</label>
-      <input id="q" type="search" placeholder="Search: state, IVF, grant name…" autocomplete="off">
-    </div>
-    <div class="quick" role="group" aria-label="Shortcuts">
-      <button type="button" data-quick="default" aria-pressed="true">Current and upcoming</button>
-      <button type="button" data-quick="open" aria-pressed="false">Open now</button>
-      <button type="button" data-quick="upcoming" aria-pressed="false">Opening soon</button>
-      <button type="button" data-quick="national" aria-pressed="false">Anywhere in the U.S.</button>
-      <button type="button" data-quick="saved" aria-pressed="false">My saved grants</button>
-      <button type="button" data-quick="archive" aria-pressed="false">Past rounds</button>
-    </div>
 
     <details class="req-check" id="req-check">
       <summary>
@@ -122,6 +110,68 @@
       </div>
     </details>
 
+    <section class="ed-paths" aria-labelledby="ed-paths-title">
+      <div class="ed-sectionline"><h2 id="ed-paths-title">Start exploring</h2><small>Browse at your own pace</small></div>
+      <div class="ed-cards">
+        <button type="button" class="ed-card" data-path="IVF">
+          <span class="ed-mini">Fertility treatment</span>
+          <span class="ed-card-title">Help with IVF</span>
+          <span class="ed-card-text">Grants for IVF, frozen embryo transfer, and related costs.</span>
+          <span class="ed-card-foot"><span data-path-count="IVF">Browse this path</span><span aria-hidden="true">↗</span></span>
+        </button>
+        <button type="button" class="ed-card" data-path="Donor eggs/sperm">
+          <span class="ed-mini">More ways to build a family</span>
+          <span class="ed-card-title">Donor conception</span>
+          <span class="ed-card-text">Support for donor eggs, donor sperm, and embryo donation.</span>
+          <span class="ed-card-foot"><span data-path-count="Donor eggs/sperm">Browse this path</span><span aria-hidden="true">↗</span></span>
+        </button>
+        <button type="button" class="ed-card" data-path="Adoption">
+          <span class="ed-mini">Your next chapter</span>
+          <span class="ed-card-title">Adoption support</span>
+          <span class="ed-card-text">Funding for adoption expenses.</span>
+          <span class="ed-card-foot"><span data-path-count="Adoption">Browse this path</span><span aria-hidden="true">↗</span></span>
+        </button>
+      </div>
+    </section>
+
+    <section class="howto" id="howto" aria-labelledby="howto-title">
+      <div class="howto-head">
+        <h2 id="howto-title">How it works</h2>
+        <button type="button" class="btn-link" id="howto-hide">Hide this</button>
+      </div>
+      <ol class="steps">
+        <li>
+          <span class="step-num" aria-hidden="true">1</span>
+          <div><h3>Search</h3><p>Type your state, a treatment like IVF, or a grant name. Or tap a shortcut like <strong>Open now</strong>.</p></div>
+        </li>
+        <li>
+          <span class="step-num" aria-hidden="true">2</span>
+          <div><h3>Check the dates</h3><p>Every date has a label. <span class="chip c-confirmed">Confirmed</span> means the organization published it. <span class="chip c-needs_confirmation">Needs confirmation</span> or <span class="chip c-not_announced">Not announced</span> means check back.</p></div>
+        </li>
+        <li>
+          <span class="step-num" aria-hidden="true">3</span>
+          <div><h3>Save and track</h3><p>Tap <strong>☆ Save</strong> to keep a grant, and <strong>Track</strong> to note where you are, from preparing to submitted. It stays private on your device.</p></div>
+        </li>
+      </ol>
+      <p class="howto-note">This isn't a complete list of every grant, and applying never guarantees an award. Always confirm details with the organization before you apply.</p>
+    </section>
+    <p class="howto-show-wrap" id="howto-show-wrap" hidden><button type="button" class="btn-link" id="howto-show">How this site works</button></p>
+
+    <div class="ed-sectionline" id="ed-all"><h2>All grants</h2><small>Search, filter, and save</small></div>
+    <div class="searchbar">
+      <label for="q" class="visually-hidden">Search grants</label>
+      <input id="q" type="search" placeholder="Search: state, IVF, grant name…" autocomplete="off">
+    </div>
+    <div class="quick" role="group" aria-label="Shortcuts">
+      <button type="button" data-quick="default" aria-pressed="true">Current and upcoming</button>
+      <button type="button" data-quick="open" aria-pressed="false">Open now</button>
+      <button type="button" data-quick="fast" aria-pressed="false">Need help fast</button>
+      <button type="button" data-quick="upcoming" aria-pressed="false">Opening soon</button>
+      <button type="button" data-quick="saved" aria-pressed="false">My saved grants</button>
+      <button type="button" data-quick="archive" aria-pressed="false">Past rounds</button>
+    </div>
+
+
     <div class="find-layout">
       <aside class="filters" id="filters" aria-label="Filters">
         <div class="filters-head">
@@ -130,9 +180,9 @@
         </div>
 
         <div class="field">
-          <label for="f-state">State</label>
+          <label for="f-state">Where you live</label>
           <select id="f-state"></select>
-          <p class="hint">Shows grants for that state plus grants open anywhere in the U.S.</p>
+          <p class="hint">Shows grants you can apply for from there: ones limited to your state, plus nationwide ones. Stays set when you use the shortcuts, and this browser remembers it.</p>
         </div>
         <div class="field">
           <label for="f-treat">Treatment</label>
@@ -214,6 +264,7 @@
               <option value="deadline">Next deadline</option>
               <option value="name">Organization A–Z</option>
               <option value="award">Largest award</option>
+              <option value="fast">Fastest decision</option>
             </select>
             <div class="seg" role="group" aria-label="Layout">
               <button type="button" id="view-cards" aria-pressed="true">Cards</button>
@@ -335,7 +386,7 @@
 </dialog>
 
 <script src="data/grants.js"></script>
-<script src="assets/core.js?v=6"></script>
-<script src="assets/app.js?v=6"></script>
+<script src="assets/core.js?v=15"></script>
+<script src="assets/app.js?v=15"></script>
 </body>
 </html>

@@ -37,6 +37,17 @@ Date format examples:
 
 `deadline_basis` is one of `submitted`, `receipt`, `postmark`, or `unknown`.
 
+## Decision timing and who a grant serves
+
+Only add these when the organization's own page says so.
+
+```js
+"decision_speed": { "text": "About 4 to 6 weeks after the deadline.", "days_max": 42, "basis": "after_deadline" }
+"requirements": { ..., "welcomes": ["single", "lgbtq", "cancer", "military"] }
+```
+
+`basis` is `after_deadline` (counted from each round's deadline) or `after_applying` (rolling programs). "Need help fast" uses `days_max` to estimate, and labels estimates as estimates.
+
 ## Check your edit
 
 ```bash
@@ -53,7 +64,15 @@ Every grant has its own page (`grants/<id>/`) and every state has one (`states/<
 node tools/build-pages.mjs
 ```
 
-This also rewrites `sitemap.xml`. Never edit files in `grants/` or `states/` by hand; they're replaced on every build.
+This also rewrites `sitemap.xml`.
+
+The home page (`index.html`) is generated from `index-classic.html`. Make page changes in `index-classic.html`, never in `index.html`, then rebuild:
+
+```bash
+node tools/build-editorial.mjs
+```
+
+Never edit files in `grants/` or `states/` by hand; they're replaced on every build.
 
 ## Publish
 

@@ -182,6 +182,22 @@
     if (r.income_max != null) out.push(`income up to ${fmtMoney(r.income_max, "USD")}`);
     return out;
   }
+  // Plain-language names for treatment tags in the data.
+  const TREAT_LABEL = {
+    "IVF": "IVF",
+    "IUI": "IUI (insemination)",
+    "FET": "Frozen embryo transfer",
+    "PGT": "Genetic testing of embryos (PGT)",
+    "Donor eggs/sperm": "Donor eggs or sperm",
+    "Embryo donation/adoption": "Embryo donation or adoption",
+    "Egg freezing": "Egg freezing",
+    "Surrogacy": "Surrogacy",
+    "Adoption": "Adoption",
+    "Medications": "Fertility medications",
+    "General fertility treatment": "Fertility treatment (general)"
+  };
+  const treatLabel = (t) => TREAT_LABEL[t] || t;
+
   // Best page for questions: the organization's FAQ if listed, otherwise its website.
   function questionLink(o) {
     const links = o.links || [];
@@ -197,6 +213,6 @@
     MONTHS, MON, DOW, STATE_NAMES, CONF_LABEL, CONF_HELP, STATUS_LABEL, GROUP_OF,
     pad, esc, slug, todayISO, lastDayOfMonth, weekday, fmtDate, fmtMonth, fmtTime, fmtMoney,
     dateConf, allDates, dEarliest, dLatest, cycleStatus,
-    awardText, feeText, geoShort, clinicKind, clinicShort, verifiedText, reqShort, servesState, questionLink
+    awardText, feeText, geoShort, clinicKind, clinicShort, verifiedText, reqShort, servesState, questionLink, TREAT_LABEL, treatLabel
   };
 })(typeof window !== "undefined" ? window : globalThis);

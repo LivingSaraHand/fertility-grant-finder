@@ -6,11 +6,14 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const out = path.join(root, "private/preview");
+// --editorial writes the same home page into private/preview-editorial/ (the folder behind the Version 2 preview link).
+const variant = process.argv.includes("--editorial") ? "editorial" : "";
+const source = "index.html";
+const out = path.join(root, variant ? `private/preview-${variant}` : "private/preview");
 mkdirSync(path.join(out, "assets"), { recursive: true });
 mkdirSync(path.join(out, "data"), { recursive: true });
 
-let html = readFileSync(path.join(root, "index.html"), "utf8");
+let html = readFileSync(path.join(root, source), "utf8");
 // The artifact host supplies its own document wrapper, so drop ours.
 html = html
   .replace(/<!doctype html>\s*/i, "")
@@ -33,4 +36,4 @@ copyFileSync(path.join(root, "data/grants.js"), path.join(out, "data/grants.js")
 if (candidates) copyFileSync(path.join(root, "private/candidates.js"), path.join(out, "data/candidates.js"));
 // Grant and state pages, so their links work in the preview too.
 for (const dir of ["grants", "states"]) if (existsSync(path.join(root, dir))) cpSync(path.join(root, dir), path.join(out, dir), { recursive: true });
-console.log("Preview built in private/preview/");
+console.log(`Preview built in ${path.relative(root, out)}/`);
