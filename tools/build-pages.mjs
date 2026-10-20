@@ -19,7 +19,7 @@ const { esc, fmtDate, fmtMonth, fmtTime, STATE_NAMES, CONF_LABEL, CONF_HELP, STA
 const SITE = DATA.meta.site_url.replace(/\/?$/, "/");
 const UPDATED = DATA.meta.data_updated;
 const BUILD_DAY = UPDATED; // statuses are recomputed in each visitor's browser; this is only the fallback
-const V = "15";
+const V = "16";
 const ORGS = DATA.organizations;
 const nameSort = (a, b) => a.name.localeCompare(b.name);
 const stateSlug = (code) => C.slug(STATE_NAMES[code]);

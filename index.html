@@ -17,7 +17,7 @@
 <meta property="og:url" content="https://livingsarahand.github.io/fertility-grant-finder/">
 <meta property="og:image" content="https://livingsarahand.github.io/fertility-grant-finder/assets/logo.png">
 <link rel="icon" href="assets/logo-road.png" type="image/png">
-<link rel="stylesheet" href="assets/styles.css?v=15">
+<link rel="stylesheet" href="assets/styles.css?v=16">
 </head>
 <body class="editorial">
 <a class="skip" href="#main">Skip to grants</a>
@@ -70,44 +70,8 @@
         </div>
         <button type="submit" class="btn ed-go">Find grants →</button>
       </form>
+      <p class="ed-qualify"><a href="#req-check" data-open-req>Not sure you qualify? Check requirements →</a></p>
     </section>
-
-    <details class="req-check" id="req-check">
-      <summary>
-        <span class="req-title">Not sure you qualify? <strong>Check requirements</strong></span>
-        <span class="req-status" id="req-status"></span>
-      </summary>
-      <div class="req-body">
-        <p class="req-intro">Tell us about your situation, and we'll hide grants whose <strong>published</strong> rules you don't meet. This doesn't decide whether you qualify: some grants don't publish every rule, so they stay visible. Nothing you enter here is saved or sent anywhere.</p>
-        <div class="req-grid">
-          <fieldset class="field">
-            <legend>Check any that apply to you</legend>
-            <label class="check"><input type="checkbox" id="rq-married" data-req="married"> I'm not married</label>
-            <label class="check"><input type="checkbox" id="rq-citizen" data-req="us_citizen"> I'm a permanent resident, not a U.S. citizen</label>
-            <label class="check"><input type="checkbox" id="rq-status" data-req="us_status"> I'm not a U.S. citizen or permanent resident</label>
-            <label class="check"><input type="checkbox" id="rq-diagnosis" data-req="diagnosis"> I don't have an infertility diagnosis yet</label>
-            <label class="check"><input type="checkbox" id="rq-employment" data-req="employment"> No one in my household is employed</label>
-            <label class="check"><input type="checkbox" id="rq-insurance" data-req="health_insurance"> I don't have health insurance</label>
-            <label class="check"><input type="checkbox" id="rq-event" data-req="attend_event"> I can't attend an in-person event</label>
-          </fieldset>
-          <div class="req-numbers">
-            <div class="field">
-              <label for="rq-kids">Children I already have</label>
-              <select id="rq-kids"><option value="">Prefer not to say</option><option value="0">None</option><option value="1">1</option><option value="2">2</option><option value="3">3 or more</option></select>
-            </div>
-            <div class="field">
-              <label for="rq-age">My age</label>
-              <input id="rq-age" type="number" inputmode="numeric" min="16" max="70" placeholder="Optional">
-            </div>
-            <div class="field">
-              <label for="rq-income">Household income per year ($)</label>
-              <input id="rq-income" type="number" inputmode="numeric" min="0" step="1000" placeholder="Optional">
-            </div>
-            <button type="button" class="btn-link" id="rq-clear">Clear my answers</button>
-          </div>
-        </div>
-      </div>
-    </details>
 
     <section class="ed-paths" aria-labelledby="ed-paths-title">
       <div class="ed-sectionline"><h2 id="ed-paths-title">Start exploring</h2><small>Browse at your own pace</small></div>
@@ -170,6 +134,42 @@
       <button type="button" data-quick="archive" aria-pressed="false">Past rounds</button>
     </div>
 
+    <details class="req-check" id="req-check">
+      <summary>
+        <span class="req-title">Not sure you qualify? <strong>Check requirements</strong></span>
+        <span class="req-status" id="req-status"></span>
+      </summary>
+      <div class="req-body">
+        <p class="req-intro">Tell us about your situation, and we'll hide grants whose <strong>published</strong> rules you don't meet. This doesn't decide whether you qualify: some grants don't publish every rule, so they stay visible. Nothing you enter here is saved or sent anywhere.</p>
+        <div class="req-grid">
+          <fieldset class="field">
+            <legend>Check any that apply to you</legend>
+            <label class="check"><input type="checkbox" id="rq-married" data-req="married"> I'm not married</label>
+            <label class="check"><input type="checkbox" id="rq-citizen" data-req="us_citizen"> I'm a permanent resident, not a U.S. citizen</label>
+            <label class="check"><input type="checkbox" id="rq-status" data-req="us_status"> I'm not a U.S. citizen or permanent resident</label>
+            <label class="check"><input type="checkbox" id="rq-diagnosis" data-req="diagnosis"> I don't have an infertility diagnosis yet</label>
+            <label class="check"><input type="checkbox" id="rq-employment" data-req="employment"> No one in my household is employed</label>
+            <label class="check"><input type="checkbox" id="rq-insurance" data-req="health_insurance"> I don't have health insurance</label>
+            <label class="check"><input type="checkbox" id="rq-event" data-req="attend_event"> I can't attend an in-person event</label>
+          </fieldset>
+          <div class="req-numbers">
+            <div class="field">
+              <label for="rq-kids">Children I already have</label>
+              <select id="rq-kids"><option value="">Prefer not to say</option><option value="0">None</option><option value="1">1</option><option value="2">2</option><option value="3">3 or more</option></select>
+            </div>
+            <div class="field">
+              <label for="rq-age">My age</label>
+              <input id="rq-age" type="number" inputmode="numeric" min="16" max="70" placeholder="Optional">
+            </div>
+            <div class="field">
+              <label for="rq-income">Household income per year ($)</label>
+              <input id="rq-income" type="number" inputmode="numeric" min="0" step="1000" placeholder="Optional">
+            </div>
+            <button type="button" class="btn-link" id="rq-clear">Clear my answers</button>
+          </div>
+        </div>
+      </div>
+    </details>
 
     <div class="find-layout">
       <aside class="filters" id="filters" aria-label="Filters">
@@ -385,7 +385,7 @@
 </dialog>
 
 <script src="data/grants.js"></script>
-<script src="assets/core.js?v=15"></script>
-<script src="assets/app.js?v=15"></script>
+<script src="assets/core.js?v=16"></script>
+<script src="assets/app.js?v=16"></script>
 </body>
 </html>

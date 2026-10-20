@@ -714,3 +714,11 @@ a.logo-badge { text-decoration: none; }
 .meta-tag.loc-national { background: var(--highlight-soft); }
 .meta-tag.loc-local { background: var(--accent-soft); }
 #results > .search-note, #results > .state-note, #results > .hidden-note { margin-bottom: 16px; }
+
+/* "Not sure you qualify?" link under the hero search; the questions sit by the results */
+.ed-qualify { margin: 2px 0 0; font-size: var(--step--1); }
+.ed-qualify a { color: var(--accent); font-weight: 700; text-underline-offset: 0.18em; }
+.editorial.plum-band .ed-qualify a { color: var(--band-ink); }
+.editorial .req-check { border: 1.5px solid var(--line-strong); margin-bottom: 18px; }
+.editorial .req-check[open], .editorial .req-check:focus-within { border-color: var(--accent); }
+.req-check { scroll-margin-top: 16px; }

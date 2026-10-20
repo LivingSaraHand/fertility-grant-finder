@@ -86,16 +86,11 @@ swap(`    <h2 id="find-title" class="visually-hidden">Find grants</h2>
     </section>
 `);
 
-// "Not sure you qualify?" sits right under the hero search, where first-time visitors look.
-{
-  const start = html.indexOf('    <details class="req-check" id="req-check">');
-  const end = html.indexOf("    </details>", start) + "    </details>\n".length;
-  if (start < 0 || end < start) throw new Error("build-editorial: requirements panel not found");
-  const panel = html.slice(start, end);
-  html = html.slice(0, start) + html.slice(end);
-  const heroEnd = html.indexOf("    </section>", html.indexOf('<section class="ed-hero"')) + "    </section>\n".length;
-  html = html.slice(0, heroEnd) + "\n" + panel + html.slice(heroEnd);
-}
+// "Not sure you qualify?": a quiet link under the hero search. The questions stay next to the results they filter.
+swap(`        <button type="submit" class="btn ed-go">Find grants →</button>
+      </form>`, `        <button type="submit" class="btn ed-go">Find grants →</button>
+      </form>
+      <p class="ed-qualify"><a href="#req-check" data-open-req>Not sure you qualify? Check requirements →</a></p>`);
 
 // A visible heading above the full list.
 swap(`    <div class="searchbar">`, `    <div class="ed-sectionline" id="ed-all"><h2>All grants</h2><small>Search, filter, and save</small></div>

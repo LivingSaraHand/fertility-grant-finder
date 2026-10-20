@@ -1329,6 +1329,15 @@
 
   document.addEventListener("click", (ev) => {
     const t = ev.target;
+    // "Check requirements" link under the hero: open the questions next to the results.
+    if (t.closest("[data-open-req]")) {
+      ev.preventDefault();
+      const panel = $("#req-check");
+      panel.open = true;
+      panel.scrollIntoView({ block: "start", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+      panel.querySelector("summary").focus({ preventScroll: true });
+      return;
+    }
     const shareBtn = t.closest("[data-share]");
     if (shareBtn) { shareGrant(shareBtn.getAttribute("data-share")); return; }
     const openBtn = t.closest("[data-open]");
