@@ -1,4 +1,4 @@
-/* Fertility Grant Finder — shared rules for dates, statuses, and labels.
+/* Family-Building Grant Finder — shared rules for dates, statuses, and labels.
    Used by the main finder (assets/app.js), the grant and state pages, and the page builder (tools/build-pages.mjs). */
 (function (root) {
   "use strict";

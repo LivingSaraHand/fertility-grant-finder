@@ -88,7 +88,11 @@ function checkOrgs(list, label) {
 const pub = checkOrgs(data.organizations, "grant");
 const priv = checkOrgs(candidates, "candidate");
 priv.ids.forEach((id) => { if (pub.ids.has(id)) warnings.push(`candidate ${id}: already published. Remove it from private/candidates.js.`); });
-(data.resources || []).forEach((r) => { if (!r.url || !r.name) errors.push(`resource ${r.id}: needs name and url`); });
+(data.resources || []).forEach((r) => {
+  if (!r.url || !r.name) errors.push(`resource ${r.id}: needs name and url`);
+  if (!/^https:\/\//.test(r.url || "")) errors.push(`resource ${r.id}: url must start with https://`);
+  if (!r.group) warnings.push(`resource ${r.id}: no "group", so it shows under "More resources"`);
+});
 
 console.log(`${data.organizations.length} organizations, ${data.organizations.reduce((n, o) => n + o.cycles.length, 0)} cycles, ${(data.resources || []).length} resources, ${candidates.length} candidates pending review.`);
 warnings.forEach((w) => console.log("warning: " + w));

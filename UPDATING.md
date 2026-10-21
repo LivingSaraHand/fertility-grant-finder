@@ -1,4 +1,4 @@
-# Updating Fertility Grant Finder
+# Updating Family-Building Grant Finder
 
 All grant information lives in one file: `data/grants.js`. The site reads it directly. There's no build step for the public site.
 

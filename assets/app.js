@@ -1,4 +1,4 @@
-/* Fertility Grant Finder — app logic. Data lives in data/grants.js. */
+/* Family-Building Grant Finder — app logic. Data lives in data/grants.js. */
 (function () {
   "use strict";
 
@@ -801,6 +801,12 @@
     const small = new Image();
     small.onload = () => { const f = $("#foot-logo"); f.src = small.src; f.hidden = false; };
     small.src = "assets/logo-road.png";
+    // Photo of Sara and Brady on the About page (shown only once assets/about-photo.jpg exists).
+    if ($("#about-photo")) {
+      const photo = new Image();
+      photo.onload = () => { $("#about-photo").src = photo.src; $("#about-photo-wrap").hidden = false; };
+      photo.src = "assets/about-photo.jpg";
+    }
   }
 
   // ---------- How it works panel ----------
@@ -1203,7 +1209,7 @@
       });
     });
     const stamp = new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d+Z$/, "Z");
-    const lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Fertility Grant Finder//EN", "CALSCALE:GREGORIAN", "METHOD:PUBLISH", "X-WR-CALNAME:Fertility grant dates"];
+    const lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Family-Building Grant Finder//EN", "CALSCALE:GREGORIAN", "METHOD:PUBLISH", "X-WR-CALNAME:Family-building grant dates"];
     evs.forEach((e) => {
       const c = e.cycle;
       const d = e.d.date.replace(/-/g, "");
@@ -1241,6 +1247,7 @@
     const links = (m.credit.links || []).map((l) => `<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join(" · ");
     $("#credit").innerHTML = `${esc(m.credit.line)} <span class="muted">Listen on</span> ${links}`;
     $("#about-credit").innerHTML = `${esc(m.credit.about)} Listen on ${links}.`;
+    if ($("#about-listen")) $("#about-listen").innerHTML = `Listen to our story on ${links}.`;
     const upd = "Grant information last updated " + fmtDate(m.data_updated) + ".";
     $("#foot-updated").textContent = upd;
     $("#about-updated").textContent = upd + " Research first compiled " + fmtDate(m.research_compiled) + ".";
@@ -1250,10 +1257,15 @@
       $("#foot-suggest").hidden = false;
     }
     $("#legend").innerHTML = Object.keys(CONF_LABEL).map((k) => `<dt>${chip(k)}</dt><dd>${esc(CONF_HELP[k])}</dd>`).join("");
-    $("#resources-list").innerHTML = (DATA.resources || []).map((r) => `<article class="res-item">
-      <h3><a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.name)}</a></h3>
+    const resItem = (r) => `<article class="res-item">
+      <h4><a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.name)}</a></h4>
       <p class="muted">${esc(r.type)} · ${esc(r.last_verified_at ? "Checked " + fmtDate(r.last_verified_at) : "Not rechecked")}</p>
-      <p>${esc(r.description)}</p>${r.note ? `<p class="note">${esc(r.note)}</p>` : ""}</article>`).join("");
+      <p>${esc(r.description)}</p>${r.note ? `<p class="note">${esc(r.note)}</p>` : ""}</article>`;
+    // Grouped under short headings, in the order the groups first appear in the data.
+    const resGroups = [];
+    (DATA.resources || []).forEach((r) => { const g = r.group || "More resources"; if (!resGroups.includes(g)) resGroups.push(g); });
+    $("#resources-list").innerHTML = resGroups.map((g) => `<section class="res-group" aria-label="${esc(g)}"><h3>${esc(g)}</h3>
+      ${(DATA.resources || []).filter((r) => (r.group || "More resources") === g).map(resItem).join("")}</section>`).join("");
     if (PREVIEW) {
       $("#preview-banner").hidden = false;
       $("#preview-banner").innerHTML = CANDIDATES.length
@@ -1309,7 +1321,7 @@
     const o = ORG_BY_ID[id];
     if (!o) return;
     const url = shareUrl(o);
-    const text = `${o.name}: ${o.program_name}. Dates, requirements, and official links on Fertility Grant Finder.`;
+    const text = `${o.name}: ${o.program_name}. Dates, requirements, and official links on Family-Building Grant Finder.`;
     if (navigator.share) {
       try { await navigator.share({ title: o.name, text, url }); return; }
       catch (e) { if (e && e.name === "AbortError") return; }

@@ -48,9 +48,9 @@ html = html.slice(0, headStart) + `<header class="site-head">
 // Hero with a simple two-question search, then "Start exploring" paths.
 swap(`    <h2 id="find-title" class="visually-hidden">Find grants</h2>
 `, `    <section class="ed-hero" aria-labelledby="ed-title">
-      <p class="ed-tag">A little support. A way forward.</p>
-      <h1 id="ed-title" class="ed-title">Fertility Grant Finder</h1>
-      <p class="ed-sub">Find grants that help pay for IVF, IUI, donor conception, surrogacy, and adoption, with every deadline in one place.</p>
+      <p class="ed-tag">Different paths. Support along the&nbsp;way.</p>
+      <h1 id="ed-title" class="ed-title">Family-Building Grant Finder</h1>
+      <p class="ed-sub">Explore grants that can help with the cost of fertility treatment, donor conception, surrogacy, and adoption. Find eligibility details, application dates, and next steps—all in one place.</p>
       <form class="ed-form" id="ed-form">
         <div class="field">
           <label for="ed-state">Where you live</label>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Fertility Grant Finder</title>
+<title>Family-Building Grant Finder | Fertility, IVF, and Adoption Grants</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="robots" content="noindex">
 <meta name="description" content="Search fertility grants by deadline, location, and treatment. Every date is labeled confirmed, month only, recurring, or not yet announced, with a link to the official source.">
@@ -12,13 +12,13 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap">
 <link rel="canonical" href="https://livingsarahand.github.io/fertility-grant-finder/">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Fertility Grant Finder">
-<meta property="og:title" content="Fertility Grant Finder">
+<meta property="og:site_name" content="Family-Building Grant Finder">
+<meta property="og:title" content="Family-Building Grant Finder">
 <meta property="og:description" content="Free directory of fertility grants for IVF, IUI, donor conception, surrogacy, and adoption, with every deadline labeled by how certain it is.">
 <meta property="og:url" content="https://livingsarahand.github.io/fertility-grant-finder/">
 <meta property="og:image" content="https://livingsarahand.github.io/fertility-grant-finder/assets/logo.png">
 <link rel="icon" href="assets/logo-road.png" type="image/png">
-<link rel="stylesheet" href="assets/styles.css?v=18">
+<link rel="stylesheet" href="assets/styles.css?v=22">
 </head>
 <body>
 <a class="skip" href="#main">Skip to grants</a>
@@ -28,8 +28,8 @@
     <span class="logo-badge" id="logo-badge" hidden><img id="brand-logo" alt="The Long Way There logo" width="96" height="96"></span>
     <div class="head-text">
       <p class="eyebrow">A free resource from <span id="eyebrow-show">The Long Way There</span> podcast</p>
-      <h1 class="brand-name">Fertility Grant Finder</h1>
-      <p class="brand-line">Find grants that help pay for IVF, IUI, donor conception, surrogacy, and adoption, with every deadline in one place.</p>
+      <h1 class="brand-name">Family-Building Grant Finder</h1>
+      <p class="brand-line">Explore grants that can help with the cost of fertility treatment, donor conception, surrogacy, and adoption. Find eligibility details, application dates, and next steps—all in one place.</p>
     </div>
   </div>
   <nav class="tabs wrap" aria-label="Sections">
@@ -280,16 +280,33 @@
   <section id="view-resources" class="view" aria-labelledby="res-title" hidden>
     <div class="view-head">
       <h2 id="res-title">Resources</h2>
-      <p class="lede">Directories and articles that list other programs. These aren't grants themselves, so they're kept separate.</p>
+      <p class="lede">Directories, guides, and official pages that can help you pay for treatment or adoption. These aren't grants themselves, so they're kept separate from the grant list.</p>
     </div>
     <div id="resources-list" class="res-list"></div>
   </section>
 
   <!-- ABOUT -->
   <section id="view-about" class="view prose" aria-labelledby="about-title" hidden>
-    <h2 id="about-title">About this site</h2>
+    <h2 id="about-title">About</h2>
+
+    <div class="about-us">
+      <figure class="about-photo" id="about-photo-wrap" hidden>
+        <img id="about-photo" alt="Sara and Brady Hand, hosts of The Long Way There" width="480" height="480">
+      </figure>
+      <div class="about-us-text">
+        <h3>Hi, we're Sara and Brady</h3>
+        <p>We're the hosts of <strong>The Long Way There</strong>, a podcast about infertility, IVF, loss, faith, and marriage, for couples on the long road to parenthood.</p>
+        <p>Our own road included male factor infertility, two rounds of IVF, losing our only embryo, and a cycle abroad that didn't work. Embryo adoption is what finally brought us to our daughter.</p>
+        <p>A $10,000 grant from The Hope for Fertility Foundation helped us get to transfer day. While we were applying, finding grants meant digging through website after website and trying to figure out which dates were still current. We wished there was one place that put it all together.</p>
+        <p>So we built the Family-Building Grant Finder: one free place to see what's open, what's coming, and what you might qualify for. We hope it saves you some of the searching, and a little of the stress.</p>
+        <p class="about-sign">Sometimes messy. Always Real. Let's do it together.<br><strong>Sara &amp; Brady</strong></p>
+        <p class="about-listen" id="about-listen"></p>
+      </div>
+    </div>
+
+    <h3>About this site</h3>
     <p id="about-credit"></p>
-    <p>Fertility Grant Finder collects grant programs that help with the cost of fertility treatment, donor conception, surrogacy, and adoption. It is a starting point for your own research. It isn't a complete list, it doesn't decide whether you're eligible, and applying for any grant never guarantees an award.</p>
+    <p>Family-Building Grant Finder collects grant programs that help with the cost of fertility treatment, donor conception, surrogacy, and adoption. It is a starting point for your own research. It isn't a complete list, it doesn't decide whether you're eligible, and applying for any grant never guarantees an award.</p>
 
     <h3>How to read the dates</h3>
     <dl class="legend" id="legend"></dl>
@@ -337,7 +354,7 @@
 </dialog>
 
 <script src="data/grants.js"></script>
-<script src="assets/core.js?v=18"></script>
-<script src="assets/app.js?v=18"></script>
+<script src="assets/core.js?v=22"></script>
+<script src="assets/app.js?v=22"></script>
 </body>
 </html>

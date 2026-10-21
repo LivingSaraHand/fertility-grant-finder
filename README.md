@@ -1,4 +1,4 @@
-# Fertility Grant Finder
+# Family-Building Grant Finder
 
 A searchable directory of fertility grants: application windows, deadlines, decision dates, funding rules, and treatment start rules. Each date is labeled as confirmed, month only, needs confirmation, a recurring pattern, historical, or not announced, and links to the official source.
 

@@ -1,5 +1,5 @@
 /*
-  Fertility Grant Finder — grant data
+  Family-Building Grant Finder — grant data
   ------------------------------------
   This is the only file you need to edit to update grants. See UPDATING.md.
 
@@ -31,7 +31,7 @@
 */
 window.FGF_DATA = {
   "meta": {
-    "site_name": "Fertility Grant Finder",
+    "site_name": "Family-Building Grant Finder",
     "site_url": "https://livingsarahand.github.io/fertility-grant-finder/",
     "research_compiled": "2026-10-18",
     "data_updated": "2026-10-19",
@@ -41,7 +41,7 @@ window.FGF_DATA = {
     "credit": {
       "show_name": "The Long Way There",
       "line": "A free resource from The Long Way There podcast.",
-      "about": "Made by the hosts of The Long Way There. Independent and not affiliated with any grant program listed.",
+      "about": "Made by Sara and Brady Hand, hosts of The Long Way There. Independent and not affiliated with any grant program listed.",
       "links": [
         {
           "label": "Spotify",
@@ -3919,7 +3919,8 @@ window.FGF_DATA = {
       "type": "Resource directory",
       "description": "A directory of nonprofit grant and scholarship programs kept by RESOLVE: The National Infertility Association. It is a list of other programs, not a grant itself. The page was dated September 2026 when checked.",
       "last_verified_at": "2026-10-18",
-      "note": "The older address listed in earlier research no longer works. This is the current page."
+      "note": null,
+      "group": "Fertility treatment and coverage"
     },
     {
       "id": "resolve-financial-resources",
@@ -3928,16 +3929,68 @@ window.FGF_DATA = {
       "type": "Resource directory",
       "description": "RESOLVE's hub for financing programs, insurance information, and adoption financing.",
       "last_verified_at": "2026-10-18",
+      "note": null,
+      "group": "Fertility treatment and coverage"
+    },
+    {
+      "id": "resolve-insurance-by-state",
+      "group": "Fertility treatment and coverage",
+      "name": "RESOLVE: Insurance Coverage by State",
+      "url": "https://resolve.org/learn/financial-resources/insurance-coverage/insurance-coverage-by-state/",
+      "type": "State-by-state guide",
+      "description": "Which states require insurance to cover infertility treatment, IVF, or fertility preservation, with a summary of each state's law. Worth checking before you pay out of pocket. Whether a state law applies also depends on your type of health plan.",
+      "last_verified_at": "2026-10-21",
       "note": null
     },
     {
-      "id": "embryo-adoption-article",
-      "name": "Embryo Adoption Grants & Scholarships (2022 article)",
-      "url": "https://embryoadoption.org/2022/11/embryo-adoption-grants-scholarships/",
-      "type": "Resource article",
-      "description": "An article from November 15, 2022 listing embryo adoption grants. Amounts and requirements are from 2022. Check each grant provider's own site for current details.",
-      "last_verified_at": null,
-      "note": "Historical. Not a grant itself."
+      "id": "va-fertility",
+      "group": "Fertility treatment and coverage",
+      "name": "VA: Fertility and Family-Building Services",
+      "url": "https://www.womenshealth.va.gov/WOMENSHEALTH/topics/infertility-and-ivf.asp",
+      "type": "Official government page",
+      "description": "What VA health care covers for fertility evaluation and treatment, who qualifies for IVF, and adoption expense reimbursement for eligible veterans. The page was updated April 14, 2026 when checked.",
+      "last_verified_at": "2026-10-21",
+      "note": null
+    },
+    {
+      "id": "ncfa-financial-partners",
+      "group": "Adoption and embryo adoption",
+      "name": "National Council For Adoption: Financial Resource Partners",
+      "url": "https://adoptioncouncil.org/financial-resource-partners/",
+      "type": "Resource directory",
+      "description": "Organizations that help families pay for adoption through grants, interest-free loans, and fundraising. A list of other programs, not a grant itself.",
+      "last_verified_at": "2026-10-21",
+      "note": null
+    },
+    {
+      "id": "nightlight-embryo-funding",
+      "group": "Adoption and embryo adoption",
+      "name": "Nightlight: Funding and Financial Help for Embryo Adoption",
+      "url": "https://nightlight.org/snowflakes-embryo-adoption-donation/embryo-adoption/funding/",
+      "type": "Agency guide",
+      "description": "Ways to pay for embryo adoption: grants, crowdfunding, insurance for the frozen embryo transfer, and loans. Published by an embryo adoption agency, so it also describes that agency's own program fees.",
+      "last_verified_at": "2026-10-21",
+      "note": null
+    },
+    {
+      "id": "irs-adoption-credit",
+      "group": "Adoption and embryo adoption",
+      "name": "IRS: Adoption Credit",
+      "url": "https://www.irs.gov/taxtopics/tc607",
+      "type": "Official government page",
+      "description": "The federal adoption tax credit and how it works with employer adoption benefits. For tax year 2026, the IRS lists up to $17,670 in qualified expenses per child, with up to $5,120 refundable. The page was updated October 19, 2026 when checked.",
+      "last_verified_at": "2026-10-21",
+      "note": null
+    },
+    {
+      "id": "afp-financial-assistance",
+      "group": "Fertility preservation",
+      "name": "Alliance for Fertility Preservation: Financial Assistance Programs",
+      "url": "https://www.allianceforfertilitypreservation.org/costs/financial-assistance",
+      "type": "Resource directory",
+      "description": "Programs that help with the cost of freezing eggs, sperm, or embryos before medical treatment that could affect fertility. A list of other programs, not a grant itself.",
+      "last_verified_at": "2026-10-21",
+      "note": null
     }
   ]
 };

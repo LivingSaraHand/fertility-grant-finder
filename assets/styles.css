@@ -744,3 +744,27 @@ a.logo-badge { text-decoration: none; }
   /* Line the links up under "The Long Way There" (56px logo + 14px gap) */
   .editorial .listen { padding-left: 70px; margin-top: -2px; }
 }
+
+/* About: Sara and Brady */
+.about-us { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; background: var(--surface-2); border-radius: var(--radius); padding: 22px; }
+.about-us:has(.about-photo:not([hidden])) { grid-template-columns: minmax(0, 220px) minmax(0, 1fr); align-items: start; }
+.about-photo { margin: 0; }
+.about-photo img { width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius); display: block; }
+.about-us-text { display: grid; gap: 12px; }
+.about-us-text h3 { margin-top: 0; }
+.about-sign { font-family: var(--font-display); font-size: var(--step-1); }
+.about-listen { font-weight: 700; }
+@media (max-width: 640px) {
+  .about-us:has(.about-photo:not([hidden])) { grid-template-columns: minmax(0, 1fr); }
+  .about-photo { max-width: 260px; }
+  .about-us { padding: 18px; }
+}
+
+/* Resources grouped under headings */
+.res-group { display: grid; gap: 12px; }
+.res-group + .res-group { margin-top: 18px; }
+.res-group > h3 { font-size: var(--step-2); }
+.res-item h4 { font-size: var(--step-1); }
+
+/* Even line breaks in the hero (no lone word on the last line) */
+.ed-tag, .ed-title, .ed-sub { text-wrap: balance; }

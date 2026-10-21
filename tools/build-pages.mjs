@@ -19,7 +19,7 @@ const { esc, fmtDate, fmtMonth, fmtTime, STATE_NAMES, CONF_LABEL, CONF_HELP, STA
 const SITE = DATA.meta.site_url.replace(/\/?$/, "/");
 const UPDATED = DATA.meta.data_updated;
 const BUILD_DAY = UPDATED; // statuses are recomputed in each visitor's browser; this is only the fallback
-const V = "18";
+const V = "22";
 const ORGS = DATA.organizations;
 const nameSort = (a, b) => a.name.localeCompare(b.name);
 const stateSlug = (code) => C.slug(STATE_NAMES[code]);
@@ -144,7 +144,7 @@ function page({ base, pathName, title, description, h1, crumbs, body, jsonld, ro
 <meta name="description" content="${esc(description)}">
 <link rel="canonical" href="${url}">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="Fertility Grant Finder">
+<meta property="og:site_name" content="Family-Building Grant Finder">
 <meta property="og:title" content="${esc(title)}">
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:url" content="${url}">
@@ -160,10 +160,10 @@ function page({ base, pathName, title, description, h1, crumbs, body, jsonld, ro
 <a class="skip" href="#main">Skip to content</a>
 <header class="site-head">
   <div class="wrap head-inner">
-    <a class="logo-badge" href="${base}"><img src="${base}assets/logo.png" alt="Fertility Grant Finder home" width="96" height="96"></a>
+    <a class="logo-badge" href="${base}"><img src="${base}assets/logo.png" alt="Family-Building Grant Finder home" width="96" height="96"></a>
     <div class="head-text">
       <p class="eyebrow">A free resource from ${esc(m.credit.show_name)} podcast</p>
-      <p class="brand-name"><a href="${base}">Fertility Grant Finder</a></p>
+      <p class="brand-name"><a href="${base}">Family-Building Grant Finder</a></p>
     </div>
     ${listenHTML(m.credit.links || [])}
   </div>
@@ -179,7 +179,7 @@ function page({ base, pathName, title, description, h1, crumbs, body, jsonld, ro
   <nav class="crumbs" aria-label="Breadcrumb">${crumbsHTML}</nav>
   <h1 class="page-title">${esc(h1)}</h1>
   ${body}
-  <p class="page-disclaimer">Fertility Grant Finder is an independent directory and isn't affiliated with any program listed. It isn't a complete list of every grant, and applying never guarantees an award. Always confirm details with the organization before you apply. Information last updated ${esc(fmtDate(UPDATED))}.</p>
+  <p class="page-disclaimer">Family-Building Grant Finder is an independent directory and isn't affiliated with any program listed. It isn't a complete list of every grant, and applying never guarantees an award. Always confirm details with the organization before you apply. Information last updated ${esc(fmtDate(UPDATED))}.</p>
 </main>
 <footer class="site-foot">
   <div class="wrap foot-inner">
@@ -248,9 +248,9 @@ function grantPage(o) {
   ${(o.research_notes || []).length ? `<section class="detail-section"><h2>Research notes</h2>${list(o.research_notes)}</section>` : ""}`;
   return page({
     base, pathName: `grants/${o.id}/`,
-    title: `${o.name}: ${o.program_name} deadlines and requirements | Fertility Grant Finder`,
+    title: `${o.name}: ${o.program_name} deadlines and requirements | Family-Building Grant Finder`,
     description, h1: o.name,
-    crumbs: [["Fertility Grant Finder", base], ["All grants", `${base}grants/`], [o.name, null]],
+    crumbs: [["Family-Building Grant Finder", base], ["All grants", `${base}grants/`], [o.name, null]],
     body, rounds: roundsFor([o])
   });
 }
@@ -283,10 +283,10 @@ function statePage(code) {
   <section class="detail-section"><h2>Other states</h2><div class="state-grid">${others}</div></section>`;
   return page({
     base, pathName: `states/${stateSlug(code)}/`,
-    title: `Fertility grants in ${name}: IVF, IUI, and family-building grants | Fertility Grant Finder`,
+    title: `Fertility grants in ${name}: IVF, IUI, and family-building grants | Family-Building Grant Finder`,
     description: `Fertility and IVF grants that accept ${name} residents: ${nLocal ? nLocal + " local and " : ""}${nNat} nationwide programs, with deadlines, requirements, and official links. Checked ${fmtDate(UPDATED)}.`,
     h1: `Fertility grants in ${name}`,
-    crumbs: [["Fertility Grant Finder", base], ["Grants by state", `${base}states/`], [name, null]],
+    crumbs: [["Family-Building Grant Finder", base], ["Grants by state", `${base}states/`], [name, null]],
     body, rounds: roundsFor([...local, ...national, ...unknown])
   });
 }
@@ -303,10 +303,10 @@ function statesIndex() {
   <p class="note">Grants outside the U.S. are listed on the <a href="${base}grants/">All grants</a> page.</p>`;
   return page({
     base, pathName: "states/",
-    title: "Fertility grants by state | Fertility Grant Finder",
+    title: "Fertility grants by state | Family-Building Grant Finder",
     description: `Find fertility and IVF grants for your state, plus ${national} nationwide programs. Deadlines, requirements, and official links, checked ${fmtDate(UPDATED)}.`,
     h1: "Fertility grants by state",
-    crumbs: [["Fertility Grant Finder", base], ["Grants by state", null]],
+    crumbs: [["Family-Building Grant Finder", base], ["Grants by state", null]],
     body
   });
 }
@@ -318,10 +318,10 @@ function grantsIndex() {
   <div class="cards">${sorted.map((o) => grantItem(o, base)).join("")}</div>`;
   return page({
     base, pathName: "grants/",
-    title: "All fertility grants: IVF, IUI, surrogacy, and adoption | Fertility Grant Finder",
+    title: "All fertility grants: IVF, IUI, surrogacy, and adoption | Family-Building Grant Finder",
     description: `${sorted.length} fertility grant programs with deadlines, requirements, fees, and official links. Each date is labeled confirmed or not yet announced. Checked ${fmtDate(UPDATED)}.`,
     h1: "All fertility grants",
-    crumbs: [["Fertility Grant Finder", base], ["All grants", null]],
+    crumbs: [["Family-Building Grant Finder", base], ["All grants", null]],
     body, rounds: roundsFor(sorted)
   });
 }
